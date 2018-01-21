@@ -16,7 +16,8 @@ class IncomingMessageController extends Controller
 
 	}
 
-   
+
+  
 
      public function store()
 

@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 
 
-
+Route::post('/fromslack', IncomingMessageController@message);
 
 // Route::get('/test', 'MentorTwilioController@test'); 
 
