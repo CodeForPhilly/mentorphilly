@@ -8,6 +8,8 @@ use App\MentorTwilio;
 
 use Twilio; 
 
+use Illuminate\Notifications\Messages\SlackMessage; 
+
 
 class MentorTwilioController extends Controller
 {
@@ -34,7 +36,7 @@ class MentorTwilioController extends Controller
     public function order(Request $request)
  {
  
-            $command = $request->input('command');
+             $command = $request->input('command');
              $text = $request->input('text');
              $token = $request->input('token'); 
              $user = $request->input('user_name'); 
@@ -43,15 +45,22 @@ class MentorTwilioController extends Controller
 
  
          if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
-           
-          # replace this with the token from your slash command
-                        $msg = "The token for the slash command doesn't match.";
-                        die($msg);
-                          echo $msg;
+            
+            return (new SlackMessage)
+                -> success()
+                -> content('Token Does not match'); 
+
+          
          }
  
-             $respond['text'] = $text;
-            return $respond;
+        else{
+
+             return (new SlackMessage)
+                -> success()
+                -> content('It worked!'); 
+
+
+        }
  
  }
     /**
