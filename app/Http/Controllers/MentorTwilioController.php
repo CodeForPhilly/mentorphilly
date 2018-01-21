@@ -9,8 +9,6 @@ use App\MentorTwilio;
 use Twilio; 
 
 
-
-
 class MentorTwilioController extends Controller
 {
     
