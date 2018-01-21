@@ -31,42 +31,29 @@ class MentorTwilioController extends Controller
 
     }
 
-    public function message(Request $request){
-
-     $response = $request->all();
+    public function order(Request $request)
+ {
+ #we are not going to need all of this but a part of the info that slack sends.
+            $command = $request->input('command');
+             $text = $request->input('text');
+             $token = $request->input('token'); 
+             $user = $request->input('user_name'); 
+             $channel_id = $request->input('channel_id');
+             $channel_name = $request->input('channel_name');
+# Check the token and make sure the request is from our team 
  
-    return response()->json($response);
-
-    // $command = $request->input('command');
-    // $text = $request->input('text');
-    // $token = $request->input('token'); 
-    // $user = $request->input('user_name'); 
-    // $channel_id = $request->input('channel_id');
-    // $channel_name = $request->input('channel_name');
-
-    //     if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
-    //       $sMsg = "Access Denied: the token doesn't match.";
-    //       die($sMsg);
-    //       return $sMsg;
-    //     }
-
-
-    //         else{
-
-    //              // $testNumber = config('twilio.twilio.connections.twilio.test');
-    //              // $message = $text; 
+         if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
+           
+          # replace this with the token from your slash command
+                        $msg = "The token for the slash command doesn't match.";
+                        die($msg);
+                          echo $msg;
+         }
  
-    //              $respond[‘text’] = $text;
-    //              return $respond;
-   
-    //             // Twilio::message($testNumber, $message);
-    //         }
-        
-    }
+             $respond['text'] = $text;
+            return $respond;
  
-
-
-
+ }
     /**
      * Display the specified resource.
      *
