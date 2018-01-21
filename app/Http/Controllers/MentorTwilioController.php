@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Twilio; 
+use Request; 
 
 class MentorTwilioController extends Controller
 {
@@ -28,13 +29,16 @@ class MentorTwilioController extends Controller
 
     }
 
-        public function message(){
+    public function message(Request $request){
 
 
 
-        $command = request(['command']);
-        $text = request(['text']);
-        $token = request(['token']); 
+    $command = $request->input(‘command’);
+    $text = $request->input(‘text’);
+    $token = $request->input(‘token’); 
+    $user = $request->input(‘user_name’); 
+    $channel_id = $request->input(‘channel_id’);
+    $channel_name = $request->input(‘channel_name’);
 
         if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
           $sMsg = "Access Denied: the token doesn't match.";
@@ -47,9 +51,8 @@ class MentorTwilioController extends Controller
 
                  $testNumber = config('twilio.twilio.connections.twilio.test');
                  $message = $text; 
-    
-
-            Twilio::message($testNumber, $message);
+        
+                Twilio::message($testNumber, $message);
             }
 
 
