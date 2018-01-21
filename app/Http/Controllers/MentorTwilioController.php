@@ -31,7 +31,7 @@ class MentorTwilioController extends Controller
 
     }
 
-    public function message(Request $request)){
+    public function message(Request $request){
 
 
     $command = $request->input('command');
