@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', 'MentorTwilioController@send'); 
+Route::get('/test', 'MentorTwilioController@test'); 
 
 
 //this is where the form goes, the form then call the post -> store 
