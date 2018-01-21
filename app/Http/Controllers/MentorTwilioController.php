@@ -14,7 +14,7 @@ class MentorTwilioController extends Controller
     
     public function test(){
 
-
+    echo 'testing'; 
 
 
     // $fromNumber = config('twilio.twilio.connections.twilio.from');
