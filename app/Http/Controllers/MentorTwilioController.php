@@ -33,34 +33,34 @@ class MentorTwilioController extends Controller
 
     public function message(Request $request){
 
-
-    $command = $request->input('command');
-    $text = $request->input('text');
-    $token = $request->input('token'); 
-    $user = $request->input('user_name'); 
-    $channel_id = $request->input('channel_id');
-    $channel_name = $request->input('channel_name');
-
-        if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
-          $sMsg = "Access Denied: the token doesn't match.";
-          die($sMsg);
-          return $sMsg;
-        }
-
-
-            else{
-
-                 // $testNumber = config('twilio.twilio.connections.twilio.test');
-                 // $message = $text; 
+     $response = $request->all());
  
-                 $respond[‘text’] = $text;
-                 return $respond;
+    return response()->json($response);
+
+    // $command = $request->input('command');
+    // $text = $request->input('text');
+    // $token = $request->input('token'); 
+    // $user = $request->input('user_name'); 
+    // $channel_id = $request->input('channel_id');
+    // $channel_name = $request->input('channel_name');
+
+    //     if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
+    //       $sMsg = "Access Denied: the token doesn't match.";
+    //       die($sMsg);
+    //       return $sMsg;
+    //     }
+
+
+    //         else{
+
+    //              // $testNumber = config('twilio.twilio.connections.twilio.test');
+    //              // $message = $text; 
+ 
+    //              $respond[‘text’] = $text;
+    //              return $respond;
    
-                // Twilio::message($testNumber, $message);
-            }
-
-
-
+    //             // Twilio::message($testNumber, $message);
+    //         }
         
     }
  
