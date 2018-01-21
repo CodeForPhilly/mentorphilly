@@ -45,7 +45,7 @@ class MentorTwilioController extends Controller
          if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
            
           # replace this with the token from your slash command
-                        $msg = "The token for the slash command doesn't match.";
+                        $msg = $text;
                         die($msg);
                           echo $msg;
          }
