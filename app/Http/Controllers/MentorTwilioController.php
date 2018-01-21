@@ -50,8 +50,9 @@ class MentorTwilioController extends Controller
                           echo $msg;
          }
 
-    else{
-            
+    else {
+  // check for + or ~ 
+
 
   //find the number in the message from slack string
   $findme   = '+';
@@ -136,7 +137,7 @@ class MentorTwilioController extends Controller
 
       }
       $toName = implode($toArray);
-       $to = +19178305148;
+       $to = '+19178305148';
 
 
 // search the database for matching name
@@ -153,12 +154,17 @@ class MentorTwilioController extends Controller
 
     else {
 
-      $to = +19178305148;
+      $to = '+19178305148';
       $msg = " ~ Character not found";
   } // close else statement checking for ~
 
 
-  }
+
+} // close checking for + else
+  
+
+
+    }
 
 
 
