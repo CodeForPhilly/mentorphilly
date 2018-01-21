@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\MentorTwilio; 
+
 use Twilio; 
 
 
@@ -29,7 +31,7 @@ class MentorTwilioController extends Controller
 
     }
 
-    public function message(){
+    public function message(Request $request)){
 
 
     $command = $request->input('command');
