@@ -33,7 +33,7 @@ class MentorTwilioController extends Controller
 
     public function message(Request $request){
 
-     $response = $request->all());
+     $response = $request->all();
  
     return response()->json($response);
 
