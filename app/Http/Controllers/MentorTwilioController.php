@@ -32,7 +32,6 @@ class MentorTwilioController extends Controller
     public function message(Request $request){
 
 
-
     $command = $request->input('command');
     $text = $request->input('text');
     $token = $request->input('token'); 
@@ -43,16 +42,19 @@ class MentorTwilioController extends Controller
         if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
           $sMsg = "Access Denied: the token doesn't match.";
           die($sMsg);
-          echo $sMsg;
+          return $sMsg;
         }
 
 
             else{
 
-                 $testNumber = config('twilio.twilio.connections.twilio.test');
-                 $message = $text; 
-        
-                Twilio::message($testNumber, $message);
+                 // $testNumber = config('twilio.twilio.connections.twilio.test');
+                 // $message = $text; 
+ 
+                 $respond[‘text’] = $text;
+                 return $respond;
+   
+                // Twilio::message($testNumber, $message);
             }
 
 
