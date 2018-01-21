@@ -33,12 +33,12 @@ class MentorTwilioController extends Controller
 
 
 
-    $command = $request->input(‘command’);
-    $text = $request->input(‘text’);
-    $token = $request->input(‘token’); 
-    $user = $request->input(‘user_name’); 
-    $channel_id = $request->input(‘channel_id’);
-    $channel_name = $request->input(‘channel_name’);
+    $command = $request->input('command');
+    $text = $request->input('text');
+    $token = $request->input('token'); 
+    $user = $request->input('user_name'); 
+    $channel_id = $request->input('channel_id');
+    $channel_name = $request->input('channel_name');
 
         if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
           $sMsg = "Access Denied: the token doesn't match.";
