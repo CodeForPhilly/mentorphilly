@@ -11,19 +11,17 @@ class MentorTwilioController extends Controller
     
     public function test(){
 
-    	// $fromNumber = config('twilio.twilio.connections.twilio.from');
-	$testNumber = config('twilio.twilio.connections.twilio.test');
+
+
+
+    // $fromNumber = config('twilio.twilio.connections.twilio.from');
+	
+    $testNumber = config('twilio.twilio.connections.twilio.test');
 	$message = "Hi There from MentorPhilly"; 
+    
+
     Twilio::message($testNumber, $message);
 
- //    $accountId = config('twilio.twilio.connections.twilio.sid');
-	// $token = config('twilio.twilio.connections.twilio.token');
-	// $fromNumber = config('twilio.twilio.connections.twilio.from');
-	// $testNumber = config('twilio.twilio.connections.twilio.test');
-
-	// $twilio = new Aloha\Twilio\Twilio($accountId, $token, $fromNumber);
-
-	// $twilio->message($testNumber, 'Pink Elephants and Happy Rainbows');
 
 	echo 'Message sent';
 
