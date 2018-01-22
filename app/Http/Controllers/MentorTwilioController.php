@@ -98,11 +98,9 @@ class MentorTwilioController extends Controller
     $attachment->title('Message Sent')
         -> fields([
             'To' => $to,
-        ]);
-
-    
-    ->content($message)
-    });
+        ]);    
+    })
+    ->content($message);
 }
 
 
