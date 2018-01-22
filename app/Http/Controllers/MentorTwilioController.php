@@ -99,7 +99,7 @@ class MentorTwilioController extends Controller
         }
    
 
-    echo (new SlackMessage)
+    $returnthis = (new SlackMessage)
 
     ->success()
     ->attachment(function ($attachment){
@@ -110,6 +110,8 @@ class MentorTwilioController extends Controller
         ]);    
     })
     ->content($message);
+
+    echo $returnthis; 
 
 // return response()->json(['name' => 'Abigail', 'state' => 'CA']);
 
