@@ -102,11 +102,7 @@ class MentorTwilioController extends Controller
 
 // return response()->json(['name' => 'Abigail', 'state' => 'CA']);
 
-$jsonMessage = response()->json(
-
-['attachments' => array($arr)];
-
-);
+$jsonMessage = response()->json(['attachments' => array($arr)]);
 
 
 
