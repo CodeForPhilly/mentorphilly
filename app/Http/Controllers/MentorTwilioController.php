@@ -71,14 +71,14 @@ class MentorTwilioController extends Controller
 
             else {
 
-                $findme   = '~';
+               //  $findme   = '~';
 
-                $pos = strpos($text, $findme);
+               //  $pos = strpos($text, $findme);
 
-                if ($pos !== false)
-                   $parsed = explode("~", $text);
+               //  if ($pos !== false)
+               //     $parsed = explode("~", $text);
 
-               else{
+               // else{
 
                 MentorTwilio::test(); 
             }
