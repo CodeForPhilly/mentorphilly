@@ -99,10 +99,21 @@ class MentorTwilioController extends Controller
         }
    
 
+    $response = new SlackMessage; 
+
+    $response->success()->attachment(function ($attachment){
+
+    $attachment->title('Message Sent')
+        -> fields([
+            'To' => $to,
+        ]);    
+    })
+    ->content($message);
 
 // return response()->json(['name' => 'Abigail', 'state' => 'CA']);
 
-$jsonMessage = response()->json(['attachments' => array($arr)]);
+// this one work sort of 
+// $jsonMessage = response()->json(['attachments' => array($arr)]);
 
 
 
@@ -125,7 +136,9 @@ $jsonMessage = response()->json(['attachments' => array($arr)]);
 Need to set the header to content-type header of the response must match the disposition of your content, application/json.
 */
 
-echo $jsonMessage;
+// echo $jsonMessage;
+
+echo $response; 
 
    // echo "Success! Message ";
    //  echo $reply;  
