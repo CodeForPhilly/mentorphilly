@@ -63,6 +63,8 @@ class MentorTwilioController extends Controller
             if ($pos !== false){
                 $parsed = explode("+", $text);
                 Twilio::message($parsed[1], $parsed[0]);
+
+                $respond['text'] = "Message sent to:" . parsed[1]. "Content" . parsed[0];
             }
 
             else {
@@ -78,14 +80,14 @@ class MentorTwilioController extends Controller
 
                 test(); 
             }
-
+            respond['text'] = 'failed'; 
         }
 
 
 
     }
 
-    $respond['text'] = $text;
+    
     return $respond;
 
 }
