@@ -80,7 +80,7 @@ class MentorTwilioController extends Controller
 
                else{
 
-                test(); 
+                MentorTwilio::test(); 
             }
             respond['text'] = 'failed'; 
         }
