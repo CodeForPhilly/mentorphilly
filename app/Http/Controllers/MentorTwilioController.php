@@ -80,30 +80,31 @@ class MentorTwilioController extends Controller
 
                // else{
 
-                MentorTwilio::test(); 
+                MentorTwilioController::test(); 
             }
 
             
         }
 
-
+    $response = MentorTwilioController::constructResponse($to,$message); 
     
-    return $respond['text'] = 'Message:'.$message.'sent to:'.$to;
+    return response; 
 
 }
 
 
-
-public function parseSlackText ($slack_text) {
-
+public function constructResponse($to, $message){
 
 
 
+   $arr = array("title" => "to: ".$to."  ",
+   "text" => "Message: ".$message." ");
 
 
-    return parsed; 
+  header('Content-Type: application/json');
+$jsonMessage = json_encode(array("response_type" => "in_channel", "attachments" => array($arr))); //, JSON_UNESCAPED_SLASHES
 
-
+    return $jsonMessage; 
 
 }
 
