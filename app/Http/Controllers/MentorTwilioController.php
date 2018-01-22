@@ -99,9 +99,10 @@ class MentorTwilioController extends Controller
         }
    
 
-    $response = new SlackMessage; 
+    return (new SlackMessage)
 
-    $response->success()->attachment(function ($attachment){
+    ->success()
+    ->attachment(function ($attachment){
 
     $attachment->title('Message Sent')
         -> fields([
@@ -137,8 +138,6 @@ Need to set the header to content-type header of the response must match the dis
 */
 
 // echo $jsonMessage;
-
-echo $response; 
 
    // echo "Success! Message ";
    //  echo $reply;  
