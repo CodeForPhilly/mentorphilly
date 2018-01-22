@@ -99,7 +99,7 @@ class MentorTwilioController extends Controller
         }
    
 
-    return (new SlackMessage)
+    echo (new SlackMessage)
 
     ->success()
     ->attachment(function ($attachment){
