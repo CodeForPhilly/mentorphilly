@@ -88,19 +88,49 @@ class MentorTwilioController extends Controller
             
         }
 
+        if (!empty($to) && !empty($message)){
 
-    
-    return (new SlackMessage)
+            $title = 'to: '.$to;
+            $msg = 'Message: '.$message;
 
-    ->success()
-    ->attachment(function ($attachment){
+            $arr = array(
+                'title' => $title,
+                "text" => $msg);
+        }
+   
 
-    $attachment->title('Message Sent')
-        -> fields([
-            'To' => $to,
-        ]);    
-    })
-    ->content($message);
+
+        // header('Content-Type: application/json');
+        $jsonMessage = json_encode(array("response_type" => "in_channel", "attachments" => array($arr))); //, JSON_UNESCAPED_SLASHES
+// $jsonMessage = json_encode($theMessage); //, JSON_UNESCAPED_SLASHES
+
+// trying to just echo in channel
+
+// $arr = array('response_type' => "in_channel");
+// $jsonMessage = json_encode($arr);
+
+    /*
+Need to set the header to content-type header of the response must match the disposition of your content, application/json.
+*/
+
+echo $jsonMessage;
+
+   // echo "Success! Message ";
+   //  echo $reply;  
+   //  echo "\nTo: $to";
+   //  echo "\nMessage: $msg";  
+
+    // return (new SlackMessage)
+
+    // ->success()
+    // ->attachment(function ($attachment){
+
+    // $attachment->title('Message Sent')
+    //     -> fields([
+    //         'To' => $to,
+    //     ]);    
+    // })
+    // ->content($message);
 }
 
 

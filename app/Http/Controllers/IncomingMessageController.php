@@ -12,7 +12,7 @@ class IncomingMessageController extends Controller
 
 	public function create(){
 
-		 return view('layouts.partials.form'); 
+	 return view('layouts.partials.form'); 
 
 	}
 
