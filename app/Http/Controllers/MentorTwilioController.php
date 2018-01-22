@@ -61,10 +61,12 @@ class MentorTwilioController extends Controller
             $pos = strpos($text, $findme);
 
             if ($pos !== false){
-                $parsed = explode("+", $text);
-                Twilio::message($parsed[1], $parsed[0]);
+                list($message, $to) = explode("+", $text);
 
-                $respond['text'] = "Message sent to:" . parsed[1]. "Content" . parsed[0].";
+                $to = '+'.$to; 
+                Twilio::message($to, $message);
+
+                $respond['text'] = "Message sent to:" . $to. "Content" . $message;
             }
 
             else {
