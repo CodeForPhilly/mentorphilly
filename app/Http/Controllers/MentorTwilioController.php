@@ -8,6 +8,8 @@ use App\MentorTwilio;
 
 use Twilio; 
 
+use Illuminate\Notifcations\Messages\SlackMessage;
+
 
 class MentorTwilioController extends Controller
 {
@@ -80,31 +82,41 @@ class MentorTwilioController extends Controller
 
                // else{
 
-                MentorTwilioController::test(); 
+                MentorTwilio::test(); 
             }
 
             
         }
 
-    $respond = MentorTwilioController::constructResponse($to,$message); 
-    
-    return respond;  
 
+    
+    return (new SlackMessage)
+
+    ->success()
+    ->attachment(function ($attachment){
+
+    $attachment->title('Message Sent')
+        -> fields([
+            'To' => $to,
+        ]);
+
+    
+    ->content($message)
+    });
 }
 
 
-public function constructResponse($to, $message){
+
+public function parseSlackText ($slack_text) {
 
 
 
-   $arr = array("title" => "to: ".$to."  ",
-   "text" => "Message: ".$message." ");
 
 
-  header('Content-Type: application/json');
-$jsonMessage = json_encode(array("response_type" => "in_channel", "attachments" => array($arr))); //, JSON_UNESCAPED_SLASHES
 
-    return $jsonMessage; 
+    return parsed; 
+
+
 
 }
 
