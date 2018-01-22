@@ -23,8 +23,8 @@ Route::get('/test', 'MentorTwilioController@test');
 
 
 //this is where the form goes, the form then call the post -> store 
-// Route::get('/newnumber/create', 'IncomingMessageController@create');
+Route::get('/newnumber/create', 'IncomingMessageController@create');
 
 
 //set up the route that will be used by the post->store 
-// Route::post('/newnumber','IncomingMessageController@store'); 
+Route::post('/newnumber','IncomingMessageController@store'); 
