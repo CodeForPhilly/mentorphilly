@@ -86,9 +86,9 @@ class MentorTwilioController extends Controller
             
         }
 
-    $response = MentorTwilioController::constructResponse($to,$message); 
+    $respond = MentorTwilioController::constructResponse($to,$message); 
     
-    return response; 
+    return respond;  
 
 }
 
