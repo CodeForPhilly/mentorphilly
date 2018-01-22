@@ -45,7 +45,7 @@ class MentorTwilioController extends Controller
         $auth_token = config('services.slack.auth_token');
 
 
-        if($token != $authenticate){ 
+        if($token != $auth_token){ 
 
           # replace this with the token from your slash command
             $msg = "The token for the slash command doesn't match.";
