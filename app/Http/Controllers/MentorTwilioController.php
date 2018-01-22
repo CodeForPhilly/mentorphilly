@@ -8,7 +8,7 @@ use App\MentorTwilio;
 
 use Twilio; 
 
-use Illuminate\Notifcations\Messages\SlackMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 
 
 class MentorTwilioController extends Controller
