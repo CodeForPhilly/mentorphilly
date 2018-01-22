@@ -82,12 +82,10 @@ class MentorTwilioController extends Controller
 
                 MentorTwilio::test(); 
             }
+
             respond['text'] = 'failed'; 
         }
 
-
-
-    }
 
     
     return $respond;
