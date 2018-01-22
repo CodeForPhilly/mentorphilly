@@ -11,49 +11,101 @@ use Twilio;
 
 class MentorTwilioController extends Controller
 {
-    
+
     public function test(){
 
-    echo 'testing'; 
+        echo 'testing'; 
 
 
     // $fromNumber = config('twilio.twilio.connections.twilio.from');
-	
-    $testNumber = config('twilio.twilio.connections.twilio.test');
-	$message = "Hi There from MentorPhilly"; 
-    
 
-    Twilio::message($testNumber, $message);
+        $testNumber = config('twilio.twilio.connections.twilio.test');
+        $message = "Hi There from MentorPhilly"; 
 
 
-	echo 'Message sent';
+        Twilio::message($testNumber, $message);
+
+
+        echo 'Message sent';
 
 
     }
 
     public function order(Request $request)
- {
- 
-            $command = $request->input('command');
-             $text = $request->input('text');
-             $token = $request->input('token'); 
-             $user = $request->input('user_name'); 
-             $channel_id = $request->input('channel_id');
-             $channel_name = $request->input('channel_name');
+    {
 
- 
-         if($token != 'bd6SKRtNZ6iPqpzEVv74M4QE'){ 
-           
+        $command = $request->input('command');
+        $text = $request->input('text');
+        $token = $request->input('token'); 
+        $user = $request->input('user_name'); 
+        $channel_id = $request->input('channel_id');
+        $channel_name = $request->input('channel_name');
+
+
+        $auth_token = config('services.slack.auth_token');
+
+
+        if($token != $authenticate){ 
+
           # replace this with the token from your slash command
-                        $msg = "The token for the slash command doesn't match.";
-                        die($msg);
-                          echo $msg;
-         }
- 
-             $respond['text'] = $text;
-            return $respond;
- 
- }
+            $msg = "The token for the slash command doesn't match.";
+            die($msg);
+            echo $msg;
+        }
+
+        else {
+
+
+            $findme   = '+';
+
+            $pos = strpos($text, $findme);
+
+            if ($pos !== false){
+                $parsed = explode("+", $text);
+                Twilio::message($parsed[1], $parsed[0]);
+            }
+
+            else {
+
+                $findme   = '~';
+
+                $pos = strpos($text, $findme);
+
+                if ($pos !== false)
+                   $parsed = explode("~", $text);
+
+               else{
+
+                test(); 
+            }
+
+        }
+
+
+
+    }
+
+    $respond['text'] = $text;
+    return $respond;
+
+}
+
+
+
+public function parseSlackText ($slack_text) {
+
+
+
+
+
+
+    return parsed; 
+
+
+
+}
+
+
     /**
      * Display the specified resource.
      *
