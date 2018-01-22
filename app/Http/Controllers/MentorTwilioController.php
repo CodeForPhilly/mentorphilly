@@ -64,7 +64,7 @@ class MentorTwilioController extends Controller
                 $parsed = explode("+", $text);
                 Twilio::message($parsed[1], $parsed[0]);
 
-                $respond['text'] = "Message sent to:" . parsed[1]. "Content" . parsed[0];
+                $respond['text'] = "Message sent to:" . parsed[1]. "Content" . parsed[0].";
             }
 
             else {
