@@ -100,8 +100,24 @@ class MentorTwilioController extends Controller
    
 
 
+// return response()->json(['name' => 'Abigail', 'state' => 'CA']);
+
+$jsonMessage = response()->json(
+
+['attachments' => array($arr)];
+
+);
+
+
+
+// return response($content)
+//             ->withHeaders([
+//                 'Content-Type' => $type,
+//                 'X-Header-One' => 'Header Value',
+//                 'X-Header-Two' => 'Header Value',
+//             ]);
         // header('Content-Type: application/json');
-        $jsonMessage = json_encode(array("response_type" => "in_channel", "attachments" => array($arr))); //, JSON_UNESCAPED_SLASHES
+        // $jsonMessage = json_encode(array("response_type" => "in_channel", "attachments" => array($arr))); //, JSON_UNESCAPED_SLASHES
 // $jsonMessage = json_encode($theMessage); //, JSON_UNESCAPED_SLASHES
 
 // trying to just echo in channel
