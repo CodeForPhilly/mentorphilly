@@ -66,7 +66,7 @@ class MentorTwilioController extends Controller
                 $to = '+'.$to; 
                 Twilio::message($to, $message);
 
-                $respond['text'] = "Message sent to:" . $to. "Content" . $message;
+               
             }
 
             else {
@@ -83,12 +83,12 @@ class MentorTwilioController extends Controller
                 MentorTwilio::test(); 
             }
 
-            respond['text'] = 'failed'; 
+            
         }
 
 
     
-    return $respond;
+    return $respond['text'] = $text;
 
 }
 
