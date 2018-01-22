@@ -88,7 +88,7 @@ class MentorTwilioController extends Controller
 
 
     
-    return $respond['text'] = $text;
+    return $respond['text'] = 'Message:'.$message.'sent to:'.$to.';
 
 }
 
