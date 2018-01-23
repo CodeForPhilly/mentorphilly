@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\IncomingMessage; 
-use Illuminate\Notifications\Notifiable;
+use App\Notifications\IncomingTextMessage; 
 
 use Twilio; 
 
