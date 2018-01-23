@@ -1,5 +1,8 @@
 <?php
 
+
+use App\Notifications\IncomingTextMessage; 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +16,12 @@
 
 Route::get('/', function () {
 
+
+	Notification::send(new IncomingTextMessage($from, $message));
+
     return view('welcome');
+
+
 });
 
 
