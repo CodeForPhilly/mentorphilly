@@ -17,7 +17,8 @@ use App\Notifications\IncomingTextMessage;
 Route::get('/', function () {
 
 
-	Notification::send(new IncomingTextMessage($from, $message));
+
+	
 
     return view('welcome');
 
@@ -32,7 +33,16 @@ Route::get('/test', 'MentorTwilioController@test');
 
 Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 
-Route::get('/incomingMessageTest', 'IncomingMessageController@incomingMessageTest');
+Route::post('/incomingMessageTest', function(){
+
+
+
+		$from = $request->input('From');
+        $message = $request->input('Body');
+
+        Notification::send(new IncomingTextMessage($from, $message));
+
+});
 
 
 
