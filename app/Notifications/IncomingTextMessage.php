@@ -9,16 +9,23 @@ use Illuminate\Notifications\Messages\SlackMessage;
 
 class IncomingTextMessage extends Notification
 {
-    use Queueable;
 
+
+    protected $from; 
+    protected $msg; 
+
+    use Queueable;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($from, $msg)
     {
         //
+        $this->from = $from; 
+
+        $this->msg = $msg; 
     }
 
     /**
@@ -32,7 +39,7 @@ class IncomingTextMessage extends Notification
         return ['slack'];
     }
 
-    public function toSlack($notifiable, $from, $message){
+    public function toSlack($notifiable){
 
 
         return (new SlackMessage)
@@ -41,7 +48,7 @@ class IncomingTextMessage extends Notification
         ->content('Incoming Text Message')
         ->attachment(function ($attachment) {
 
-            $attachment->title($from)->text($msg);
+            $attachment->title($this->from)->content($this->msg);
 
         });
     }
