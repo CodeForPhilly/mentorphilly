@@ -100,7 +100,8 @@ class MentorTwilioController extends Controller
 
 
 return response()->json([
-    'text' => $to,
+    'level' => 'success'
+    'text' => 'Outgoing Text Message',
     'attachments' => array($arr)
 ]);        
    
@@ -116,7 +117,7 @@ $title = 'sometitle';
 
 
 // creating slack json attachments array
-  $arr = array("title" => $to,
+  $arr = array("title" => "Outgoing Text Message",
    "text" => $message);
 
 // set json header for Slack 
