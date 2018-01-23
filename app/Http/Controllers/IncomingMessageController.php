@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\IncomingMessage; 
-use App\Notifications\IncomingTextMessage;
+use Illuminate\Notifications\Notifiable;
 
 use Twilio; 
 
@@ -37,7 +37,7 @@ class IncomingMessageController extends Controller
         }
 
 
-      toSlack($from, $message);   
+      Notification::send(new toSlack($from, $message);
 
 
 	}
@@ -58,8 +58,7 @@ class IncomingMessageController extends Controller
 
         }
 
-
-      toSlack($from, $message);
+	Notification::send(new toSlack($from, $message);
 
 
 	}
