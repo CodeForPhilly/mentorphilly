@@ -100,7 +100,6 @@ class MentorTwilioController extends Controller
 
 
 return response()->json([
-    'level' => 'success'
     'text' => 'Outgoing Text Message',
     'attachments' => array($arr)
 ]);        
