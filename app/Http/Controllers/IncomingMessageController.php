@@ -37,7 +37,7 @@ class IncomingMessageController extends Controller
         }
 
 
-      Notification::send(new toSlack($from, $message);
+      Notification::send(new toSlack($from, $message));
 
 
 	}
@@ -58,7 +58,7 @@ class IncomingMessageController extends Controller
 
         }
 
-	Notification::send(new toSlack($from, $message);
+	Notification::send(new toSlack($from, $message));
 
 
 	}
