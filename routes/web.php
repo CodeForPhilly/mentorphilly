@@ -17,9 +17,15 @@ Route::get('/', function () {
 });
 
 
-Route::post('/fromslack', 'MentorTwilioController@order');
+Route::post('/fromslack', 'MentorTwilioController@sendFromSlack');
 
 Route::get('/test', 'MentorTwilioController@test'); 
+
+
+Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
+
+Route::get('/incomingMessage', 'IncomingMessageController@incomingMessageTest');
+
 
 
 //this is where the form goes, the form then call the post -> store 

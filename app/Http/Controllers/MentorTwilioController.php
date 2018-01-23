@@ -33,7 +33,7 @@ class MentorTwilioController extends Controller
 
     }
 
-    public function order(Request $request)
+    public function sendFromSlack(Request $request)
     {
 
         $command = $request->input('command');
@@ -68,7 +68,7 @@ class MentorTwilioController extends Controller
                 $to = '+'.$to; 
                 Twilio::message($to, $message);
 
-               
+
             }
 
             else {
@@ -94,30 +94,30 @@ class MentorTwilioController extends Controller
             $msg = 'Message: '.$message;
 
           // creating slack json attachments array
-  $arr = array("title" => $to,
-   "text" => $msg);
+            $arr = array("title" => $to,
+             "text" => $msg);
         }
 
 
-return response()->json([
-    'text' => 'Outgoing Text Message',
-    'attachments' => array($arr)
-]);        
-   
-}
+        return response()->json([
+            'text' => 'Outgoing Text Message',
+            'attachments' => array($arr)
+        ]);        
+
+    }
 
 
 
-public function parseSlackText () {
+    public function parseSlackText () {
 
-$to = 'to: somenumber'; 
-$message = 'somemessage'; 
-$title = 'sometitle'; 
+        $to = 'to: somenumber'; 
+        $message = 'somemessage'; 
+        $title = 'sometitle'; 
 
 
 // creating slack json attachments array
-  $arr = array("title" => "Outgoing Text Message",
-   "text" => $message);
+        $arr = array("title" => "Outgoing Text Message",
+         "text" => $message);
 
 // set json header for Slack 
 // header('Content-Type: application/json');
@@ -129,15 +129,15 @@ $title = 'sometitle';
 
 
 
-return response()->json([
-    'text' => $to,
-    'attachments' => array($arr)
-]);
+        return response()->json([
+            'text' => $to,
+            'attachments' => array($arr)
+        ]);
 
 
 
 
-}
+    }
 
 
     /**

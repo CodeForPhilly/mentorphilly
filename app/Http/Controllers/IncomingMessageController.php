@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\IncomingMessage; 
 
+use Twilio; 
+
+
+
 class IncomingMessageController extends Controller
 {
     
@@ -13,6 +17,49 @@ class IncomingMessageController extends Controller
 	public function create(){
 
 	 return view('layouts.partials.form'); 
+
+	}
+
+
+	public function incomingMessage(Request $request){
+
+
+		$from = $request->input('From');
+        $message = $request->input('Body');
+
+
+
+        if (!empty($from) && !empty($message)){
+
+            $title = 'from: '.$from;
+            $msg = 'Message: '.$message;
+        }
+
+
+      notify(new IncomingTextMessage($from, $message));   
+
+
+	}
+
+
+	public function incomingMessageTest(){
+
+
+		$from = 'from corey';
+        $message = 'the message';
+
+
+
+        if (!empty($from) && !empty($message)){
+
+            $title = 'from: '.$from;
+            $msg = 'Message: '.$message;
+
+        }
+
+
+      notify(new IncomingTextMessage($from, $message));   
+
 
 	}
 
