@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\IncomingMessage; 
+use App\Notifications\IncomingTextMessage
 
 use Twilio; 
 
@@ -36,7 +37,7 @@ class IncomingMessageController extends Controller
         }
 
 
-      notify(new IncomingTextMessage($from, $message));   
+      notify(IncomingTextMessage($from, $message));   
 
 
 	}
@@ -58,7 +59,7 @@ class IncomingMessageController extends Controller
         }
 
 
-      notify(new IncomingTextMessage($from, $message));   
+      notify(IncomingTextMessage($from, $message));   
 
 
 	}
