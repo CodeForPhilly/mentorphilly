@@ -24,7 +24,7 @@ Route::get('/test', 'MentorTwilioController@test');
 
 Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 
-Route::get('/incomingMessage', 'IncomingMessageController@incomingMessageTest');
+Route::get('/incomingMessageTest', 'IncomingMessageController@incomingMessageTest');
 
 
 
