@@ -93,82 +93,47 @@ class MentorTwilioController extends Controller
             $title = 'to: '.$to;
             $msg = 'Message: '.$message;
 
-            $arr = array(
-                'title' => $title,
-                "text" => $msg);
+          // creating slack json attachments array
+  $arr = array("title" => $to,
+   "text" => $msg);
         }
+
+
+return response()->json([
+    'text' => $to,
+    'attachments' => array($arr)
+]);        
    
-
-    $returnthis = (new SlackMessage)
-
-    ->success()
-    ->attachment(function ($attachment){
-
-    $attachment->title('Message Sent')
-        -> fields([
-            'To' => $to,
-        ]);    
-    })
-    ->content($message);
-
-    echo $returnthis; 
-
-// return response()->json(['name' => 'Abigail', 'state' => 'CA']);
-
-// this one work sort of 
-// $jsonMessage = response()->json(['attachments' => array($arr)]);
-
-
-
-// return response($content)
-//             ->withHeaders([
-//                 'Content-Type' => $type,
-//                 'X-Header-One' => 'Header Value',
-//                 'X-Header-Two' => 'Header Value',
-//             ]);
-        // header('Content-Type: application/json');
-        // $jsonMessage = json_encode(array("response_type" => "in_channel", "attachments" => array($arr))); //, JSON_UNESCAPED_SLASHES
-// $jsonMessage = json_encode($theMessage); //, JSON_UNESCAPED_SLASHES
-
-// trying to just echo in channel
-
-// $arr = array('response_type' => "in_channel");
-// $jsonMessage = json_encode($arr);
-
-    /*
-Need to set the header to content-type header of the response must match the disposition of your content, application/json.
-*/
-
-// echo $jsonMessage;
-
-   // echo "Success! Message ";
-   //  echo $reply;  
-   //  echo "\nTo: $to";
-   //  echo "\nMessage: $msg";  
-
-    // return (new SlackMessage)
-
-    // ->success()
-    // ->attachment(function ($attachment){
-
-    // $attachment->title('Message Sent')
-    //     -> fields([
-    //         'To' => $to,
-    //     ]);    
-    // })
-    // ->content($message);
 }
 
 
 
-public function parseSlackText ($slack_text) {
+public function parseSlackText () {
+
+$to = 'to: somenumber'; 
+$message = 'somemessage'; 
+$title = 'sometitle'; 
+
+
+// creating slack json attachments array
+  $arr = array("title" => $to,
+   "text" => $message);
+
+// set json header for Slack 
+// header('Content-Type: application/json');
+
+// convert theMessage to json so Slack can read it
+// $jsonMessage = json_encode(array("text" => $whichMeetup, "attachments" => array($arr))); 
 
 
 
 
 
+return response()->json([
+    'text' => $to,
+    'attachments' => array($arr)
+]);
 
-    return parsed; 
 
 
 

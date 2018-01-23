@@ -28,3 +28,5 @@ Route::get('/newnumber/create', 'IncomingMessageController@create');
 
 //set up the route that will be used by the post->store 
 Route::post('/newnumber','IncomingMessageController@store'); 
+
+Route::get('/testslackformat', 'MentorTwilioController@parseSlackText'); 
