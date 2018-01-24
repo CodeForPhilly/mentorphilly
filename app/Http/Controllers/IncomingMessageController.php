@@ -34,7 +34,7 @@ class IncomingMessageController extends Controller
             $msg = 'Message: '.$message;
         }
 
-	$admin = User::find(1); 
+	$admin = \App\User::find(1); 
 	$admin->notify(new IncomingTextMessage($from, $message)); 
 
 	}
