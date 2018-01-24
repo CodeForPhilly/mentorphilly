@@ -39,7 +39,11 @@ Route::get('/incomingMessage', function(){
 		$from = 'from'; 
         $message = 'message'; 
 
-        Notification::send(new IncomingTextMessage($from, $message));
+$admin = App\User::find(1); 
+$admin->notify(new IncomingTextMessage($from, $message)); 
+
+	
+  //       Notification::send(new IncomingTextMessage($from, $message));
 
 });
 
