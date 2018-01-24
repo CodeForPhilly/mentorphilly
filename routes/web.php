@@ -33,11 +33,11 @@ Route::get('/test', 'MentorTwilioController@test');
 
 // Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 
-Route::post('/incomingMessage', function(Request $request){
+Route::get('/incomingMessage', function(){
 
 
-		$from = $request->input('From');
-        $message = $request->input('Body');
+		$from = 'from'; 
+        $message = 'message'; 
 
         Notification::send(new IncomingTextMessage($from, $message));
 
