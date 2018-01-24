@@ -8,6 +8,8 @@ use Twilio;
 
 use Notification; 
 
+use User; 
+
 class IncomingMessageController extends Controller
 {
     
