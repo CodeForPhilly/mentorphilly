@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use Twilio; 
 
+//this was necessary along with the next one
 use Notification; 
 
+//this was necessary + use Notfication
 use App\Notifications\IncomingTextMessage; 
 
 
@@ -39,28 +41,27 @@ class IncomingMessageController extends Controller
 	$admin = \App\User::find(1); 
 	$admin->notify(new IncomingTextMessage($from, $message)); 
 
+	IncomingMessageController::store($from); 
+
 	}
   
 
-     public function store()
+     public function store($from)
 
 	{
 
-		$this->validate(request(), [
 
-			'number' => 'required|max:12|min:12'
 
-		]);
 		
-
-		$new_no = request(['number']); 
-		if (IncomingMessage::where('number', '=', $new_no)->exists()) {
+		if (IncomingMessage::where('number', '=', $from)->exists()) {
    			echo 'Number already in DB'; 
 		}
 
 		else {
 
-			echo 'Number does not exist saving to DB'; 
+
+			Twilio::message($from, 'Welcom to MentorPhilly someone will be with you shortly');
+			
 			IncomingMessage::create($new_no);
 
 		}
