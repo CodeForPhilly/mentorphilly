@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\IncomingMessage;
+
 use Illuminate\Http\Request;
 
 use Twilio; 
@@ -49,9 +51,6 @@ class IncomingMessageController extends Controller
      public function store($from)
 
 	{
-
-
-
 		
 		if (IncomingMessage::where('number', '=', $from)->exists()) {
    			echo 'Number already in DB'; 
@@ -61,7 +60,7 @@ class IncomingMessageController extends Controller
 
 
 			Twilio::message($from, 'Welcom to MentorPhilly someone will be with you shortly');
-			
+
 			IncomingMessage::create($new_no);
 
 		}
