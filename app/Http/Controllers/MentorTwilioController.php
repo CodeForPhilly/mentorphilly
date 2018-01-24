@@ -73,6 +73,8 @@ class MentorTwilioController extends Controller
 
             else {
 
+                // Check for name corresponding name
+
                //  $findme   = '~';
 
                //  $pos = strpos($text, $findme);
@@ -82,7 +84,9 @@ class MentorTwilioController extends Controller
 
                // else{
 
-                MentorTwilio::test(); 
+
+
+                
             }
 
             
@@ -108,36 +112,7 @@ class MentorTwilioController extends Controller
 
 
 
-    public function parseSlackText () {
 
-        $to = 'to: somenumber'; 
-        $message = 'somemessage'; 
-        $title = 'sometitle'; 
-
-
-// creating slack json attachments array
-        $arr = array("title" => "Outgoing Text Message",
-         "text" => $message);
-
-// set json header for Slack 
-// header('Content-Type: application/json');
-
-// convert theMessage to json so Slack can read it
-// $jsonMessage = json_encode(array("text" => $whichMeetup, "attachments" => array($arr))); 
-
-
-
-
-
-        return response()->json([
-            'text' => $to,
-            'attachments' => array($arr)
-        ]);
-
-
-
-
-    }
 
 
     /**

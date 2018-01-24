@@ -8,7 +8,7 @@ use Twilio;
 
 use Notification; 
 
-use User; 
+
 
 class IncomingMessageController extends Controller
 {
@@ -20,8 +20,7 @@ class IncomingMessageController extends Controller
 
 	}
 
-
-	public function incomingMessage(Request $request){
+	public function IncomingMessage(Request $request){
 
 
 		$from = $request->input('From');
@@ -35,35 +34,10 @@ class IncomingMessageController extends Controller
             $msg = 'Message: '.$message;
         }
 
-
-      $admin = App\User::find(1); 
-	  $admin->notify(new IncomingTextMessage($from, $message)); 
-
+	$admin = User::find(1); 
+	$admin->notify(new IncomingTextMessage($from, $message)); 
 
 	}
-
-
-	public function incomingMessageTest(){
-
-
-		$from = 'from corey';
-        $message = 'the message';
-
-
-
-        if (!empty($from) && !empty($message)){
-
-            $title = 'from: '.$from;
-            $msg = 'Message: '.$message;
-
-        }
-
-	Notification::send(new IncomingTextMessage($from, $message));
-
-
-	}
-
-
   
 
      public function store()

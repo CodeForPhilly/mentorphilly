@@ -17,10 +17,6 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
 
-
-
-	
-
     return view('welcome');
 
 
@@ -29,39 +25,37 @@ Route::get('/', function () {
 
 Route::post('/fromslack', 'MentorTwilioController@sendFromSlack');
 
-Route::get('/test', 'MentorTwilioController@test'); 
+// Route::get('/test', 'MentorTwilioController@test'); 
 
 
-// Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
+Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 
-Route::post('/incomingMessage', function(Request $request){
+// Route::post('/incomingMessage', function(Request $request){
 
-$from = $request->input('From');
-        $message = $request->input('Body');
+// $from = $request->input('From');
+//         $message = $request->input('Body');
 
 
 
-        if (!empty($from) && !empty($message)){
+//         if (!empty($from) && !empty($message)){
 
-            $title = 'from: '.$from;
-            $msg = 'Message: '.$message;
-        }
+//             $title = 'from: '.$from;
+//             $msg = 'Message: '.$message;
+//         }
 
-$admin = App\User::find(1); 
-$admin->notify(new IncomingTextMessage($from, $message)); 
+// $admin = App\User::find(1); 
+// $admin->notify(new IncomingTextMessage($from, $message)); 
 
-	
-  
 
-});
+// });
 
 
 
 //this is where the form goes, the form then call the post -> store 
-Route::get('/newnumber/create', 'IncomingMessageController@create');
+// Route::get('/newnumber/create', 'IncomingMessageController@create');
 
 
 //set up the route that will be used by the post->store 
-Route::post('/newnumber','IncomingMessageController@store'); 
+// Route::post('/newnumber','IncomingMessageController@store'); 
 
-Route::get('/testslackformat', 'MentorTwilioController@parseSlackText'); 
+// Route::get('/testslackformat', 'MentorTwilioController@parseSlackText'); 
