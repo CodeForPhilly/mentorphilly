@@ -33,8 +33,7 @@ Route::get('/test', 'MentorTwilioController@test');
 
 // Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 
-Route::post('/incomingMessage', function(){
-
+Route::post('/incomingMessage', function(Request $request){
 
 
 		$from = $request->input('From');
