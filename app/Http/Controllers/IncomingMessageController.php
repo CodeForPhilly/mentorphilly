@@ -62,7 +62,7 @@ class IncomingMessageController extends Controller
 			Twilio::message($from, 'Welcome to MentorPhilly someone will be with you shortly');
 
 			$storefrom = (string)$from; 
-			IncomingMessage::create($storefrom);
+			IncomingMessage::create(['number' => $storefrom]);
 
 		}
 
