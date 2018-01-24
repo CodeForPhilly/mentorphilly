@@ -31,11 +31,11 @@ Route::post('/fromslack', 'MentorTwilioController@sendFromSlack');
 Route::get('/test', 'MentorTwilioController@test'); 
 
 
-Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
+// Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 
-Route::post('/incomingMessageTest', function(){
+Route::post('/incomingMessage', function(){
 
-		
+
 
 		$from = $request->input('From');
         $message = $request->input('Body');
