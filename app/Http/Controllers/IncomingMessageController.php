@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\IncomingMessage; 
-
-
 use Twilio; 
 
-use App\Notifications\IncomingTextMessage; 
+use Notification; 
 
 class IncomingMessageController extends Controller
 {
