@@ -39,6 +39,7 @@ return [
     'slack' => [
 
         'auth_token' => env('SLACK_AUTH_TOKEN'),
+        'hook' => env('SLACK_WEB_HOOK'),
 
     ],
 

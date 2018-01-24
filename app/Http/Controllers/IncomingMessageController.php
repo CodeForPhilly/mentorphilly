@@ -62,6 +62,8 @@ class IncomingMessageController extends Controller
 			Twilio::message($from, 'Welcome to MentorPhilly someone will be with you shortly');
 
 			$storefrom = (string)$from; 
+
+			// you have to pass an associative array of the correspnding table field when you call this
 			IncomingMessage::create(['number' => $storefrom]);
 
 		}
