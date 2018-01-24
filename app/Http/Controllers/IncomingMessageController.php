@@ -8,6 +8,8 @@ use Twilio;
 
 use Notification; 
 
+use App\Notifications\IncomingTextMessage; 
+
 
 
 class IncomingMessageController extends Controller
