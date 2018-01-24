@@ -2,6 +2,7 @@
 
 
 use App\Notifications\IncomingTextMessage; 
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
