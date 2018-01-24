@@ -31,21 +31,21 @@ Route::post('/fromslack', 'MentorTwilioController@sendFromSlack');
 Route::get('/test', 'MentorTwilioController@test'); 
 
 
-// Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
+Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 
-Route::get('/incomingMessage', function(){
+// Route::get('/incomingMessage', function(){
 
 
-		$from = 'from'; 
-        $message = 'message'; 
+// 		$from = 'from'; 
+//         $message = 'message'; 
 
-$admin = App\User::find(1); 
-$admin->notify(new IncomingTextMessage($from, $message)); 
+// $admin = App\User::find(1); 
+// $admin->notify(new IncomingTextMessage($from, $message)); 
 
 	
-  //       Notification::send(new IncomingTextMessage($from, $message));
+  
 
-});
+// });
 
 
 

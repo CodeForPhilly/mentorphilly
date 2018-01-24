@@ -9,7 +9,7 @@ use App\Notifications\IncomingTextMessage;
 
 use Twilio; 
 
-
+use App\Notifications\IncomingTextMessage; 
 
 class IncomingMessageController extends Controller
 {
@@ -37,7 +37,8 @@ class IncomingMessageController extends Controller
         }
 
 
-      Notification::send(new IncomingTextMessage($from, $message));
+      $admin = App\User::find(1); 
+	  $admin->notify(new IncomingTextMessage($from, $message)); 
 
 
 	}
