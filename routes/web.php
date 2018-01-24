@@ -35,12 +35,12 @@ Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 
 Route::post('/incomingMessageTest', function(){
 
-
+		
 
 		$from = $request->input('From');
         $message = $request->input('Body');
 
-        \Notification::send(new IncomingTextMessage($from, $message));
+        Notification::send(new IncomingTextMessage($from, $message));
 
 });
 
