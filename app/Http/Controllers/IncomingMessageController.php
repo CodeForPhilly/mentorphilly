@@ -28,23 +28,31 @@ class IncomingMessageController extends Controller
 
 	public function IncomingMessage(Request $request){
 
+      $requestValidator = new RequestValidator(config('TWILIO_TOKEN'));
 
-		$from = $request->input('From');
-        $message = $request->input('Body');
+      $isValid = $requestValidator->validate(
+        $request->header('X-Twilio-Signature'),
+        $request->fullUrl(),
+        $request->toArray()
+      );
 
+      if ($isValid) {
 
-
-        if (!empty($from) && !empty($message)){
+      	  if (!empty($from) && !empty($message)){
 
             $title = 'from: '.$from;
             $msg = 'Message: '.$message;
         }
 
-	$admin = \App\User::find(1); 
-	$admin->notify(new IncomingTextMessage($from, $message)); 
+		$admin = \App\User::find(1); 
+		$admin->notify(new IncomingTextMessage($from, $message)); 
 
-	IncomingMessageController::store($from); 
+		IncomingMessageController::store($from);
 
+		}
+
+		else 
+			return new Response('You are not Twilio :(', 403);
 	}
   
 
