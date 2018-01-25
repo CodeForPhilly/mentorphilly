@@ -15,11 +15,12 @@ use Notification;
 use App\Notifications\IncomingTextMessage; 
 
 
-
 use Twilio;
 
+use Services_Twilio;
+
 //twilio request validator
-use twilio; 
+
 
 class IncomingMessageController extends Controller
 {
