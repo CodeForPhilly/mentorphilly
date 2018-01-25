@@ -16,7 +16,7 @@ use App\Notifications\IncomingTextMessage;
 
 
 //twilio request validator
-use Twilio\Security\RequestValidator;
+use Twilio\RequestValidator;
 
 
 
