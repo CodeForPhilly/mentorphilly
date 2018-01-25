@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 
 use Twilio; 
 
+//twilio request validator
+use Services_Twilio;
+
 //this was necessary along with the next one
 use Notification; 
 
@@ -15,11 +18,7 @@ use Notification;
 use App\Notifications\IncomingTextMessage; 
 
 
-use Twilio;
 
-use Services_Twilio;
-
-//twilio request validator
 
 
 class IncomingMessageController extends Controller
