@@ -15,10 +15,6 @@ use Notification;
 use App\Notifications\IncomingTextMessage; 
 
 
-//twilio request validator
-use Twilio;
-
-
 class CoreyValidate
 {
 
