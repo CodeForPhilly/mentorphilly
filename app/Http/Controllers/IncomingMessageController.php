@@ -46,16 +46,23 @@ class IncomingMessageController extends Controller
 
       if ($isValid) {
 
+      	$from = $request->input('From'); 
+      	$message = $request->input('Body'); 
+
       	  if (!empty($from) && !empty($message)){
+      	  	
 
             $title = 'from: '.$from;
             $msg = 'Message: '.$message;
-        }
+            $admin = \App\User::find(1); 
+			$admin->notify(new IncomingTextMessage($title, $message)); 
+			IncomingMessageController::store($from);
+          }
 
-		$admin = \App\User::find(1); 
-		$admin->notify(new IncomingTextMessage($from, $message)); 
 
-		IncomingMessageController::store($from);
+		
+
+		
 
 		}
 
