@@ -60,7 +60,7 @@ class IncomingMessageController extends Controller
 		}
 
 		else 
-			return new Response('You are not Twilio :(', 403);
+			echo 'You are not twilio';
 	}
   
 
