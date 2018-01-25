@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Twilio; 
 
 //twilio request validator
-use Services_Twilio\RequestValidator;
+use Services_Twilio;
 
 //this was necessary along with the next one
 use Notification; 
@@ -36,7 +36,7 @@ class IncomingMessageController extends Controller
 
 		
 
-      $requestValidator = new RequestValidator(env('TWILIO_TOKEN'));
+      $requestValidator = new Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
 
       $isValid = $requestValidator->validate(
         $request->header('X-Twilio-Signature'),
