@@ -15,6 +15,10 @@ use Notification;
 use App\Notifications\IncomingTextMessage; 
 
 
+//twilio request validator
+use Twilio\Security\RequestValidator;
+
+
 
 class IncomingMessageController extends Controller
 {
@@ -31,7 +35,7 @@ class IncomingMessageController extends Controller
 
 		$token = getenv('TWILIO_TOKEN')?: ''; 
 
-      $requestValidator = Twilio::RequestValidator($token);
+      $requestValidator = new  RequestValidator($token);
 
       $isValid = $requestValidator->validate(
         $request->header('X-Twilio-Signature'),
