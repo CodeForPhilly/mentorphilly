@@ -60,7 +60,7 @@ class IncomingTextMessage extends Notification
             $attachment
                 ->title($this->from)
                 ->content($this->msg)
-                ->unfurlMedia($this->outgoingMedia);
+                ->unfurlLinks($this->outgoingMedia);
 
         });
     }
