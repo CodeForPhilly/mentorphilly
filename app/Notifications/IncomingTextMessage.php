@@ -55,12 +55,13 @@ class IncomingTextMessage extends Notification
         ->success()
         ->content('Incoming Text Message')
         ->content($this->outgoingCity.','.$this->outgoingZip)
-        ->unfurlLinks($this->outgoingMedia)
+
         ->attachment(function ($attachment) {
 
             $attachment
                 ->title($this->from)
-                ->content($this->msg);
+                ->content($this->msg)
+                ->image($this->outgoingMedia);
 
         });
     }
