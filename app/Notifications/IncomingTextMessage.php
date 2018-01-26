@@ -60,7 +60,7 @@ class IncomingTextMessage extends Notification
             $attachment
                 ->title($this->from)
                 ->content($this->msg)
-                =>content($this->outgoingMedia);
+                ->content($this->outgoingMedia);
 
         });
     }
