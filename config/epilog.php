@@ -31,7 +31,7 @@ return [
         /**
          * The name of the bot
          */
-        'username' => 'Error Bot',
+        'username' => 'laravelerrorbot',
         
         /**
          * Slack notification triggers on this environment
