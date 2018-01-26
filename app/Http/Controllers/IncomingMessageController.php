@@ -52,19 +52,19 @@ class IncomingMessageController extends Controller
       	$outgoingCity = '[unknown]';
       	$outgoingZip = '[unknown]'; 
 
-      	if(isset($request->input('From')))
+      	if(null != $request->input('From'))
       		$from = $request->input('From'); 
       	
-      	if(isset($request->input('Body')))
+      	if(null != $request->input('Body'))
       		$message = $request->input('Body'); 
 		
-      	if(isset($request->input('MediaUrl0')))
+      	if(null != $request->input('MediaUrl0'))
 			$outgoingMedia = $request->input('MediaUrl0');
 		
-		if(isset($request->input('FromCity')))
+		if(null != $request->input('FromCity'))
 			$outgoingCity = $request->input('FromCity');
 		
-		if(isset($request->input('FromZip')))
+		if(null != $request->input('FromZip'))
 			$outgoingZip = $request->input('FromZip');
       	
       	$title = 'From: '.$from;
