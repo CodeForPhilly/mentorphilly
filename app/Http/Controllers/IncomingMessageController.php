@@ -46,11 +46,26 @@ class IncomingMessageController extends Controller
 
       if ($isValid) {
 
-      	$from = $request->input('From'); 
-      	$message = $request->input('Body'); 
-		$outgoingMedia = $request->input('MediaUrl0');
-		$outgoingCity = $request->input('FromCity');
-		$outgoingZip = $request->input('FromZip');
+      	$from = '[unknown]';
+      	$message = '[empty]';
+      	$outgoingMedia = ''; 
+      	$outgoingCity = '[unknown]';
+      	$outgoingZip = '[unknown]'; 
+
+      	if(isset($request->input('From')))
+      		$from = $request->input('From'); 
+      	
+      	if(isset($request->input('Body')))
+      		$message = $request->input('Body'); 
+		
+      	if(isset($request->input('MediaUrl0')))
+			$outgoingMedia = $request->input('MediaUrl0');
+		
+		if(isset($request->input('FromCity')))
+			$outgoingCity = $request->input('FromCity');
+		
+		if(isset($request->input('FromZip')))
+			$outgoingZip = $request->input('FromZip');
       	
       	$title = 'From: '.$from;
         $msg = 'Message: '.$message;

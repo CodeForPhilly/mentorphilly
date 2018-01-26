@@ -54,8 +54,8 @@ class IncomingTextMessage extends Notification
 
         ->success()
         ->content('Incoming Text Message')
-        ->pretext($this->outgoingCity.','.$this->outgoingZip)
-        ->image_url($this->outgoingMedia)
+        ->content($this->outgoingCity.','.$this->outgoingZip)
+        ->image($this->outgoingMedia)
         ->attachment(function ($attachment) {
 
             $attachment->title($this->from)->content($this->msg);
