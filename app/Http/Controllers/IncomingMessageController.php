@@ -48,21 +48,18 @@ class IncomingMessageController extends Controller
 
       	$from = $request->input('From'); 
       	$message = $request->input('Body'); 
+		$outgoingMedia = $request->input('MediaUrl0');
+		$outgoingCity = $request->input('FromCity');
+		$outgoingZip = $request->input('FromZip');
+      	
+      	$title = 'From: '.$from;
+        $msg = 'Message: '.$message;
+          
 
-      	  if (!empty($from) && !empty($message)){
-      	  	
-
-            $title = 'from: '.$from;
-            $msg = 'Message: '.$message;
             $admin = \App\User::find(1); 
-			$admin->notify(new IncomingTextMessage($title, $message)); 
+			$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)); 
 			IncomingMessageController::store($from);
-          }
 
-
-		
-
-		
 
 		}
 

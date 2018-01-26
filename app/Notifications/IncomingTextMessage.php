@@ -22,12 +22,18 @@ class IncomingTextMessage extends Notification
      *
      * @return void
      */
-    public function __construct($from, $msg)
+    public function __construct($from, $msg, $outgoingMedia, $outgoingCity, $outgoingZip)
     {
         //
         $this->from = $from; 
 
         $this->msg = $msg; 
+
+        $this->outgoingMedia = $outgoingMedia;
+
+        $this->outgoingCity = $outgoingCity;
+
+        $this->outgoingZip = $outgoingZip;
     }
 
     /**
@@ -48,6 +54,8 @@ class IncomingTextMessage extends Notification
 
         ->success()
         ->content('Incoming Text Message')
+        ->pretext($this->outgoingCity.','.$this->outgoingZip)
+        ->image_url($this->outgoingMedia)
         ->attachment(function ($attachment) {
 
             $attachment->title($this->from)->content($this->msg);
