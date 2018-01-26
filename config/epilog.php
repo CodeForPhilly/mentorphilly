@@ -19,7 +19,7 @@ return [
          * Go to the authorization page (https://api.slack.com/web#auth) and 
          * generate a new token
          */
-        'token' => env('SLACK_OAUTH'),
+        'token' => getenv('SLACK_OAUTH'),
         
         /**
          * Slack channel (encoded ID or name)
