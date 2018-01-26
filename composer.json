@@ -11,7 +11,8 @@
         "guzzlehttp/guzzle": "^6.3",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "rap2hpoutre/laravel-epilog": "^0.0.6"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

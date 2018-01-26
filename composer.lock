@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "319151db7f07844e090bd5cdb160a7ae",
-    "content-hash": "669f74d0af9c43c2909aaa27bd91310b",
+    "hash": "77c3cfbc2c73077e4781d7ee88c3c543",
+    "content-hash": "f5e9219b140c3809df9b24b4cdc0a942",
     "packages": [
         {
             "name": "aloha/twilio",
@@ -1605,6 +1605,48 @@
                 "uuid"
             ],
             "time": "2018-01-20 00:28:24"
+        },
+        {
+            "name": "rap2hpoutre/laravel-epilog",
+            "version": "v0.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rap2hpoutre/laravel-epilog.git",
+                "reference": "555d0f96fcaa8fdb643caf91643e7ce3adba0ecb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rap2hpoutre/laravel-epilog/zipball/555d0f96fcaa8fdb643caf91643e7ce3adba0ecb",
+                "reference": "555d0f96fcaa8fdb643caf91643e7ce3adba0ecb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Rap2hpoutre\\LaravelEpilog\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "rap2hpoutre",
+                    "email": "raphael@ornikar.com"
+                }
+            ],
+            "description": "More info in laravel's log",
+            "keywords": [
+                "laravel",
+                "log",
+                "logging"
+            ],
+            "time": "2015-09-15 07:59:22"
         },
         {
             "name": "swiftmailer/swiftmailer",
