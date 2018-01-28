@@ -26,7 +26,7 @@ return [
          * 
          * Send the message to an existing '#channel' or 'private-group'
          */
-        'channel' => '#general',
+        'channel' => '#error-log',
         
         /**
          * The name of the bot
