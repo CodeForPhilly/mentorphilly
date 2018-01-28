@@ -55,7 +55,7 @@ class IncomingTextMessage extends Notification
         ->success()
         ->content('Incoming Text Message')
         ->content($this->outgoingCity.','.$this->outgoingZip)
-        ->channel('general')
+        ->to('general')
         ->attachment(function ($attachment) {
 
             $attachment
