@@ -19,8 +19,6 @@ class MentorTwilioController extends Controller
         echo 'testing'; 
 
 
-    // $fromNumber = config('twilio.twilio.connections.twilio.from');
-
         $testNumber = config('twilio.twilio.connections.twilio.test');
         $message = "Hi There from MentorPhilly"; 
 
@@ -43,13 +41,10 @@ class MentorTwilioController extends Controller
         $channel_id = $request->input('channel_id');
         $channel_name = $request->input('channel_name');
 
-
         $auth_token = config('services.slack.auth_token');
 
-
         if($token != $auth_token){ 
-
-          # replace this with the token from your slash command
+            
             $msg = "The token for the slash command doesn't match.";
             die($msg);
             echo $msg;
