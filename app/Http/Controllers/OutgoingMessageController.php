@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\OutgoingMessage; 
+
+use Twilio; 
+
+use Illuminate\Notifications\Messages\SlackMessage;
+
+
 class OutgoingMessageController extends Controller
 {
    
