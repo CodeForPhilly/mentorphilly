@@ -23,9 +23,15 @@ Route::get('/', function () {
 });
 
 
-Route::post('/fromslack', 'MentorTwilioController@sendFromSlack');
+//Registration and login
 
-// Route::get('/test', 'MentorTwilioController@test'); 
+Route::get('/register', 'RegistrationController@create'); 
+Route::get('/login', 'SessionsController@create'); 
+
+
+Route::post('/fromslack', 'OutgoingMessageController@sendFromSlack');
+
+// Route::get('/test', 'OutgoingMessageController@test'); 
 
 
 Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
@@ -58,4 +64,4 @@ Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 //set up the route that will be used by the post->store 
 // Route::post('/newnumber','IncomingMessageController@store'); 
 
-// Route::get('/testslackformat', 'MentorTwilioController@parseSlackText'); 
+// Route::get('/testslackformat', 'OutgoingMessageController@parseSlackText'); 

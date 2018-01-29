@@ -94,7 +94,7 @@ class IncomingMessageController extends Controller
 		else {
 
 
-			Twilio::message($from, 'Welcome to MentorPhilly someone will be with you shortly');
+			Twilio::message($from, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
 			$storefrom = (string)$from; 
 
