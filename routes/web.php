@@ -23,6 +23,15 @@ Route::get('/', function () {
 });
 
 
+Route::get('/creatementee', 'SMSRecipientController@create'); 
+
+Route::post('/storerecipient','SMSRecipientController@store'); 
+
+Route::get('/index', 'SMSRecipientController@index');
+
+
+
+
 //Registration and login
 
 Route::get('/register', 'RegistrationController@create'); 
@@ -65,3 +74,7 @@ Route::post('/incomingMessage', 'IncomingMessageController@incomingMessage');
 // Route::post('/newnumber','IncomingMessageController@store'); 
 
 // Route::get('/testslackformat', 'OutgoingMessageController@parseSlackText'); 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

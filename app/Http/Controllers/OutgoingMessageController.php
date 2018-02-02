@@ -15,6 +15,8 @@ class OutgoingMessageController extends Controller
 {
    
 
+   
+
 public function test(){
 
         echo 'testing'; 
