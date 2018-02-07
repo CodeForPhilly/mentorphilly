@@ -36,6 +36,27 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+
+        
+
+
+// For Laravel 5.3 and 5.4, here is the proper way to do it:
+
+// You have to change:
+
+// public function __construct()
+//     {
+//         $this->middleware('guest');
+//     }
+// to
+
+// public function __construct()
+//     {
+//         $this->middleware('auth');
+//     }
+
+// See above Changing so non-users cannot register and then login
+
         $this->middleware('auth');
     }
 
