@@ -11,14 +11,16 @@ class WelcomeRegisteredUser extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $welcome_data;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($welcome_data)
     {
         //
+        $this->welcome_data = $welcome_data; 
     }
 
     /**
