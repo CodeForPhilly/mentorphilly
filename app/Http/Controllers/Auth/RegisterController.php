@@ -92,7 +92,7 @@ class RegisterController extends Controller
 
         $welcome_data = ['email' => $user->email,'password' => $user->password];
 
-        \Mail::to($user)->send(new WelcomeRegisteredUser()); 
+        \Mail::to($user)->send(new WelcomeRegisteredUser($welcome_data)); 
 
         // return User::create([
         //     'name' => $data['name'],
