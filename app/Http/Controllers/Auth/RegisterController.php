@@ -90,7 +90,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        $welcome_data = ['email' => $user->email,'password' => $user->password];
+        $welcome_data = ['email' => $user->email];
 
         \Mail::to($user)->send(new WelcomeRegisteredUser($welcome_data)); 
 
