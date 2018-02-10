@@ -10,7 +10,7 @@
 	<p>Your user name is:</p>
 	<p>Your password is: </p>
 	@php
-	var_dump($welcome_data); 
+	echo $welcome_data;
 	@endphp
 
 
