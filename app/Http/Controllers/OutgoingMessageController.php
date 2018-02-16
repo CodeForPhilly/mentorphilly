@@ -76,7 +76,6 @@ public function test(){
             // $table->string('smsname'); 
             // $table->string('channel'); 
             // $table->string('number');
-        });
 
 
             }
