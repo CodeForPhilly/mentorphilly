@@ -16,6 +16,10 @@ class CreateOutgoingMessagesTable extends Migration
         Schema::create('outgoing_messages', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('smsname'); 
+            $table->string('channel'); 
+            $table->string('number');
+            $table->text('message');
         });
     }
 

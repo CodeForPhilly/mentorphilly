@@ -20,19 +20,18 @@ class OutgoingMessageController extends Controller
 public function test(){
 
         echo 'testing'; 
-
-
         $testNumber = config('twilio.twilio.connections.twilio.test');
         $message = "Hi There from MentorPhilly"; 
-
-
         Twilio::message($testNumber, $message);
-
-
         echo 'Message sent';
-
-
     }
+
+
+      /**
+     * Send Slack generated message to recipient via Twilio
+     *
+     * @param  Request object
+     */
 
     public function sendFromSlack(Request $request)
     {
@@ -65,6 +64,19 @@ public function test(){
 
                 $to = '+'.$to; 
                 Twilio::message($to, $message);
+
+            // you have to pass an associative array of the correspnding table field when you call this
+            OutgoingMessage::create(['smsname' => $user, 'channel' => $channel_name, 'number' => $to, 'message' => $message]);
+
+
+            //        Schema::create('s_m_s_recipients', function (Blueprint $table) {
+            // $table->increments('id');
+            // $table->timestamps();
+            
+            // $table->string('smsname'); 
+            // $table->string('channel'); 
+            // $table->string('number');
+        });
 
 
             }
