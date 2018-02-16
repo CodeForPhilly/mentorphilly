@@ -11,14 +11,9 @@ use Twilio;
 //twilio request validator
 use Services_Twilio\Services_Twilio_RequestValidator;
 
-//this was necessary along with the next one
+//this is related to Notifications and was necessary to use Notfication
 use Notification; 
-
-//this was necessary + use Notfication
 use App\Notifications\IncomingTextMessage; 
-
-
-
 
 
 class IncomingMessageController extends Controller
@@ -33,8 +28,6 @@ class IncomingMessageController extends Controller
 
 	public function IncomingMessage(Request $request){
 
-
-		
 
       $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
 
@@ -73,7 +66,7 @@ class IncomingMessageController extends Controller
 
             $admin = \App\User::find(1); 
 			$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)); 
-			IncomingMessageController::store($from);
+			IncomingMessageController::store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
 
 
 		}
@@ -83,7 +76,7 @@ class IncomingMessageController extends Controller
 	}
   
 
-     public function store($from)
+     public function store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)
 
 	{
 		
@@ -99,7 +92,7 @@ class IncomingMessageController extends Controller
 			$storefrom = (string)$from; 
 
 			// you have to pass an associative array of the correspnding table field when you call this
-			IncomingMessage::create(['number' => $storefrom]);
+			IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
 
 		}
 
