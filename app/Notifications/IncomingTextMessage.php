@@ -15,6 +15,9 @@ class IncomingTextMessage extends Notification
 
     protected $from; 
     protected $msg; 
+    protected $outgoingMedia;
+    protected $outgoingCity; 
+    protected $outgoingZip;
 
     use Queueable;
     /**
