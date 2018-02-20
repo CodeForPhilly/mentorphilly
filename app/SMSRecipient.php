@@ -13,4 +13,29 @@ class SMSRecipient extends Model
 	// 	return $this->belongsTo(User::class); 
 
 	// }
+
+    public function phone()
+    {
+        return $this->hasOne('App\Phone');
+    }
+
+    public function addPhone($number){
+
+		
+		
+		// this is the equivalent 
+		$this->phone()->create(compact('number'));
+
+		//of this
+
+		  // Comment::create([
+    //         'body' => request('body'), 
+    //         'post_id' => this->id
+    //     ]);
+
+
+
+	}
+
+
 }

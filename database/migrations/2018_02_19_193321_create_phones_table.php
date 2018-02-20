@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSMSRecipientsTable extends Migration
+class CreatePhonesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSMSRecipientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('s_m_s_recipients', function (Blueprint $table) {
+        Schema::create('phones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('smsname'); 
-            $table->string('channel');
             $table->timestamps();
+            $table->string('number');
+            $table->integer('s_m_s_recipient_id'); 
         });
     }
 
@@ -28,9 +28,6 @@ class CreateSMSRecipientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('s_m_s_recipients');
+        Schema::dropIfExists('phones');
     }
-
-
-
 }

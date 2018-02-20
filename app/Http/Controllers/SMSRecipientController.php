@@ -39,6 +39,8 @@ class SMSRecipientController extends Controller
 
 	}
 
+	
+
 	public function store()
 
 	{
@@ -46,7 +48,7 @@ class SMSRecipientController extends Controller
 		$this->validate(request(), [
 //edit these to coressponding user fields
 			'smsname' => 'required|max:20', 
-			'number' => 'required',
+			
 			'channel' => 'required|max:20'
 
 		]);
@@ -57,9 +59,39 @@ class SMSRecipientController extends Controller
 		//IMPORTANT: BE EXPLICIT! only pass the fields you are comfortable submitted to the server
 		
 // edit these to corresponding user fields
-	SMSRecipient::create(request(['smsname','number','channel']));
-		
+	// SMSRecipient::create(request(['smsname','channel']));
+
+	$request_no = request('number');
+
+	// $number = new \App\Phone(['number' => $request_no]);
+	
+
+	// $this->addPhone(request['number']); 
+	$recipient = new SMSRecipient; 
+
+	$recipient->smsname = request('smsname'); 
+	$recipient->channel = request('channel'); 
+
+	$recipient->save();
+	$recipient->addPhone($request_no); 
+
+	 
+
+// 	$post = App\Post::find(1);
+
+// $post->comments()->save($comment);
+
+
+
+// 	$comment = new App\Comment(['message' => 'A new comment.']);
+
+// $post = App\Post::find(1);
+
+// $post->comments()->save($comment);
 		/*
+		$comment = $post->comments()->create([
+    'message' => 'A new comment.',
+]);
 
 		^^^ that does the same as this:
 		$post = new Post; 
