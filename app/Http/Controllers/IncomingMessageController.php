@@ -39,11 +39,7 @@ class IncomingMessageController extends Controller
 
       if ($isValid) {
 
-      	
           $this->prepareMessage($request);
-
-           
-
 
 		}
 
@@ -79,9 +75,22 @@ class IncomingMessageController extends Controller
         $msg = 'Message: '.$message;
 
 
+        $this->sendMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
+
+
+	}
+
+
+	public function sendMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip){
+
+
 
          $admin = \App\User::find(1); 
-			$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)); 
+
+        //call notification
+		$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)); 
+
+		//store sent message
 			IncomingMessageController::store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
 
 
