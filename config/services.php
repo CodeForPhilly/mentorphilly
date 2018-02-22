@@ -38,10 +38,12 @@ return [
 
     'slack' => [
 
-        'auth_token' => env('SLACK_AUTH_TOKEN'),
+        // 'auth_token' => env('SLACK_AUTH_TOKEN'),
+        'auth_token' => env('TEXT_BOT_OAUTH'),
         'hook' => env('SLACK_WEB_HOOK'),
+        'apihook' => env('SLACK_API_HOOK'),
 
-        'text-bot-auth' => env('TEXT_BOT_OAUTH'),
+        // 'text-bot-auth' => env('TEXT_BOT_OAUTH'),
 
 
     ],

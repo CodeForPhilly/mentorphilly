@@ -32,6 +32,6 @@ class User extends Authenticatable
 
         // return config('services.slack.hook');
 
-        return config('services.slack.text-bot-auth');
+        return config('services.slack.apihook');
     }
 }
