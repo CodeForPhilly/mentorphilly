@@ -26,7 +26,7 @@ class IncomingMessageController extends Controller
 
 	}
 
-	public function validate(Request $request){
+	public function validateMessage(Request $request){
 
 
       $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
@@ -40,7 +40,7 @@ class IncomingMessageController extends Controller
       if ($isValid) {
 
       	
-          prepareMessage($request);
+          $this->prepareMessage($request);
 
            
 

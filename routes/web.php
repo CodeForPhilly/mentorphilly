@@ -43,7 +43,7 @@ Route::post('/fromslack', 'OutgoingMessageController@sendFromSlack');
 // Route::get('/test', 'OutgoingMessageController@test'); 
 
 
-Route::post('/incomingMessage', 'IncomingMessageController@validate');
+Route::post('/incomingMessage', 'IncomingMessageController@validateMessage');
 
 // Route::post('/incomingMessage', function(Request $request){
 
