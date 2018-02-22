@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 use Twilio; 
 
+use DB; 
+
 //twilio request validator
 use Services_Twilio\Services_Twilio_RequestValidator;
 
