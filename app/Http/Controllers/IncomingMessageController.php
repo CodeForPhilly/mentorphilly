@@ -103,7 +103,7 @@ class IncomingMessageController extends Controller
 
 
 		if(!empty($mentee)){      	
-      		$title = 'From: '.$mentee[0].' @'.$from; 
+      		$title = 'From: '.$mentee.' @'.$from; 
       	}
 
       	else {
@@ -114,7 +114,7 @@ class IncomingMessageController extends Controller
         $msg = 'Message: '.$message;
 
 
-        $this->sendMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
+        $this->sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
 
 
 	}
