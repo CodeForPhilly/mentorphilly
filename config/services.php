@@ -41,6 +41,9 @@ return [
         'auth_token' => env('SLACK_AUTH_TOKEN'),
         'hook' => env('SLACK_WEB_HOOK'),
 
+        'text-bot-auth' => env('TEXT_BOT_OAUTH'),
+
+
     ],
 
 ];

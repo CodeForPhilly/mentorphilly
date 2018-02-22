@@ -16,16 +16,32 @@ use Notification;
 use App\Notifications\IncomingTextMessage; 
 
 
+
 class IncomingMessageController extends Controller
 {
     
 
+    /**
+     * Create the form to handle the incoming message post
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string|null  $guard
+     * @return mixed
+     */
 	public function create(){
 
 	 return view('layouts.partials.form'); 
 
 	}
 
+	 /**
+     * Receiving incoming twilio message and validate that it is coming from twilio 
+     * before processing the message
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     */
 	public function validateMessage(Request $request){
 
 
@@ -48,6 +64,12 @@ class IncomingMessageController extends Controller
 	}
 
 
+	/**
+     * Prepare the message to send to slack
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     */
 	public function prepareMessage($request){
 
 		$from = '[unknown]';
@@ -56,8 +78,10 @@ class IncomingMessageController extends Controller
       	$outgoingCity = '[unknown]';
       	$outgoingZip = '[unknown]'; 
 
-      	if(null != $request->input('From'))
-      		$from = $request->input('From'); 
+      	if(null != $request->input('From')){
+      		$from = $request->input('From');
+      		$mentee = $this->checkForMentee($from);  
+      	}
       	
       	if(null != $request->input('Body'))
       		$message = $request->input('Body'); 
@@ -70,8 +94,18 @@ class IncomingMessageController extends Controller
 		
 		if(null != $request->input('FromZip'))
 			$outgoingZip = $request->input('FromZip');
-      	
-      	$title = 'From: '.$from;
+
+
+
+		if(!empty($mentee)){      	
+      		$title = 'From: '.$mentee[0].' @'.$from; 
+      	}
+
+      	else {
+
+      		$title = 'From: '.$from;
+
+      	}
         $msg = 'Message: '.$message;
 
 
@@ -80,10 +114,27 @@ class IncomingMessageController extends Controller
 
 	}
 
+	public function checkForMentee($from){
 
+
+			$mentee = DB::table('s_m_s_recipients')
+				->join('phones','s_m_s_recipients.id','=','phones.s_m_s_recipients_id')
+				->select('phone.number')
+				->where('phone.number',$from)
+				->get();
+
+				return $mentee; 
+
+
+	}
+
+	/**
+     * Send the message to slack and then call the function to store it
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     */
 	public function sendMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip){
-
-
 
          $admin = \App\User::find(1); 
 
@@ -93,10 +144,16 @@ class IncomingMessageController extends Controller
 		//store sent message
 			IncomingMessageController::store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
 
-
 	}
   
 
+	/**
+     * Store the message in the db and auto-reply if this is the first message from the 
+     * number
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     */
      public function store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)
 
 	{
