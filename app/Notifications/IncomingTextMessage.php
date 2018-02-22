@@ -57,7 +57,6 @@ class IncomingTextMessage extends Notification
 
         
         ->success()
-        ->content("Hey <!general> someone has posted to the web form")
         ->content('Incoming Text Message')
         ->content($this->outgoingCity.','.$this->outgoingZip)
         ->attachment(function ($attachment) {
