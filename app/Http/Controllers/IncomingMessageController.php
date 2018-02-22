@@ -121,7 +121,7 @@ class IncomingMessageController extends Controller
 
 			$mentee = DB::table('s_m_s_recipients')
 				->join('phones','s_m_s_recipients.id','=','phones.s_m_s_recipients_id')
-				->select('phones.number')
+				->select('s_m_s_recipients.smsname')
 				->where('phones.number',$from)
 				->get();
 
