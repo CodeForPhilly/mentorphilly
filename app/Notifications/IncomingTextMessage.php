@@ -55,7 +55,7 @@ class IncomingTextMessage extends Notification
 
         return (new SlackMessage)
 
-        ->to('#general')
+        
         ->success()
         ->content('Incoming Text Message')
         ->content($this->outgoingCity.','.$this->outgoingZip)
