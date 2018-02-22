@@ -82,7 +82,10 @@ class IncomingMessageController extends Controller
 
       	if(null != $request->input('From')){
       		$from = $request->input('From');
-      		$mentee = $this->checkForMentee($from);  
+      		$mentees = $this->checkForMentee($from);  
+
+      		$mentee = $mentees[0]->smsname; 
+
       	}
       	
       	if(null != $request->input('Body'))
