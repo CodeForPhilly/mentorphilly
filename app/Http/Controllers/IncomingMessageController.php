@@ -139,7 +139,7 @@ class IncomingMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      */
-	public function sendMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip){
+	public function sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip){
 
          $admin = \App\User::find(1); 
 
