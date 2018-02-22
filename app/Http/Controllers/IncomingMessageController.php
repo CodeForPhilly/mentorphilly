@@ -26,7 +26,7 @@ class IncomingMessageController extends Controller
 
 	}
 
-	public function IncomingMessage(Request $request){
+	public function validate(Request $request){
 
 
       $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
@@ -39,7 +39,22 @@ class IncomingMessageController extends Controller
 
       if ($isValid) {
 
-      	$from = '[unknown]';
+      	
+          prepareMessage($request);
+
+           
+
+
+		}
+
+		else 
+			echo 'You are not twilio';
+	}
+
+
+	public function prepareMessage($request){
+
+		$from = '[unknown]';
       	$message = '[empty]';
       	$outgoingMedia = ''; 
       	$outgoingCity = '[unknown]';
@@ -62,17 +77,14 @@ class IncomingMessageController extends Controller
       	
       	$title = 'From: '.$from;
         $msg = 'Message: '.$message;
-          
 
-            $admin = \App\User::find(1); 
+
+
+         $admin = \App\User::find(1); 
 			$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)); 
 			IncomingMessageController::store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
 
 
-		}
-
-		else 
-			echo 'You are not twilio';
 	}
   
 

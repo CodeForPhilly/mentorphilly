@@ -75,34 +75,7 @@ class SMSRecipientController extends Controller
 	$recipient->save();
 	$recipient->addPhone($request_no); 
 
-	 
-
-// 	$post = App\Post::find(1);
-
-// $post->comments()->save($comment);
-
-
-
-// 	$comment = new App\Comment(['message' => 'A new comment.']);
-
-// $post = App\Post::find(1);
-
-// $post->comments()->save($comment);
-		/*
-		$comment = $post->comments()->create([
-    'message' => 'A new comment.',
-]);
-
-		^^^ that does the same as this:
-		$post = new Post; 
-		//Create a new post using the request data
-		$post->name = request('title'); 
-		$post->number = request('number'); 
-		'chan'
-		$post->save(); 
-		// Save it to the database */
-
-		// And then redirect to the homepage
+	
 		return redirect('/');
 
 	}
