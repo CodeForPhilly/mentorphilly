@@ -2,98 +2,66 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+    <div class="row justify-content-md-center mt-5">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Register Mentee</div>
+                <div class="card-body">
+                    <form role="form" method="POST" action="/storerecipient">
+                        {!! csrf_field() !!}
 
-                <div class="panel-body">
-                   
-      
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label text-lg-right">Name</label>
 
-      <div class="row">
-
-        <div class="col-sm-8 blog-main">
-
-            <h1>Add a Mentee</h1>
-
-@include('layouts.partials.errors')
-
-<div class="form-group">
- <form class="form-horizontal" method="POST" action="/storerecipient">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('smsname') ? ' has-error' : '' }}">
-                            <label for="smsname" class="col-md-4 control-label">smsname</label>
-
-                                <div class="col-md-6">
-                                <input id="smsname" type="text" class="form-control" name="smsname" value="{{ old('smsname') }}" required autofocus>
-
-                                @if ($errors->has('smsname'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('smsname') }}</strong>
-                                    </span>
+                            <div class="col-lg-6">
+                                <input
+                                        type="text"
+                                        class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                        name="name"
+                                        value="{{ old('name') }}"
+                                        required
+                                >
+                                @if ($errors->has('name'))
+                                    <div class="invalid-feedback">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </div>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('number') ? ' has-error' : '' }}">
-                            <label for="number" class="col-md-4 control-label">Number</label>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label text-lg-right">Phone Number</label>
 
-                            <div class="col-md-6">
-                                <input id="number" type="text" class="form-control" name="number" value="{{ old('number') }}" required>
+                            <div class="col-lg-6">
+                                <input
+                                        type="number"
+                                        class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}"
+                                        name="number"
+                                        value="{{ old('number') }}"
+                                        required
+                                >
 
                                 @if ($errors->has('number'))
-                                    <span class="help-block">
+                                    <div class="invalid-feedback">
                                         <strong>{{ $errors->first('number') }}</strong>
-                                    </span>
+                                    </div>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('channel') ? ' has-error' : '' }}">
-                            <label for="channel" class="col-md-4 control-label">channel</label>
+                        
 
-                            <div class="col-md-6">
-                                <input id="channel" type="text" class="form-control" name="channel" required>
-
-                                @if ($errors->has('channel'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('channel') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="channel-confirm" class="col-md-4 control-label">Confirm channel</label>
-
-                            <div class="col-md-6">
-                                <input id="channel-confirm" type="channel" class="form-control" smsname="channel_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                        <div class="form-group row">
+                            <div class="col-lg-6 offset-lg-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Submit
+                                    Register Mentee
                                 </button>
                             </div>
                         </div>
                     </form>
-
-</div> {{-- container --}}
-
-</div> {{-- col --}}
-</div> {{-- row --}}
-
-@endsection 
-
-
-
-
-                   
-
-
-                   
-
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

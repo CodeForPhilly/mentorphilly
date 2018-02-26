@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+    <div class="row justify-content-md-center mt-5">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Admin Dashboard</div>
+                <div class="card-body">
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -14,13 +14,20 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    @if (session('sms_saved'))
+                        <div class="alert alert-success">
+                            {{ session('sms_saved') }}
+                        </div>
+                    @endif
 
+                    
+                    <p><a href="/creatementee"><button type="button" class="btn btn-primary">Add a mentee</button></a></p>
 
-                    <p class="btn"><a href="/creatementee">Enter a sms recepient records</a></p>
+                     <p><a href="/index"><button type="button" class="btn btn-primary">All Mentees</button></a></p>
 
                 </div>
-            </div>
+            
+        </div>
         </div>
     </div>
 </div>

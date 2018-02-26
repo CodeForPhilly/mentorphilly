@@ -22,7 +22,6 @@ class SMSRecipient extends Model
     public function addPhone($number){
 
 		
-		
 		// this is the equivalent 
 		$this->phone()->create(compact('number'));
 
@@ -32,6 +31,15 @@ class SMSRecipient extends Model
     //         'body' => request('body'), 
     //         'post_id' => this->id
     //     ]);
+
+	}
+
+
+	public function getNumber(){
+
+		return $this->phone['number']; 
+		
+		
 
 
 

@@ -47,21 +47,24 @@ class SMSRecipientController extends Controller
 
 		$this->validate(request(), [
 //edit these to coressponding user fields
-			'smsname' => 'required|max:20', 
+			'name' => 'required|max:20', 
 			
-			'channel' => 'required|max:20'
+			//must have at the front be a number and be 11 digits
+			'number' => 'required|numeric|digits:10'
+			
 
 		]);
-		
 
 
-		//Creates a new post and requests the array passed in and saves it to the db
-		//IMPORTANT: BE EXPLICIT! only pass the fields you are comfortable submitted to the server
-		
-// edit these to corresponding user fields
-	// SMSRecipient::create(request(['smsname','channel']));
 
+	
 	$request_no = request('number');
+
+	$request_no = '+1'.$request_no; 
+
+	$request_name = request('name'); 
+
+	$channel = "#".strtolower($request_name); 
 
 	// $number = new \App\Phone(['number' => $request_no]);
 	
@@ -69,14 +72,17 @@ class SMSRecipientController extends Controller
 	// $this->addPhone(request['number']); 
 	$recipient = new SMSRecipient; 
 
-	$recipient->smsname = request('smsname'); 
-	$recipient->channel = request('channel'); 
+	$recipient->smsname = $request_name; 
+	$recipient->channel = $channel; 
 
 	$recipient->save();
 	$recipient->addPhone($request_no); 
 
-	
-		return redirect('/');
+
+
+	return redirect('/home')->with([
+		'sms_saved' => 	'SMS Recipient Saved'
+	]);
 
 	}
 }
