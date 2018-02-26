@@ -34,7 +34,7 @@
 
                             <div class="col-lg-6">
                                 <input
-                                        type="number"
+                                        type="text"
                                         class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}"
                                         name="number"
                                         value="{{ old('number') }}"
