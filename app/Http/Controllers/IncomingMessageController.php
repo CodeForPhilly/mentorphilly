@@ -145,10 +145,10 @@ class IncomingMessageController extends Controller
      */
 	public function sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip){
 
-         $admin = \App\User::find(1); 
+  //        $admin = \App\User::find(1); 
 
-        //call notification
-		$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
+  //       //call notification
+		// $admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
 //trying monolog
 
       $logger = \Log::getMonolog();
