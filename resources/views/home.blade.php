@@ -21,7 +21,7 @@
                     @endif
 
                     
-                    <p><a href="/creatementee"><button type="button" class="btn btn-primary">Add a mentee</button></a></p>
+                    <p><a href="/createrecipient"><button type="button" class="btn btn-primary">Add a mentee</button></a></p>
 
                      <p><a href="/index"><button type="button" class="btn btn-primary">All Mentees</button></a></p>
 

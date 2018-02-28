@@ -10,6 +10,10 @@ use Twilio;
 
 use DB; 
 
+//trying to use monolog
+use Illuminate\Support\ServiceProvider;
+
+
 //twilio request validator
 use Services_Twilio\Services_Twilio_RequestValidator;
 
@@ -144,7 +148,43 @@ class IncomingMessageController extends Controller
          $admin = \App\User::find(1); 
 
         //call notification
-		$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)); 
+		$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)
+
+
+//trying monolog
+
+      $logger = \Log::getMonolog();
+
+        // Additional info in message
+        $logger->pushProcessor(function($record) {
+            $info = '';
+            $info .= '\n New Message'; 
+            
+            $info .= '\n '.$title;
+            $info .= '\n '.$outgoingCity.', '.$outgoingZip;
+            $info .= '\n\n '.$message;
+            return $record;
+        });
+
+        // Slack notification
+        
+            $slackHandler = new \Monolog\Handler\SlackHandler(
+                config('services.slack.text-bot-oauth'),
+                '#general',
+                'incoming_text_bot',
+                true,
+                ':skull:',
+                \Monolog\Logger::ERROR,
+                true,
+                true,
+                true
+            );
+            $logger->pushHandler($slackHandler);
+        
+
+
+
+  ); 
 
 		//store sent message
 			IncomingMessageController::store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);

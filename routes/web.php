@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/creatementee', 'SMSRecipientController@create'); 
+Route::get('/createrecipient', 'SMSRecipientController@create'); 
 
 Route::post('/storerecipient','SMSRecipientController@store'); 
 
