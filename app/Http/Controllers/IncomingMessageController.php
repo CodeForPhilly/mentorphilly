@@ -164,7 +164,7 @@ class IncomingMessageController extends Controller
 
              $record['message'] .= $info . "\n";
 
-             
+
             return $record;
         });
 
@@ -172,7 +172,7 @@ class IncomingMessageController extends Controller
         
             $slackHandler = new \Monolog\Handler\SlackHandler(
                 env('services.slack.text-bot-oauth'),
-                '#general',
+                '#random',
                 'incoming_text_bot',
                 true,
                 ':skull:',
