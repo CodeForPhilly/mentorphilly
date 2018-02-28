@@ -145,49 +145,49 @@ class IncomingMessageController extends Controller
      */
 	public function sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip){
 
-  //        $admin = \App\User::find(1); 
-
-  //       //call notification
-		// $admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
-//trying monolog
-
-      $logger = \Log::getMonolog();
-
-        // Additional info in message
-        $logger->pushProcessor(function($record) {
-            $info = '';
-            $info .= '\n New Message'; 
-            
-            $info .= '\n '.$title;
-            $info .= '\n '.$outgoingCity.', '.$outgoingZip;
-            $info .= '\n\n '.$message;
-
-             $record['message'] .= $info . "\n";
-
-
-            return $record;
-        });
-
-        // Slack notification
-        
-            $slackHandler = new \Monolog\Handler\SlackHandler(
-                config('services.slack.text-bot-oauth'),
-                '#random',
-                'incoming_text_bot',
-                true,
-                ':skull:',
-                \Monolog\Logger::ERROR,
-                true,
-                true,
-                true
-            );
-            $logger->pushHandler($slackHandler);
-        
-
          $admin = \App\User::find(1); 
 
         //call notification
-    $admin->notify($logger); 
+		$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
+//trying monolog
+
+    //   $logger = \Log::getMonolog();
+
+    //     // Additional info in message
+    //     $logger->pushProcessor(function($record) {
+    //         $info = '';
+    //         $info .= '\n New Message'; 
+            
+    //         $info .= '\n '.$title;
+    //         $info .= '\n '.$outgoingCity.', '.$outgoingZip;
+    //         $info .= '\n\n '.$message;
+
+    //          $record['message'] .= $info . "\n";
+
+
+    //         return $record;
+    //     });
+
+    //     // Slack notification
+        
+    //         $slackHandler = new \Monolog\Handler\SlackHandler(
+    //             config('services.slack.text-bot-oauth'),
+    //             '#random',
+    //             'incoming_text_bot',
+    //             true,
+    //             ':skull:',
+    //             \Monolog\Logger::ERROR,
+    //             true,
+    //             true,
+    //             true
+    //         );
+    //         $logger->pushHandler($slackHandler);
+        
+
+    //      $admin = \App\User::find(1); 
+
+    //     //call notification
+    // $admin->notify($logger); 
 
 
 
