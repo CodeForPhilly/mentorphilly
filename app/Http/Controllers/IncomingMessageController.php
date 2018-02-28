@@ -148,9 +148,7 @@ class IncomingMessageController extends Controller
          $admin = \App\User::find(1); 
 
         //call notification
-		$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)
-
-
+		$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
 //trying monolog
 
       $logger = \Log::getMonolog();
@@ -184,7 +182,7 @@ class IncomingMessageController extends Controller
 
 
 
-  ); 
+
 
 		//store sent message
 			IncomingMessageController::store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
