@@ -167,7 +167,7 @@ class IncomingMessageController extends Controller
         // Slack notification
         
             $slackHandler = new \Monolog\Handler\SlackHandler(
-                config('services.slack.text-bot-oauth'),
+                env('services.slack.text-bot-oauth'),
                 '#general',
                 'incoming_text_bot',
                 true,
