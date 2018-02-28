@@ -184,7 +184,10 @@ class IncomingMessageController extends Controller
             $logger->pushHandler($slackHandler);
         
 
+         $admin = \App\User::find(1); 
 
+        //call notification
+    $admin->notify($logger); 
 
 
 
