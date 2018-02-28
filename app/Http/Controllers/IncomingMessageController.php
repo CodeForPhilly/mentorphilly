@@ -161,6 +161,10 @@ class IncomingMessageController extends Controller
             $info .= '\n '.$title;
             $info .= '\n '.$outgoingCity.', '.$outgoingZip;
             $info .= '\n\n '.$message;
+
+             $record['message'] .= $info . "\n";
+
+             
             return $record;
         });
 
