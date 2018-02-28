@@ -57,6 +57,7 @@ class IncomingTextMessage extends Notification
 
         
         ->success()
+        ->channel('#random')
         ->content('Incoming Text Message')
         ->content($this->outgoingCity.','.$this->outgoingZip)
         ->attachment(function ($attachment) {
