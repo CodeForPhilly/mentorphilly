@@ -91,7 +91,7 @@ class SlackBot extends Model
     public function chatter($message, $channel)
     {
         try {
-            $response = $this->client->request('POST', 'chat.postMessage',
+            $response = $this->client->post('https://slack.com/api/chat.postMessage',
             [
                 'verify'        =>  false,
                 'form_params'   =>  [
