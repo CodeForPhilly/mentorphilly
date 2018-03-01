@@ -162,7 +162,7 @@ class IncomingMessageController extends Controller
             $info .= '\n\n '.$message;
 
 
-  SlackBot::postMessageToSlackByToken($info, '#random');
+  SlackBot::postMessageToSlackByToken($info, '#general');
    
 
 
