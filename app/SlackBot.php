@@ -65,7 +65,7 @@ class SlackBot extends Model
      *
      * @param Array $config
      */
-    public function __construct(Array $config)
+    public function __construct()
     {
         $this->defaultChannel = config('services.slack.default_channel');
         $this->token = config('services.slack.token');
