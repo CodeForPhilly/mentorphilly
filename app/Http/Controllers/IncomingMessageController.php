@@ -108,7 +108,7 @@ class IncomingMessageController extends Controller
 
 
 		if(!empty($mentee)){      	
-      		$title = 'From: '.$mentee.' @'.$from; 
+      		$title = 'From: '.$mentee.' at '.$from; 
       	}
 
       	else {
@@ -153,36 +153,34 @@ class IncomingMessageController extends Controller
 
 
 
-         $info = '';
-            $info .= '\n New Message'; 
-            
-            $info .= '\n '.$title;
-            $pretext = $outgoingCity.', '.$outgoingZip;
-            $info .= $pretext; 
-            $info .= '\n\n '.$message;
-
+         
+            $location = $outgoingCity.', '.$outgoingZip;
+         
 
   
 
 
-            $attachment = new SlackAttachment; 
+   
 
-            $attachment->fields(array(
-              "title" => $from,
-              "value" => "Message: ".$message." ",
-              "short" => false
-
-            )); 
-
-            $attachment->title($pretext); 
+    $attachment = '[
+        {
+            "fallback": "'.$message'",
+            "color": "#36a64f",
+            "pretext": "Incoming Text Message",
+            "author_name": "'.$location.'",
             
-
-    $attachmentjson = json_encode($attachment);
-
-    $teststring = '[{"pretext": "pre-hello", "text": "text-world"}]'; 
+            "title": "'.$from.'",
+            
+            "text": "'.$message.'",
+            
+            
+            "thumb_url": "'.$outgoingMedia.'",
+            "footer": "MentorPhilly Text Service"
+        }
+    ]';
 
     $bot = new SlackBot; 
-    $bot->chatter($teststring, '#texts'); 
+    $bot->chatter($attachment, '#texts'); 
    
 
 
