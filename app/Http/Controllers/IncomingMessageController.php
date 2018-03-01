@@ -168,14 +168,14 @@ class IncomingMessageController extends Controller
             $attachment = new SlackAttachment; 
 
             $attachment->fields(array(
-              "title" => "From: ".$name." at ".$outgoingFrom,
-              "value" => "Message: ".$outgoingMessage." ",
+              "title" => $from,
+              "value" => "Message: ".$message." ",
               "short" => false
 
             )); 
 
             $attachment->title($pretext); 
-            $attachment->content($message); 
+            
 
     $attachemtjson = json_encode($attachment); 
 
