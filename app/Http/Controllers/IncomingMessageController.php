@@ -13,7 +13,7 @@ use DB;
 
 use App\SlackBot;
 
-use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Messages\SlackAttachment;
 
 //twilio request validator
 use Services_Twilio\Services_Twilio_RequestValidator;
@@ -162,22 +162,25 @@ class IncomingMessageController extends Controller
             $info .= '\n\n '.$message;
 
 
-    $slack_message = new SlackMessage; 
+  
 
-        
-        $slack_message->success();
-        $slack_message->content('Incoming Text Message');
-        $slack_message->content($pretext);
-        $slack_message->attachment(function ($attachment) use($from, $message, $outgoingMedia) {
 
-            $attachment->title = $from; 
-             $attachment->content = $message; 
-              $attachment->image = $outgoingMedia;
+            $attachment = new SlackAttachment; 
 
-        });
+            $attachment->fields(array(
+              "title" => "From: ".$name." at ".$outgoingFrom,
+              "value" => "Message: ".$outgoingMessage." ",
+              "short" => false
+
+            )); 
+
+            $attachment->title($pretext); 
+            $attachment->content($message); 
+
+    $attachemtjson = json_encode($attachment); 
 
     $bot = new SlackBot; 
-    $bot->chatter($slack_message, '#texts'); 
+    $bot->chatter($attachment, '#texts'); 
    
 
 
