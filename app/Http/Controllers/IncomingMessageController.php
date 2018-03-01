@@ -180,7 +180,7 @@ class IncomingMessageController extends Controller
     $attachemtjson = json_encode($attachment); 
 
     $bot = new SlackBot; 
-    $bot->chatter($attachment, '#texts'); 
+    $bot->chatter($attachmentjson, '#texts'); 
    
 
 
