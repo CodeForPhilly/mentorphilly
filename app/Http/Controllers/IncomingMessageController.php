@@ -168,13 +168,7 @@ class IncomingMessageController extends Controller
         $slack_message->success();
         $slack_message->content('Incoming Text Message');
         $slack_message->content($pretext);
-        $slack_message->attachment(function ($attachment) {
-
-            $attachment->title = $from; 
-             $attachment->content = $message; 
-              $attachment->image = $outgoingMedia;
-
-        });
+        $slack_message->attachment($from); 
 
     $bot = new SlackBot; 
     $bot->chatter($slack_message, '#texts'); 
