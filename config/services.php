@@ -100,7 +100,7 @@ return [
     | Reference to slack emoji icon
     |
     */
-    'emoji_icon' => ':grinning:',
+    'emoji_icon' => ':calling:',
     /*
     |--------------------------------------------------------------------------
     | Server IP

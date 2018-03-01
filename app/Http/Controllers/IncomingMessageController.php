@@ -167,11 +167,18 @@ class IncomingMessageController extends Controller
             "fallback": "'.$message.'",
             "color": "#36a64f",
             "pretext": "Incoming Text Message",
-            "author_name": "'.$location.'",
+            "author_name": "Message Details",
             
-            "title": "'.$from.'",
+            "title": "'.$title.'",
             
             "text": "'.$message.'",
+            "fields": [
+                {
+                    "title": "Location",
+                    "value": "'.$location.'",
+                    "short": false
+                }
+            ],
             
             
             "thumb_url": "'.$outgoingMedia.'",
