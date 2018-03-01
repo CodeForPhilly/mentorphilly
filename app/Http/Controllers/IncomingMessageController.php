@@ -164,7 +164,7 @@ class IncomingMessageController extends Controller
 
     $attachment = '[
         {
-            "fallback": "'.$message'",
+            "fallback": "'.$message.'",
             "color": "#36a64f",
             "pretext": "Incoming Text Message",
             "author_name": "'.$location.'",
