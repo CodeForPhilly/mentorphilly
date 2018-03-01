@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1fa85fd776724a7936338859d71ce47c",
-    "content-hash": "36660411f0138632b1df5d8ab54b288a",
+    "hash": "614976d3b4240675dded55dd9f7c31a6",
+    "content-hash": "1391b47b753d9efa1e04ef292a5903cb",
     "packages": [
         {
             "name": "aloha/twilio",
@@ -2562,95 +2562,6 @@
                 "dump"
             ],
             "time": "2018-01-03 17:14:19"
-        },
-        {
-            "name": "thelhc/ip-info",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dieseljobs/ip-info.git",
-                "reference": "0b8a31e5ffa099f2749ce1067a5b1b03ce83dec3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dieseljobs/ip-info/zipball/0b8a31e5ffa099f2749ce1067a5b1b03ce83dec3",
-                "reference": "0b8a31e5ffa099f2749ce1067a5b1b03ce83dec3",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.2",
-                "illuminate/support": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
-                "php": "~5.6|~7.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "~3.0",
-                "phpunit/phpunit": "^5.4 || ~6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "TheLHC\\IpInfo\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Aaron Kaczmarek",
-                    "email": "aaronmichaelmusic@gmail.com"
-                }
-            ],
-            "description": "IpInfo Laravel Service Provider",
-            "time": "2018-01-25 17:38:33"
-        },
-        {
-            "name": "thelhc/lhc-slack-bot",
-            "version": "v1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dieseljobs/slack-bot.git",
-                "reference": "7d17e3c447dc1f1d2f097dd59dd70e452e692a2d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dieseljobs/slack-bot/zipball/7d17e3c447dc1f1d2f097dd59dd70e452e692a2d",
-                "reference": "7d17e3c447dc1f1d2f097dd59dd70e452e692a2d",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.2",
-                "illuminate/database": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
-                "illuminate/support": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
-                "php": "~5.6|~7.0",
-                "thelhc/ip-info": "^1.1"
-            },
-            "require-dev": {
-                "orchestra/testbench": "~3.0",
-                "phpunit/phpunit": "^5.4 || ~6.0",
-                "vlucas/phpdotenv": "^2.4"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TheLHC\\SlackBot\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Aaron Kaczmarek",
-                    "email": "aaronmichaelmusic@gmail.com"
-                }
-            ],
-            "description": "Laravel SlackBot Helper",
-            "time": "2018-01-25 17:47:15"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
