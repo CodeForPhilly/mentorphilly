@@ -168,7 +168,7 @@ class IncomingMessageController extends Controller
     $attachment->content = $message; 
 
     $bot = new SlackBot; 
-    $bot->chatter($pretext, $attachment, '#texts'); 
+    $bot->chatter($info, '#texts'); 
    
 
 
