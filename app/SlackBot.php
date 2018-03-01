@@ -101,7 +101,7 @@ class SlackBot extends Model
                     // separation between messages)
                     // 'text'      => ">>>{$message}"
                     // 'text'      => "$message",
-                    'json' => $message
+                    'json' => [ 'attachments' => $message]
                     // 'pretext' => $pretext, 
                     // 'attachment' => $attachment
                 ]
