@@ -161,8 +161,8 @@ class IncomingMessageController extends Controller
             $info .= '\n '.$outgoingCity.', '.$outgoingZip;
             $info .= '\n\n '.$message;
 
-            
-SlackBot::chat($info);
+
+  SlackBot::chat($info);
    
 
 
