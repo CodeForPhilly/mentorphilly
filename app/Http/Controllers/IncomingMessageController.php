@@ -171,9 +171,9 @@ class IncomingMessageController extends Controller
         $slack_message->attachment(function ($attachment) {
 
             $attachment
-                ->title($this->from)
-                ->content($this->msg)
-                ->image($this->outgoingMedia);
+                ->title($from)
+                ->content($message)
+                ->image($outgoingMedia);
 
         });
 
