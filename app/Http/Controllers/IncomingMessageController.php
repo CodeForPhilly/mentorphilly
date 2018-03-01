@@ -166,12 +166,12 @@ class IncomingMessageController extends Controller
         {
             "fallback": "'.$message.'",
             "color": "#36a64f",
-            "pretext": "Incoming Text Message",
+       
             "author_name": "Message Details",
             
             "title": "'.$title.'",
             
-            "text": "'.$message.'",
+       
             "fields": [
                 {
                     "title": "Location",
@@ -180,7 +180,7 @@ class IncomingMessageController extends Controller
                 }
             ],
             
-            
+            "text": "'.$message.'",     
             "thumb_url": "'.$outgoingMedia.'",
             "footer": "MentorPhilly Text Service"
         }
