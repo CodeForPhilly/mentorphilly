@@ -100,7 +100,7 @@ class SlackBot extends Model
                     // send all messages with >>> so it's indented (creates vertical
                     // separation between messages)
                     // 'text'      => ">>>{$message}"
-                    'pretext' => $pretext, 
+                    // 'pretext' => $pretext, 
                     'attachment' => $attachment
                 ]
             ]);
