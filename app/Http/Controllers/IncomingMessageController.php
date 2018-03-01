@@ -10,10 +10,8 @@ use Twilio;
 
 use DB; 
 
-
+//for sending with Slackbot
 use App\SlackBot;
-
-use Illuminate\Notifications\Messages\SlackAttachment;
 
 //twilio request validator
 use Services_Twilio\Services_Twilio_RequestValidator;
@@ -89,9 +87,15 @@ class IncomingMessageController extends Controller
       		$from = $request->input('From');
       		$mentees = $this->checkForMentee($from);  
 
-      		$mentee = $mentees[0]->smsname; 
-
+      		$mentee = $mentees[0]->smsname;
       	}
+
+        if(!empty($mentee->channel){
+
+            $channel = $mentee->channel
+          } 
+          else 
+            $channel = '#texts'; 
       	
       	if(null != $request->input('Body'))
       		$message = $request->input('Body'); 
@@ -119,7 +123,7 @@ class IncomingMessageController extends Controller
         $msg = 'Message: '.$message;
 
 
-        $this->sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
+        $this->sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip, $channel);
 
 
 	}
@@ -144,25 +148,19 @@ class IncomingMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      */
-	public function sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip){
+	public function sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip, $channel){
 
-  //        $admin = \App\User::find(1); 
+  //log all texts to webhook slack channel
+  $admin = \App\User::find(1); 
 
-  //       //call notification
-		// $admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
-
-
-
-         
-            $location = $outgoingCity.', '.$outgoingZip;
-         
-
+  //call notification
+	$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
+       
+  // prepare attachment for Slack
+  $location = $outgoingCity.', '.$outgoingZip;
   
-
-
-   
-
-    $attachment = '[
+  //json formatted attachment  
+  $attachment = '[
         {
             "fallback": "'.$message.'",
             "color": "#36a64f",
@@ -186,19 +184,15 @@ class IncomingMessageController extends Controller
         }
     ]';
 
+    //create new slackbot class to send using slackbot
     $bot = new SlackBot; 
-    $bot->chatter($attachment, '#texts'); 
+    $bot->chatter($attachment, $channel); 
    
-
-
-
-
 		//store sent message
 			IncomingMessageController::store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
 
 	}
   
-
 	/**
      * Store the message in the db and auto-reply if this is the first message from the 
      * number
