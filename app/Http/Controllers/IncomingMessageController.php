@@ -90,9 +90,9 @@ class IncomingMessageController extends Controller
       		$mentee = $mentees[0]->smsname;
       	}
 
-        if(!empty($mentee->channel){
+        if(!empty($mentees[0]->channel){
 
-            $channel = $mentee->channel
+            $channel = $mentees[0]->channel
           } 
           else 
             $channel = '#texts'; 
