@@ -160,7 +160,7 @@ class IncomingMessageController extends Controller
 
 
     $bot = new SlackBot; 
-    $bot->chatter($info, '#random'); 
+    $bot->chatter($info, '#texts'); 
    
 
 
