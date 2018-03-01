@@ -86,7 +86,7 @@ class SlackBot extends Model
 
 
 
-    public function chatter($message, $channel)
+    public function chatter($pretext, $attachment, $channel)
     {
         try {
             $response = $this->client->post('https://slack.com/api/chat.postMessage',
@@ -99,7 +99,9 @@ class SlackBot extends Model
                     'channel'   => $channel,
                     // send all messages with >>> so it's indented (creates vertical
                     // separation between messages)
-                    'text'      => ">>>{$message}"
+                    // 'text'      => ">>>{$message}"
+                    'pretext' => $pretext, 
+                    'attachment' => $attachment
                 ]
             ]);
         } catch (RequestException $e) {
