@@ -78,12 +78,10 @@ class SlackBot extends Model
         //     $this->username .= " [{$ip}]";
         // }
         $this->emoji = config('services.slack.emoji_icon');
-        if ($this->token && !empty(config('services.slack.base_uri')) {
-            $this->client = new Client(config('services.slack.base_uri'));
-        } else {
+      
             $this->client = new Client();
-        }
-        $this->blacklistProviders = config('services.slack.blacklist_providers');
+      
+              $this->blacklistProviders = config('services.slack.blacklist_providers');
     }
 
 
