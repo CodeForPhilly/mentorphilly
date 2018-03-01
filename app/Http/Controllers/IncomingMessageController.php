@@ -11,7 +11,7 @@ use Twilio;
 use DB; 
 
 
-
+use App\SlackBot;
 
 //twilio request validator
 use Services_Twilio\Services_Twilio_RequestValidator;
@@ -159,7 +159,7 @@ class IncomingMessageController extends Controller
             $info .= '\n\n '.$message;
 
 
-    $bot = new \SlackBot; 
+    $bot = new SlackBot; 
     $bot->chatter($info, '#random'); 
    
 
