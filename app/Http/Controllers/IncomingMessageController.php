@@ -10,10 +10,7 @@ use Twilio;
 
 use DB; 
 
-use SlackBot;
 
-//trying to use monolog
-use Illuminate\Support\ServiceProvider;
 
 
 //twilio request validator
@@ -147,22 +144,23 @@ class IncomingMessageController extends Controller
      */
 	public function sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip){
 
-         $admin = \App\User::find(1); 
+  //        $admin = \App\User::find(1); 
 
-        //call notification
-		$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
+  //       //call notification
+		// $admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
 
 
 
-         // $info = '';
-         //    $info .= '\n New Message'; 
+         $info = '';
+            $info .= '\n New Message'; 
             
-         //    $info .= '\n '.$title;
-         //    $info .= '\n '.$outgoingCity.', '.$outgoingZip;
-         //    $info .= '\n\n '.$message;
+            $info .= '\n '.$title;
+            $info .= '\n '.$outgoingCity.', '.$outgoingZip;
+            $info .= '\n\n '.$message;
 
 
-  
+    $bot = new SlackBot; 
+    $bot->chatter($info, '#random'); 
    
 
 
