@@ -157,7 +157,7 @@ class IncomingMessageController extends Controller
             $info .= '\n New Message'; 
             
             $info .= '\n '.$title;
-            $pretext = .$outgoingCity.', '.$outgoingZip;
+            $pretext = $outgoingCity.', '.$outgoingZip;
             $info .= $pretext; 
             $info .= '\n\n '.$message;
 
