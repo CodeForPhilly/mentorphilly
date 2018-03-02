@@ -84,6 +84,8 @@ class IncomingMessageController extends Controller
      */
 	public function prepareMessage(Request $request){
 
+
+
 		    $from = '[unknown]';
       	$message = '[empty]';
       	$outgoingMedia = ''; 
@@ -133,9 +135,15 @@ class IncomingMessageController extends Controller
       	// }
         $msg = 'Message: '.$message;
 
+        try{
 
         $this->sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip, $channel);
+      }
+      catch (Exception $e){
 
+          Log::error('Something is really going wrong.');
+
+      } 
 
 	}
 
