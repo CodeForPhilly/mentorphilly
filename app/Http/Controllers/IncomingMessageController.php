@@ -50,7 +50,7 @@ class IncomingMessageController extends Controller
 	public function validateMessage(Request $request){
 
 
-      $requestValidator = new \Services_Twilio_RequestValidator(config('services.twilio.token'));
+      $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
 
       $isValid = $requestValidator->validate(
         $request->header('X-Twilio-Signature'),
