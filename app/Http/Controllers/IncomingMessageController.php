@@ -206,7 +206,7 @@ class IncomingMessageController extends Controller
 	{
 		
 		if (IncomingMessage::where('number', '=', $from)->exists()) {
-   			echo 'Number already in DB'; 
+   			// echo 'Number already in DB'; 
    			$storefrom = (string)$from; 
    			IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
 		}
