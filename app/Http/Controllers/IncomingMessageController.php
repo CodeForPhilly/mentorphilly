@@ -62,11 +62,11 @@ class IncomingMessageController extends Controller
 
          try {
             $this->prepareMessage($request);
-            
+
         } catch (RequestException $e) {
             throw new \Exception($e->getMessage());
 
-          
+        }
 
 		}
 
