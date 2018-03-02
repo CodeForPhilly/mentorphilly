@@ -38,7 +38,7 @@ return [
 
     'twilio' => [
 
-        'token' => env('TWILIO_TOKEN'); 
+        'token' => env('TWILIO_TOKEN'), 
 
     ]
 
