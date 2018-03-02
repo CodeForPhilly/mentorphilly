@@ -125,6 +125,9 @@ class IncomingMessageController extends Controller
 
   //     	else {
 
+      // comment this out if you revert later
+      $from = $request->input('From');
+
       		$title = 'From: '.$from;
 
       	// }
