@@ -36,13 +36,6 @@ return [
     ],
 
 
-    'twilio' => [
-
-        'token' => env('TWILIO_TOKEN'), 
-
-    ]
-
-
     'slack' => [
 
         'auth_token' => env('SLACK_AUTH_TOKEN'),
