@@ -6,6 +6,7 @@ use Closure;
 
 //twilio request validator
 use Services_Twilio\Services_Twilio_RequestValidator;
+use Illuminate\Http\Response;
 
 class TwilioRequestValidator
 {
