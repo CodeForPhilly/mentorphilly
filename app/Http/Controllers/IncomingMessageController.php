@@ -64,8 +64,9 @@ class IncomingMessageController extends Controller
 
 		}
 
-		else 
+		else {
 			echo 'You are not twilio';
+    }
 	}
 
 
@@ -77,7 +78,7 @@ class IncomingMessageController extends Controller
      */
 	public function prepareMessage($request){
 
-		$from = '[unknown]';
+		    $from = '[unknown]';
       	$message = '[empty]';
       	$outgoingMedia = ''; 
       	$outgoingCity = '[unknown]';
