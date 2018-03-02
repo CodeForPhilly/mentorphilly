@@ -32,6 +32,8 @@ class TwilioRequestValidator
       if ($isValid) {
         return $next($request);
       } else {
+        Log::error('Something is really going wrong.');
+
         return new Response('You are not Twilio :(', 403);
       }
     }
