@@ -55,7 +55,7 @@ return [
     | This is the default channel to post bot messages on
     |
     */
-    'default_channel' => '#random',
+    'default_channel' => '#texts',
     /*
     |--------------------------------------------------------------------------
     | Username
@@ -64,7 +64,7 @@ return [
     | This will be the displayed username of posting slack bot
     |
     */
-    'username' => 'incoming_text_bot',
+    'username' => env('TEXT_BOT_NAME'),
     /*
     |--------------------------------------------------------------------------
     | Base Uri
