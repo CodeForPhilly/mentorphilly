@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+//twilio request validator
+use Services_Twilio\Services_Twilio_RequestValidator;
+
 class TwilioRequestValidator
 {
     /**
