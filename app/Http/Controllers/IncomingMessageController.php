@@ -50,29 +50,29 @@ class IncomingMessageController extends Controller
 	public function validateMessage(Request $request){
 
 
-      $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
+      // $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
 
-      $isValid = $requestValidator->validate(
-        $request->header('X-Twilio-Signature'),
-        $request->fullUrl(),
-        $request->toArray()
-      );
+      // $isValid = $requestValidator->validate(
+      //   $request->header('X-Twilio-Signature'),
+      //   $request->fullUrl(),
+      //   $request->toArray()
+      // );
 
-      if ($isValid) {
+      // if ($isValid) {
 
-         try {
+      //    try {
             $this->prepareMessage($request);
 
-        } catch (RequestException $e) {
-            throw new \Exception($e->getMessage());
+  //       } catch (RequestException $e) {
+  //           throw new \Exception($e->getMessage());
 
-        }
+  //       }
 
-		}
+		// }
 
-		else {
-			echo 'You are not twilio';
-    }
+		// else {
+		// 	echo 'You are not twilio';
+  //   }
 	}
 
 
