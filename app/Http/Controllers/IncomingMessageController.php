@@ -47,33 +47,33 @@ class IncomingMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      */
-	public function validateMessage(Request $request){
+	// public function validateMessage(Request $request){
 
 
-      // $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
+ //      $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
 
-      // $isValid = $requestValidator->validate(
-      //   $request->header('X-Twilio-Signature'),
-      //   $request->fullUrl(),
-      //   $request->toArray()
-      // );
+ //      $isValid = $requestValidator->validate(
+ //        $request->header('X-Twilio-Signature'),
+ //        $request->fullUrl(),
+ //        $request->toArray()
+ //      );
 
-      // if ($isValid) {
+ //      if ($isValid) {
 
-      //    try {
-            $this->prepareMessage($request);
+ //         try {
+ //            $this->prepareMessage($request);
 
-  //       } catch (RequestException $e) {
-  //           throw new \Exception($e->getMessage());
+ //        } catch (RequestException $e) {
+ //            throw new \Exception($e->getMessage());
 
-  //       }
+ //        }
 
-		// }
+	// 	}
 
-		// else {
-		// 	echo 'You are not twilio';
-  //   }
-	}
+	// 	else {
+	// 		echo 'You are not twilio';
+ //    }
+	// }
 
 
 	/**
@@ -82,7 +82,7 @@ class IncomingMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      */
-	public function prepareMessage($request){
+	public function prepareMessage(Request $request){
 
 		    $from = '[unknown]';
       	$message = '[empty]';
