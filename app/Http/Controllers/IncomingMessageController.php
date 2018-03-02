@@ -89,20 +89,20 @@ class IncomingMessageController extends Controller
       	$outgoingMedia = ''; 
       	$outgoingCity = '[unknown]';
       	$outgoingZip = '[unknown]'; 
-        $mentees = []; 
+        // $mentees = []; 
 
-      	if(null != $request->input('From')){
-      		$from = $request->input('From');
-      		$mentees = $this->checkForMentee($from);  
-          if(!empty($mentees[0]))
-      		  $mentee = $mentees[0]->smsname;
-      	}
+      	// if(null != $request->input('From')){
+      	// 	$from = $request->input('From');
+      	// 	$mentees = $this->checkForMentee($from);  
+       //    if(!empty($mentees[0]))
+      	// 	  $mentee = $mentees[0]->smsname;
+      	// }
 
-        if(!empty($mentees[0]->channel)){
+       //  if(!empty($mentees[0]->channel)){
 
-            $channel = $mentees[0]->channel;
-          } 
-          else 
+       //      $channel = $mentees[0]->channel;
+       //    } 
+       //    else 
             $channel = '#texts'; 
       	
       	if(null != $request->input('Body'))
@@ -119,15 +119,15 @@ class IncomingMessageController extends Controller
 
 
 
-		if(!empty($mentee)){      	
-      		$title = 'From: '.$mentee.' at '.$from; 
-      	}
+		// if(!empty($mentee)){      	
+  //     		$title = 'From: '.$mentee.' at '.$from; 
+  //     	}
 
-      	else {
+  //     	else {
 
       		$title = 'From: '.$from;
 
-      	}
+      	// }
         $msg = 'Message: '.$message;
 
 
@@ -165,36 +165,36 @@ class IncomingMessageController extends Controller
 	$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
        
   // prepare attachment for Slack
-  $location = $outgoingCity.', '.$outgoingZip;
+  // $location = $outgoingCity.', '.$outgoingZip;
   
-  //json formatted attachment  
-  $attachment = '[
-        {
-            "fallback": "'.$message.'",
-            "color": "#36a64f",
+  // //json formatted attachment  
+  // $attachment = '[
+  //       {
+  //           "fallback": "'.$message.'",
+  //           "color": "#36a64f",
        
-            "author_name": "Message Details",
+  //           "author_name": "Message Details",
             
-            "title": "'.$title.'",
+  //           "title": "'.$title.'",
             
        
-            "fields": [
-                {
-                    "title": "Location",
-                    "value": "'.$location.'",
-                    "short": false
-                }
-            ],
+  //           "fields": [
+  //               {
+  //                   "title": "Location",
+  //                   "value": "'.$location.'",
+  //                   "short": false
+  //               }
+  //           ],
             
-            "text": "'.$message.'",     
-            "thumb_url": "'.$outgoingMedia.'",
-            "footer": "MentorPhilly Text Service"
-        }
-    ]';
+  //           "text": "'.$message.'",     
+  //           "thumb_url": "'.$outgoingMedia.'",
+  //           "footer": "MentorPhilly Text Service"
+  //       }
+  //   ]';
 
-    //create new slackbot class to send using slackbot
-    $bot = new SlackBot; 
-    $bot->chatter($attachment, $channel); 
+  //   //create new slackbot class to send using slackbot
+  //   $bot = new SlackBot; 
+  //   $bot->chatter($attachment, $channel); 
    
 		//store sent message
 			IncomingMessageController::store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
