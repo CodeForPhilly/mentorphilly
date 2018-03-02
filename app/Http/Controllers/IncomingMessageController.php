@@ -60,7 +60,13 @@ class IncomingMessageController extends Controller
 
       if ($isValid) {
 
-          $this->prepareMessage($request);
+         try {
+            $this->prepareMessage($request);
+            
+        } catch (RequestException $e) {
+            throw new \Exception($e->getMessage());
+
+          
 
 		}
 
