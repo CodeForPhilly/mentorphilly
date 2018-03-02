@@ -89,12 +89,13 @@ class IncomingMessageController extends Controller
       	$outgoingMedia = ''; 
       	$outgoingCity = '[unknown]';
       	$outgoingZip = '[unknown]'; 
+        $mentees = []; 
 
       	if(null != $request->input('From')){
       		$from = $request->input('From');
       		$mentees = $this->checkForMentee($from);  
-
-      		$mentee = $mentees[0]->smsname;
+          if(!empty($mentees))
+      		  $mentee = $mentees[0]->smsname;
       	}
 
         if(!empty($mentees[0]->channel)){
