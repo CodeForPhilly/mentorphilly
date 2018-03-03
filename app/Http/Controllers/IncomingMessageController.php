@@ -241,7 +241,7 @@ class IncomingMessageController extends Controller
 
 		// }
 
-      IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
+      IncomingMessage::create(['number' => $incoming_number, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
 
 	}
 
