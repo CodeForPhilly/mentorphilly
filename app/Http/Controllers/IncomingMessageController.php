@@ -86,7 +86,7 @@ class IncomingMessageController extends Controller
 
 
 
-		    $from = '[unknown]';
+		    $incoming_number = '[unknown]';
       	$message = '[empty]';
       	$outgoingMedia = ''; 
       	$outgoingCity = '[unknown]';
@@ -94,8 +94,8 @@ class IncomingMessageController extends Controller
         $mentees = []; 
 
       	// if(null != $request->input('From')){
-      	// 	$from = $request->input('From');
-      	// 	$mentees = $this->checkForMentee($from);  
+      	// 	$incoming_number = $request->input('From');
+      	// 	$mentees = $this->checkForMentee($incoming_number);  
        //    if(!empty($mentees))
       	// 	  $mentee = $mentees[0]->smsname;
       	// }
@@ -122,22 +122,22 @@ class IncomingMessageController extends Controller
 
 
 		// if(!empty($mentee)){      	
-  //     		$title = 'From: '.$mentee.' at '.$from; 
+  //     		$title = 'From: '.$mentee.' at '.$incoming_number; 
   //     	}
 
   //     	else {
 
       // comment this out if you revert later
-      $from = $request->input('From');
+      $incoming_number = $request->input('From');
 
-      		$title = 'From: '.$from;
+      		$title = 'From: '.$incoming_number;
 
       	// }
         $msg = 'Message: '.$message;
 
         try{
 
-        $this->sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip, $channel);
+        $this->sendMessage($incoming_number, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip, $channel);
       }
       catch (Exception $e){
 
@@ -147,13 +147,13 @@ class IncomingMessageController extends Controller
 
 	}
 
-	public function checkForMentee($from){
+	public function checkForMentee($incoming_number){
 
 
 			$mentee = DB::table('s_m_s_recipients')
 				->join('phones','s_m_s_recipients.id','=','phones.s_m_s_recipient_id')
 				->select('s_m_s_recipients.smsname')
-				->where('phones.number',$from)
+				->where('phones.number',$incoming_number)
 				->get();
 
 				return $mentee; 
@@ -167,7 +167,7 @@ class IncomingMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      */
-	public function sendMessage($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip, $channel){
+	public function sendMessage($incoming_number, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip, $channel){
 
   //log all texts to webhook slack channel
   $admin = \App\User::find(1); 
@@ -208,7 +208,7 @@ class IncomingMessageController extends Controller
   //   $bot->chatter($attachment, $channel); 
    
 		//store sent message
-			IncomingMessageController::store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
+			IncomingMessageController::store($incoming_number, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
 
 	}
   
@@ -219,27 +219,29 @@ class IncomingMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      */
-     public function store($from, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)
+     public function store($incoming_number, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)
 
 	{
 		
-		if (IncomingMessage::where('number', '=', $from)->exists()) {
-   			// echo 'Number already in DB'; 
-   			$storefrom = (string)$from; 
-   			IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
-		}
+		// if (IncomingMessage::where('number', '=', $incoming_number)->exists()) {
+  //  			// echo 'Number already in DB'; 
+  //  			$storefrom = (string)$incoming_number; 
+  //  			IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
+		// }
 
-		else {
+		// else {
 
 
-			Twilio::message($from, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+		// 	Twilio::message($incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
-			$storefrom = (string)$from; 
+		// 	$storefrom = (string)$incoming_number; 
 
-			// you have to pass an associative array of the correspnding table field when you call this
-			IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
+		// 	// you have to pass an associative array of the correspnding table field when you call this
+		// 	IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
 
-		}
+		// }
+
+      IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
 
 	}
 
