@@ -24,7 +24,7 @@ use App\Notifications\IncomingTextMessage;
 
 class IncomingMessageController extends Controller
 {
-    
+  
 
     /**
      * Create the form to handle the incoming message post
@@ -34,11 +34,11 @@ class IncomingMessageController extends Controller
      * @param  string|null  $guard
      * @return mixed
      */
-	public function create(){
+    public function create(){
 
-	 return view('layouts.partials.form'); 
+      return view('layouts.partials.form'); 
 
-	}
+    }
 
 	 /**
      * Receiving incoming twilio message and validate that it is coming from twilio 
@@ -47,33 +47,7 @@ class IncomingMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      */
-	// public function validateMessage(Request $request){
 
-
- //      $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
-
- //      $isValid = $requestValidator->validate(
- //        $request->header('X-Twilio-Signature'),
- //        $request->fullUrl(),
- //        $request->toArray()
- //      );
-
- //      if ($isValid) {
-
- //         try {
- //            $this->prepareMessage($request);
-
- //        } catch (RequestException $e) {
- //            throw new \Exception($e->getMessage());
-
- //        }
-
-	// 	}
-
-	// 	else {
-	// 		echo 'You are not twilio';
- //    }
-	// }
 
 
 	/**
@@ -85,13 +59,8 @@ class IncomingMessageController extends Controller
 	public function prepareMessage(Request $request){
 
 
+    $message = new IncomingMessage(); 
 
-		    $incoming_number = '[unknown]';
-      	$message = '[empty]';
-      	$outgoingMedia = ''; 
-      	$outgoingCity = '[unknown]';
-      	$outgoingZip = '[unknown]'; 
-        $mentees = []; 
 
       	// if(null != $request->input('From')){
       	// 	$incoming_number = $request->input('From');
@@ -105,21 +74,28 @@ class IncomingMessageController extends Controller
             // $channel = $mentees[0]->channel;
           // } 
           // else 
-            $channel = '#texts'; 
-      	
-      	if(null != $request->input('Body'))
-      		$message = $request->input('Body'); 
-		
-      	if(null != $request->input('MediaUrl0'))
-			$outgoingMedia = $request->input('MediaUrl0');
-		
-		if(null != $request->input('FromCity'))
-			$outgoingCity = $request->input('FromCity');
-		
-		if(null != $request->input('FromZip'))
-			$outgoingZip = $request->input('FromZip');
+    
+    
+    if(null != $request->input('Body'))
+      $message->body = 'Message: '.$request->input('Body'); 
+    
+    if(null != $request->input('MediaUrl0'))
+     $message->outgoingMedia = $request->input('MediaUrl0');
+   
+   if(null != $request->input('FromCity'))
+     $message->outgoingCity = $request->input('FromCity');
+   
+   if(null != $request->input('FromZip'))
+     $message->outgoingZip = $request->input('FromZip');
 
 
+  if(null != $request->input('From')){
+       $message->incoming_number = $request->input('From');
+       $title = 'From: '.$message->incoming_number;
+  }
+   
+
+        // }
 
 		// if(!empty($mentee)){      	
   //     		$title = 'From: '.$mentee.' at '.$incoming_number; 
@@ -128,38 +104,35 @@ class IncomingMessageController extends Controller
   //     	else {
 
       // comment this out if you revert later
-      $incoming_number = $request->input('From');
-
-      		$title = 'From: '.$incoming_number;
-
-      	// }
-        $msg = 'Message: '.$message;
-
-        try{
-
-        $this->sendMessage($incoming_number, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip, $channel);
-      }
-      catch (Exception $e){
-
-          Log::error('Something is really going wrong.');
-
-      } 
-
-	}
-
-	public function checkForMentee($incoming_number){
 
 
-			$mentee = DB::table('s_m_s_recipients')
-				->join('phones','s_m_s_recipients.id','=','phones.s_m_s_recipient_id')
-				->select('s_m_s_recipients.smsname')
-				->where('phones.number',$incoming_number)
-				->get();
+   try{
 
-				return $mentee; 
+    $this->sendMessage($message);
+    $this->store($message);
+
+  }
+  catch (Exception $e){
+
+    Log::error('Something is really going wrong.');
+
+  } 
+
+}
+
+public function checkForMentee($incoming_number){
 
 
-	}
+ $mentee = DB::table('s_m_s_recipients')
+ ->join('phones','s_m_s_recipients.id','=','phones.s_m_s_recipient_id')
+ ->select('s_m_s_recipients.smsname')
+ ->where('phones.number',$incoming_number)
+ ->get();
+
+ return $mentee; 
+
+
+}
 
 	/**
      * Send the message to slack and then call the function to store it
@@ -167,28 +140,31 @@ class IncomingMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      */
-	public function sendMessage($incoming_number, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip, $channel){
+	public function sendMessage(IncomingMessage $message){
+
 
   //log all texts to webhook slack channel
-  $admin = \App\User::find(1); 
+    $admin = \App\User::find(1); 
+
+
 
   //call notification
-	$admin->notify(new IncomingTextMessage($title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)  ); 
-       
+    $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
+    
   // // prepare attachment for Slack
   // $location = $outgoingCity.', '.$outgoingZip;
-  
+    
   // //json formatted attachment  
   // $attachment = '[
   //       {
   //           "fallback": "'.$message.'",
   //           "color": "#36a64f",
-       
+    
   //           "author_name": "Message Details",
-            
+    
   //           "title": "'.$title.'",
-            
-       
+    
+    
   //           "fields": [
   //               {
   //                   "title": "Location",
@@ -196,7 +172,7 @@ class IncomingMessageController extends Controller
   //                   "short": false
   //               }
   //           ],
-            
+    
   //           "text": "'.$message.'",     
   //           "thumb_url": "'.$outgoingMedia.'",
   //           "footer": "MentorPhilly Text Service"
@@ -206,11 +182,10 @@ class IncomingMessageController extends Controller
   //   //create new slackbot class to send using slackbot
   //   $bot = new SlackBot; 
   //   $bot->chatter($attachment, $channel); 
-   
+    
 		//store sent message
-			IncomingMessageController::store($incoming_number, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip);
 
-	}
+  }
   
 	/**
      * Store the message in the db and auto-reply if this is the first message from the 
@@ -219,10 +194,10 @@ class IncomingMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      */
-     public function store($incoming_number, $title, $message, $outgoingMedia, $outgoingCity, $outgoingZip)
+ public function store(IncomingMessage $message)
 
-	{
-		
+ {
+  
 		// if (IncomingMessage::where('number', '=', $incoming_number)->exists()) {
   //  			// echo 'Number already in DB'; 
   //  			$storefrom = (string)$incoming_number; 
@@ -241,9 +216,9 @@ class IncomingMessageController extends Controller
 
 		// }
 
-      IncomingMessage::create(['number' => $incoming_number, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
+  IncomingMessage::create(['number' => $message->incoming_number, 'title' => $message->title, 'message' => $message->body, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
 
-	}
+}
 
 
 
