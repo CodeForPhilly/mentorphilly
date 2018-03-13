@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use App\Notifications\IncomingTextMessage; 
+
+use Illuminate\Database\Eloquent\Model;
 
 
 class IncomingMessage extends Model
