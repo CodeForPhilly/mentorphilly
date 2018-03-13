@@ -26,13 +26,14 @@ class IncomingMessage extends Model
     protected $channel; 
 
 
-  $guarded = []; 
+    protected $guarded = []; 
 
 
 
     public function __construct()
     {
-        
+    
+        $this->guarded = [];     
         $this->incoming_number = '[unknown]';
 
         $this->title = '[unknown]'; 
