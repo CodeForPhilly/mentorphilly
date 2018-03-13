@@ -6,7 +6,9 @@ namespace App;
 // use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Notifications\Notifiable;
-use App\Notifications\IncomingTextMessage; 
+use App\Notifications\IncomingTextMessage;
+
+use Illuminate\Database\Eloquent\Model;
 
 
 class IncomingMessage extends Model
@@ -30,10 +32,13 @@ class IncomingMessage extends Model
 
 
 
-    public function __construct()
-    {
-    
-        $this->guarded = [];     
+
+        public function __construct(array $attributes = [])
+{
+        parent::__construct($attributes);
+        
+        $this->guarded = []; 
+
         $this->incoming_number = '[unknown]';
 
         $this->title = '[unknown]'; 
