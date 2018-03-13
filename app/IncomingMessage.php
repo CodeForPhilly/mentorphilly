@@ -12,8 +12,7 @@ class IncomingMessage extends Model
 
     
     
-    protected $fillable = ['number', 'title', 'message', 'outgoingMedia', 'city', 'zip'];
-
+   
 
 	protected $incoming_number; 
     protected $title; 
@@ -24,9 +23,13 @@ class IncomingMessage extends Model
     protected $channel; 
 
 
+     protected $fillable; 
+
+
 
     public function __construct()
     {
+        $this->fillable = ['number', 'title', 'message', 'outgoingMedia', 'city', 'zip'];
         //
         $this->incoming_number = '[unknown]';
 
