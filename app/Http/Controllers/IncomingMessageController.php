@@ -129,7 +129,7 @@ class IncomingMessageController extends Controller
     $this->sendMessageToSlack($message);
     
     //check if mentee is in list of sms recipients
-    $inMenteeList = SMSRecipient::where('number', '=', $message->incoming_number)->exists();
+    $inMenteeList = Phone::where('number', '=', $message->incoming_number)->exists();
 
     if($inMenteeList == true )
       $this->updateIncomingMessage($message); 
