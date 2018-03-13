@@ -216,7 +216,16 @@ public function checkForMentee($incoming_number){
 
 		// }
 
-  IncomingMessage::create(['number' => $message->incoming_number, 'title' => $message->title, 'message' => $message->body, 'outgoingMedia' => $message->outgoingMedia, 'city' => $message->outgoingCity, 'zip' => $message->outgoingZip ]);
+  IncomingMessage::create(
+          [
+            'number' => (string)$message->incoming_number, 
+            'title' => $message->title, 
+            'message' => $message->body, 
+            'outgoingMedia' => $message->outgoingMedia, 
+            'city' => $message->outgoingCity, 
+            'zip' => $message->outgoingZip 
+          ]
+  );
 
 }
 
