@@ -126,7 +126,7 @@ class IncomingMessageController extends Controller
 
    try{
 
-    $this->sendMessageToSlack($message);
+  
     
     //check if mentee is in list of sms recipients
     $inMenteeList = Phone::where('number', '=', $message->incoming_number)->exists();
@@ -136,8 +136,10 @@ class IncomingMessageController extends Controller
     
     $hasMessagedAlready = IncomingMessage::where('number', '=', $message->incoming_number)->exists();
 
-    if($hasMessageAlready = false)
-      Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+    // if($hasMessageAlready = false)
+    //   Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+
+     
 
 
 
