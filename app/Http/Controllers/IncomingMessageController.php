@@ -136,7 +136,7 @@ class IncomingMessageController extends Controller
     
     $hasMessagedAlready = IncomingMessage::where('number', '=', $message->incoming_number)->exists();
 
-    if($hasMessageAlready = false)
+    if($hasMessagedAlready == false)
       Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
 
