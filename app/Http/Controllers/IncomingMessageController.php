@@ -216,19 +216,20 @@ public function checkForMentee($incoming_number){
 
 		// }
 
-  IncomingMessage::create(
-          [
-            'number' => $message->incoming_number, 
-            'title' => $message->title, 
-            'message' => $message->body, 
-            'outgoingMedia' => $message->outgoingMedia, 
-            'city' => $message->outgoingCity, 
-            'zip' => $message->outgoingZip 
-          ]
-  );
+  // IncomingMessage::create(
+  //         [
+  //           'number' => $message->incoming_number, 
+  //           'title' => $message->title, 
+  //           'message' => $message->body, 
+  //           'outgoingMedia' => $message->outgoingMedia, 
+  //           'city' => $message->outgoingCity, 
+  //           'zip' => $message->outgoingZip 
+  //         ]
+  // );
+
+  IncomingMessage::create(['number' => 'one', 'title' => 'test title', => 'message' => 'test message', 'outgoingMedia' => 'test media', 'city' => 'test city', 'zip' => 'test zip']); 
 
 }
-
 
 
 }
