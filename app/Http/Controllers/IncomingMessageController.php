@@ -125,7 +125,9 @@ class IncomingMessageController extends Controller
    try{
 
     $this->sendMessage($message);
-    $doesMenteeExist = App\Phone::where('number', '=', $message->incoming_number)->exists();
+    
+    //check if 
+    $doesMenteeExist = App\IncomingMessage::where('number', '=', $message->incoming_number)->exists();
 
     if($doesMenteeExist == true )
       updateIncomingMessage($message); 
