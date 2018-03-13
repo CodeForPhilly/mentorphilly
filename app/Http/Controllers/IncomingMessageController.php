@@ -125,7 +125,19 @@ class IncomingMessageController extends Controller
    try{
 
     $this->sendMessage($message);
-    $this->store($message);
+    $doesMenteeExist = App\Phone::where('number', '=', $message->incoming_number)->exists();
+
+    if($doesMenteeExist == true )
+      updateIncomingMessage($message); 
+      
+
+    else 
+      Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+
+
+
+    $this->sendMessageToSlack($message)
+    $this->store($message); 
 
   }
   catch (Exception $e){
@@ -136,19 +148,31 @@ class IncomingMessageController extends Controller
 
 }
 
-public function checkForMentee($incoming_number){
+
+public function updateIncomingMessage(IncomingMessage $message){
 
 
- $mentee = DB::table('s_m_s_recipients')
- ->join('phones','s_m_s_recipients.id','=','phones.s_m_s_recipient_id')
- ->select('s_m_s_recipients.smsname')
- ->where('phones.number',$incoming_number)
- ->get();
+       $phone = App\Phone::where('number', '=', $message->incoming_number)->firstOrFail();
+       $sms_recipient = App\SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail(); 
 
- return $mentee; 
-
+       if(!empty($sms_recipient))
+        $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
 
 }
+
+// public function checkForMentee($incoming_number){
+
+
+//  $mentee = DB::table('s_m_s_recipients')
+//  ->join('phones','s_m_s_recipients.id','=','phones.s_m_s_recipient_id')
+//  ->select('s_m_s_recipients.smsname')
+//  ->where('phones.number',$incoming_number)
+//  ->get();
+
+//  return $mentee; 
+
+
+// }
 
 	/**
      * Send the message to slack and then call the function to store it
@@ -156,7 +180,7 @@ public function checkForMentee($incoming_number){
      * @param  \Illuminate\Http\Request  $request
      *
      */
-	public function sendMessage(IncomingMessage $message){
+	public function sendMessageToSlack(IncomingMessage $message){
 
 
   //log all texts to webhook slack channel
