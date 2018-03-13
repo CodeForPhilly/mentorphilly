@@ -127,7 +127,7 @@ class IncomingMessageController extends Controller
     $this->sendMessageToSlack($message);
     
     //check if 
-    $doesMenteeExist = App\IncomingMessage::where('number', '=', $message->incoming_number)->exists();
+    $doesMenteeExist = IncomingMessage::where('number', '=', $message->incoming_number)->exists();
 
     if($doesMenteeExist == true )
       updateIncomingMessage($message); 
