@@ -138,7 +138,7 @@ class IncomingMessageController extends Controller
 
 
 
-    $this->sendMessageToSlack($message)
+    $this->sendMessageToSlack($message);
     $this->store($message); 
 
   }
