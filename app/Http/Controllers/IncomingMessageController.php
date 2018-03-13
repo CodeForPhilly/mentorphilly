@@ -130,7 +130,7 @@ class IncomingMessageController extends Controller
     $doesMenteeExist = IncomingMessage::where('number', '=', $message->incoming_number)->exists();
 
     if($doesMenteeExist == true )
-      updateIncomingMessage($message); 
+      $this->updateIncomingMessage($message); 
       
 
     else 
