@@ -92,6 +92,7 @@ class IncomingMessageController extends Controller
   if(null != $request->input('From')){
        $message->incoming_number = $request->input('From');
        $title = 'From: '.$message->incoming_number;
+       $message->title = $title; 
   }
    
 
