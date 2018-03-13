@@ -3,7 +3,10 @@
 namespace App;
 
 
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\IncomingTextMessage; 
 
 
 class IncomingMessage extends Model
@@ -23,13 +26,13 @@ class IncomingMessage extends Model
     protected $channel; 
 
 
-   protected $fillable = ['number', 'title', 'message', 'outgoingMedia', 'city', 'zip']; 
+   // protected $fillable = ['number', 'title', 'message', 'outgoingMedia', 'city', 'zip']; 
 
 
 
     public function __construct()
     {
-        $this->fillable = ['number', 'title', 'message', 'outgoingMedia', 'city', 'zip'];
+        // $this->fillable = ['number', 'title', 'message', 'outgoingMedia', 'city', 'zip'];
         //
         $this->incoming_number = '[unknown]';
 
