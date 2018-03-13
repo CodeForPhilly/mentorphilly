@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\IncomingMessage;
+use App\Phone;
+use App\SMSRecipient; 
 
 use Illuminate\Http\Request;
 
@@ -154,8 +156,8 @@ class IncomingMessageController extends Controller
 public function updateIncomingMessage(IncomingMessage $message){
 
 
-       $phone = App\Phone::where('number', '=', $message->incoming_number)->firstOrFail();
-       $sms_recipient = App\SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail(); 
+       $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
+       $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail(); 
 
        if(!empty($sms_recipient))
         $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
