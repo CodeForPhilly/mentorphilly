@@ -23,7 +23,7 @@ class IncomingMessage extends Model
     protected $channel; 
 
 
-     protected $fillable; 
+   protected $fillable = ['number', 'title', 'message', 'outgoingMedia', 'city', 'zip']; 
 
 
 
