@@ -33,29 +33,29 @@ class IncomingMessage extends Model
 
 
 
-        public function __construct(array $attributes = [])
-{
-        parent::__construct($attributes);
+//         public function __construct(array $attributes = [])
+// {
+//         parent::__construct($attributes);
         
-        $this->guarded = []; 
+//         $this->guarded = []; 
 
-        $this->incoming_number = '[unknown]';
+//         $this->incoming_number = '[unknown]';
 
-        $this->title = '[unknown]'; 
+//         $this->title = '[unknown]'; 
 
-        $this->body = '[empty]';
+//         $this->body = '[empty]';
 
-        $this->outgoingMedia = '';
+//         $this->outgoingMedia = '';
 
-        $this->outgoingCity = '[unknown]';
+//         $this->outgoingCity = '[unknown]';
 
-        $this->outgoingZip = '[unknown]'; 
+//         $this->outgoingZip = '[unknown]'; 
 
-        $this->channel = '#general'; 
+//         $this->channel = '#general'; 
 
 
-        // starting to build the model 
-    }
+//         // starting to build the model 
+//     }
 
 
 
