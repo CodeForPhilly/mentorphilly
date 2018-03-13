@@ -218,7 +218,7 @@ public function checkForMentee($incoming_number){
 
   IncomingMessage::create(
           [
-            'number' => (string)$message->incoming_number, 
+            'number' => $message->incoming_number, 
             'title' => $message->title, 
             'message' => $message->body, 
             'outgoingMedia' => $message->outgoingMedia, 
