@@ -209,14 +209,14 @@ public function checkForMentee($incoming_number){
 
 		// 	Twilio::message($incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
-			$storefrom = (string)$message->incoming_number; 
+		// 	$storefrom = (string)$incoming_number; 
 
 		// 	// you have to pass an associative array of the correspnding table field when you call this
 		// 	IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
 
 		// }
 
-  IncomingMessage::create(['number' => $storefrom, 'title' => $message->title, 'message' => $message->body, 'outgoingMedia' => $message->outgoingMedia, 'city' => $message->outgoingCity, 'zip' => $message->outgoingZip ]);
+  IncomingMessage::create(['number' => $message->incoming_number, 'title' => $message->title, 'message' => $message->body, 'outgoingMedia' => $message->outgoingMedia, 'city' => $message->outgoingCity, 'zip' => $message->outgoingZip ]);
 
 }
 

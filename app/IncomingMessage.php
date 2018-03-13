@@ -10,6 +10,10 @@ class IncomingMessage extends Model
 {
 
 
+    
+    
+    protected fillable = ['number', 'title', 'message', 'outgoingMedia', 'city', 'zip']
+
 
 	protected $incoming_number; 
     protected $title; 
