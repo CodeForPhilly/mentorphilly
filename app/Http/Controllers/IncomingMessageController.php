@@ -74,6 +74,21 @@ class IncomingMessageController extends Controller
             // $channel = $mentees[0]->channel;
           // } 
           // else 
+
+    $message->incoming_number = '[unknown]';
+
+        $message->title = '[unknown]'; 
+
+        $message->body = '[empty]';
+
+        $message->outgoingMedia = '';
+
+        $message->outgoingCity = '[unknown]';
+
+        $message->outgoingZip = '[unknown]'; 
+
+        $message->channel = '#general'; 
+
     
     
     if(null != $request->input('Body'))
