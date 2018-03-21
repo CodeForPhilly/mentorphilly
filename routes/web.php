@@ -43,8 +43,9 @@ Route::post('/fromslack', 'OutgoingMessageController@sendFromSlack');
 // Route::get('/test', 'OutgoingMessageController@test'); 
 
 
-Route::post('/incomingMessage', 'IncomingMessageController@prepareMessage')->middleware('twiliovalidate');
+// Route::post('/incomingMessage', 'IncomingMessageController@prepareMessage')->middleware('twiliovalidate');
 
+Route::post('/incomingMessage', 'IncomingMessageController@prepareMessage');
 
 // Route::post('/incomingMessage', 'IncomingMessageController@prepareMessage');
 
