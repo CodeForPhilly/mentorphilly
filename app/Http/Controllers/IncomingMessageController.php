@@ -126,14 +126,13 @@ class IncomingMessageController extends Controller
     
     $phone = new Phone(); 
 
+    //check if we already have this number in the db
     $phone = $this->checkForPhone($message, $phone);
 
-    //check if mentee is in list of sms recipients
+    //if we have that phone (!null) then update the message with the corresponding name
     if($phone != null)
       $this->updateIncomingMessage($message, $phone); 
     
-    
-
     $this->sendMessageToSlack($message);
     $this->store($message); 
 
@@ -145,18 +144,7 @@ class IncomingMessageController extends Controller
    //
   public function checkForPhone(IncomingMessage $message, Phone $phone){
 
-    // if(Phone::where('number', '=', $message->incoming_number)->exists()){
-
-    //   $phone = Phone::where('number', '=', $message->incoming_number)->first();
-    //   return $phone; 
-    // }
-    // else
-    //   return null; 
-
      return $phone->where('number', '=', $message->incoming_number)->first();
-
-    
-
   }
 
 
@@ -166,30 +154,16 @@ class IncomingMessageController extends Controller
 
     $message->title = 'Phone: ' . $phone->number;
 
-       //if the phone number exists in the db, look up the corresponding recipient and store it 
-       // in sms_recipient
+      //if the phone number exists in the db, look up the corresponding recipient and store it in sms_recipient
     if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
       $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->first();
-            // update the title 
-      $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
+      // update the title to reflect the name of the recipient
+      $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number; 
     }
 
 
   }
 
-// public function checkForMentee($incoming_number){
-
-
-//  $mentee = DB::table('s_m_s_recipients')
-//  ->join('phones','s_m_s_recipients.id','=','phones.s_m_s_recipient_id')
-//  ->select('s_m_s_recipients.smsname')
-//  ->where('phones.number',$incoming_number)
-//  ->get();
-
-//  return $mentee; 
-
-
-// }
 
 	/**
      * Send the message to slack and then call the function to store it
@@ -205,37 +179,37 @@ class IncomingMessageController extends Controller
   //call notification
     $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
     
-  // // prepare attachment for Slack
-  // $location = $outgoingCity.', '.$outgoingZip;
+  // prepare attachment for Slack
+  $location = $message->outgoingCity.', '.$message->outgoingZip;
     
-  // //json formatted attachment  
-  // $attachment = '[
-  //       {
-  //           "fallback": "'.$message.'",
-  //           "color": "#36a64f",
+  //json formatted attachment  
+  $attachment = '[
+        {
+            "fallback": "'.$message->body.'",
+            "color": "#36a64f",
     
-  //           "author_name": "Message Details",
+            "author_name": "Message Details",
     
-  //           "title": "'.$title.'",
+            "title": "'.$message->title.'",
     
     
-  //           "fields": [
-  //               {
-  //                   "title": "Location",
-  //                   "value": "'.$location.'",
-  //                   "short": false
-  //               }
-  //           ],
+            "fields": [
+                {
+                    "title": "Location",
+                    "value": "'.$location.'",
+                    "short": false
+                }
+            ],
     
-  //           "text": "'.$message.'",     
-  //           "thumb_url": "'.$outgoingMedia.'",
-  //           "footer": "MentorPhilly Text Service"
-  //       }
-  //   ]';
+            "text": "'.$message->body.'",     
+            "thumb_url": "'.$message->outgoingMedia.'",
+            "footer": "MentorPhilly Text Service"
+        }
+    ]';
 
-  //   //create new slackbot class to send using slackbot
-  //   $bot = new SlackBot; 
-  //   $bot->chatter($attachment, $channel); 
+    //create new slackbot class to send using slackbot
+    $bot = new SlackBot; 
+    $bot->chatter($attachment, $channel); 
     
 		//store sent message
 
