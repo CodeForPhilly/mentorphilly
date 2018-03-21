@@ -8,7 +8,7 @@ use Closure;
 use Services_Twilio\Services_Twilio_RequestValidator;
 use Illuminate\Http\Response;
 
-class TwilioRequestValidator
+class TwilioRequestValidator extends Middleware
 {
       
      protected $except = [
