@@ -12,6 +12,8 @@ use App\Phone;
 class PhoneController extends Controller
 {
  
+
+ 	
 	
 	
 }
