@@ -130,12 +130,12 @@ class IncomingMessageController extends Controller
       Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
     
-    
+    $phone = new Phone(); 
 
-    $phone = $this->checkForPhone($message);
+    $this->checkForPhone($message, $phone);
 
     //check if mentee is in list of sms recipients
-    if($phone)
+
       $this->updateIncomingMessage($message, $phone); 
     
     
@@ -149,15 +149,17 @@ class IncomingMessageController extends Controller
 
 
    //
-  public function checkForPhone(IncomingMessage $message){
+  public function checkForPhone(IncomingMessage $message, Phone $phone){
 
     // if(Phone::where('number', '=', $message->incoming_number)->exists()){
 
-    $phone = new Phone(); 
+    $phone->number = 'test number'; 
     
-    $phone = Phone::where('number', '=', $message->incoming_number)->first();
+    // $phone = Phone::where('number', '=', $message->incoming_number)->first();
+
+
     
-    return $phone; 
+    // return $phone; 
   
 
   }
@@ -179,7 +181,7 @@ public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
       // update the title 
        // if(!empty($sms_recipient))
        //  $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
-  $message->title = 'From: RAN updateIncomingMessage got this far' . $message->incoming_number . "found the phone number in db "; 
+  $message->title = 'From: RAN updateIncomingMessage got this far' . $message->incoming_number . $phone->number; 
 
 }
 
