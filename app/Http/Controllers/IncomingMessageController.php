@@ -167,18 +167,16 @@ public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
       
       $sms_recipient = new SMSRecipient(); 
 
+       $message->title = 'Phone: ' . $phone->number;
 
        //if the phone number exists in the db, look up the corresponding recipient and store it 
        // in sms_recipient
           if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
             $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail();
+            // update the title 
+            $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
           }
         
-
-      // update the title 
-       if(!empty($sms_recipient))
-        $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
-  
 
 }
 
