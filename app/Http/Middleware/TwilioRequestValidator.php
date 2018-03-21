@@ -14,11 +14,11 @@ use Illuminate\Http\Response;
 class TwilioRequestValidator 
 {
       
-     // protected $except = [
-     //    'fromslack',
-     //    'incomingMessageTest', 
-     //    'incomingMessage'
-     //  ]; 
+     protected $except = [
+        'fromslack',
+        'incomingMessageTest', 
+        'incomingMessage'
+      ]; 
     /**
      * Handle an incoming request.
      *
