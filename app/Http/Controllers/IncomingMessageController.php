@@ -158,7 +158,8 @@ class IncomingMessageController extends Controller
     if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
       $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->first();
       // update the title to reflect the name of the recipient
-      $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number; 
+      $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number;
+      $message->channel = $sms_recipient->channel;  
     }
 
 
@@ -184,8 +185,8 @@ class IncomingMessageController extends Controller
 
   // prepare attachment for Slack
   $location = $message->outgoingCity.', '.$message->outgoingZip;
-  $channel = config('services.slack.default_channel');
-    
+  $channel = $message->channel;
+
   //json formatted attachment  
   $attachment = '[
         {
