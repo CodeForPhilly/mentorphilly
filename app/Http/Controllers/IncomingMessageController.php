@@ -130,7 +130,7 @@ class IncomingMessageController extends Controller
       Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
     
-    $phone = new Phone();
+    
 
     $phoneExists = $this->checkForPhone($message, $phone);
 
@@ -149,7 +149,7 @@ class IncomingMessageController extends Controller
 
 
    //
-  public function checkForPhone(IncomingMessage $message, Phone $phone){
+  public function checkForPhone(IncomingMessage $message){
 
     if(Phone::where('number', '=', $message->incoming_number)->exists()){
        // $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
