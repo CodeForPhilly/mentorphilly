@@ -124,7 +124,7 @@ class IncomingMessageController extends Controller
       // comment this out if you revert later
 
 
-   try{
+
 
     //send auto reply if the number hasn't text us before 
     if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
@@ -140,12 +140,7 @@ class IncomingMessageController extends Controller
     $this->sendMessageToSlack($message);
     $this->store($message); 
 
-  }
-  catch (Exception $e){
-
-    Log::error('Something is really going wrong.');
-
-  } 
+ 
 
 }
 
