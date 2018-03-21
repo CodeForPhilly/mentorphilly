@@ -22,9 +22,6 @@ use Services_Twilio\Services_Twilio_RequestValidator;
 use Notification; 
 use App\Notifications\IncomingTextMessage; 
 
-use Phone; 
-
-
 
 class IncomingMessageController extends Controller
 {
@@ -133,9 +130,10 @@ class IncomingMessageController extends Controller
       Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
     
+    $phone = \PhoneController::checkForPhone($message); 
     //check if mentee is in list of sms recipients
-    if(Phone::where('number', '=', $message->incoming_number)->exists())
-      $this->updateIncomingMessage($message); 
+    if($phone)
+      $this->updateIncomingMessage($message, $phone); 
     
     
 
@@ -147,13 +145,13 @@ class IncomingMessageController extends Controller
 }
 
 
-public function updateIncomingMessage(IncomingMessage $message){
+public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
       
       $sms_recipient; 
 
       //check if the number exists in the db
-      if(Phone::where('number', '=', $message->incoming_number)->exists()){
-       $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
+      // if(Phone::where('number', '=', $message->incoming_number)->exists()){
+      //  $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
        //if the phone number exists in the db, look up the corresponding recipient and store it 
        // in sms_recipient
           // if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists())
@@ -161,8 +159,8 @@ public function updateIncomingMessage(IncomingMessage $message){
         }
 
       // update the title 
-       if(!empty($sms_recipient))
-        $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
+       // if(!empty($sms_recipient))
+       //  $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
   $message->title = 'From: RAN updateIncomingMessage' . $message->incoming_number . "this is the phone record: " . $phone->number; 
 
 }
