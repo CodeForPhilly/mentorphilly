@@ -152,7 +152,11 @@ class IncomingMessageController extends Controller
   public function checkForPhone(IncomingMessage $message){
 
     // if(Phone::where('number', '=', $message->incoming_number)->exists()){
-      $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
+
+    $phone = new Phone(); 
+    
+    $phone = Phone::where('number', '=', $message->incoming_number)->first();
+    
     return phone; 
   
 
