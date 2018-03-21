@@ -132,7 +132,7 @@ class IncomingMessageController extends Controller
     
     
 
-    $phoneExists = $this->checkForPhone($message, $phone);
+    $phoneExists = $this->checkForPhone($message);
 
     //check if mentee is in list of sms recipients
     if($phoneExists == true)
