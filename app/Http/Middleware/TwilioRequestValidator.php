@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Http\Middleware\TwilioRequestValidator as Middleware;
+// use Illuminate\Foundation\Http\Middleware\TwilioRequestValidator as Middleware;
 
 
 use Closure;
@@ -11,7 +11,7 @@ use Closure;
 use Services_Twilio\Services_Twilio_RequestValidator;
 use Illuminate\Http\Response;
 
-class TwilioRequestValidator extends Middleware
+class TwilioRequestValidator 
 {
       
      protected $except = [
@@ -26,7 +26,7 @@ class TwilioRequestValidator extends Middleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
          // Be sure TWILIO_APP_TOKEN is set in your .env file.
       // You can get your app token in your twilio console https://www.twilio.com/console
