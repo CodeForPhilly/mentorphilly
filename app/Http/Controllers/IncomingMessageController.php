@@ -178,9 +178,13 @@ class IncomingMessageController extends Controller
     $admin = \App\User::find(1); 
   //call notification
     $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
-    
+   
+
+
+
   // prepare attachment for Slack
   $location = $message->outgoingCity.', '.$message->outgoingZip;
+  $channel = config('services.slack.default_channel');
     
   //json formatted attachment  
   $attachment = '[
