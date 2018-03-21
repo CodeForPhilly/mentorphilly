@@ -156,7 +156,7 @@ public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
        // in sms_recipient
           // if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists())
           //   $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail();
-        }
+        // }
 
       // update the title 
        // if(!empty($sms_recipient))
