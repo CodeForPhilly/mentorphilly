@@ -130,7 +130,7 @@ class IncomingMessageController extends Controller
       Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
     
-    $phone = \PhoneController::checkForPhone($message); 
+    $phone = PhoneController::checkForPhone($message); 
     //check if mentee is in list of sms recipients
     if($phone)
       $this->updateIncomingMessage($message, $phone); 
