@@ -132,10 +132,10 @@ class IncomingMessageController extends Controller
     
     
 
-    $phoneExists = $this->checkForPhone($message);
+    $phone = $this->checkForPhone($message);
 
     //check if mentee is in list of sms recipients
-    if($phoneExists == true)
+    if($phone)
       $this->updateIncomingMessage($message, $phone); 
     
     
@@ -151,13 +151,10 @@ class IncomingMessageController extends Controller
    //
   public function checkForPhone(IncomingMessage $message){
 
-    if(Phone::where('number', '=', $message->incoming_number)->exists()){
-       // $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
-    return true; 
-  }
-  else 
-    return false; 
-
+    // if(Phone::where('number', '=', $message->incoming_number)->exists()){
+      $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
+    return phone; 
+  
 
   }
 
