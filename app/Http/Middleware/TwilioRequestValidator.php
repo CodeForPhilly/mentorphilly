@@ -14,11 +14,11 @@ use Illuminate\Http\Response;
 class TwilioRequestValidator 
 {
       
-     protected $except = [
-        'fromslack',
-        'incomingMessageTest', 
-        'incomingMessage'
-      ]; 
+     // protected $except = [
+     //    'fromslack',
+     //    'incomingMessageTest', 
+     //    'incomingMessage'
+     //  ]; 
     /**
      * Handle an incoming request.
      *
@@ -26,7 +26,7 @@ class TwilioRequestValidator
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
          // Be sure TWILIO_APP_TOKEN is set in your .env file.
       // You can get your app token in your twilio console https://www.twilio.com/console
