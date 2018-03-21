@@ -2,6 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Foundation\Http\Middleware\TwilioRequestValidator as Middleware;
+
+
 use Closure;
 
 //twilio request validator
