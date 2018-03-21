@@ -129,7 +129,8 @@ class IncomingMessageController extends Controller
     $phone = $this->checkForPhone($message, $phone);
 
     //check if mentee is in list of sms recipients
-    $this->updateIncomingMessage($message, $phone); 
+    if($phone != null)
+      $this->updateIncomingMessage($message, $phone); 
     
     
 
@@ -147,9 +148,11 @@ class IncomingMessageController extends Controller
     if(Phone::where('number', '=', $message->incoming_number)->exists()){
 
       $phone = Phone::where('number', '=', $message->incoming_number)->first();
-
+      return $phone; 
     }
-    return $phone; 
+    else
+      return null; 
+    
     
 
   }
@@ -197,9 +200,6 @@ class IncomingMessageController extends Controller
 
   //log all texts to webhook slack channel
     $admin = \App\User::find(1); 
-
-
-
   //call notification
     $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
     
