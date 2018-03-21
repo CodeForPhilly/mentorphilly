@@ -132,7 +132,7 @@ class IncomingMessageController extends Controller
     
     $phone = new Phone(); 
 
-    $this->checkForPhone($message, $phone);
+    $phone = $this->checkForPhone($message, $phone);
 
     //check if mentee is in list of sms recipients
 
@@ -156,9 +156,8 @@ class IncomingMessageController extends Controller
     $phone = Phone::where('number', '=', $message->incoming_number)->first();
 
 }
+     return $phone; 
     
-    // return $phone; 
-  
 
   }
 
