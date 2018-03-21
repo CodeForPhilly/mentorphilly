@@ -16,7 +16,7 @@ class PhoneController extends Controller
 
   	$phone; 
 
-  	if(Phone::where('number', '=', $message->incoming_number)->exists()){
+  	if(Phone::where('number', '=', $message->incoming_number)->exists())
        $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
 
 
