@@ -28,7 +28,7 @@ class IncomingMessageController extends Controller
   public function __construct()
   {
 
-      $this->middleware('twiliovalidate', ['only'=> 'prepareMessage']); 
+    $this->middleware('twiliovalidate', ['only'=> 'prepareMessage']); 
 
 
   }
@@ -84,17 +84,17 @@ class IncomingMessageController extends Controller
 
     $message->incoming_number = '[unknown]';
 
-        $message->title = '[unknown]'; 
+    $message->title = '[unknown]'; 
 
-        $message->body = '[empty]';
+    $message->body = '[empty]';
 
-        $message->outgoingMedia = '';
+    $message->outgoingMedia = '';
 
-        $message->outgoingCity = '[unknown]';
+    $message->outgoingCity = '[unknown]';
 
-        $message->outgoingZip = '[unknown]'; 
+    $message->outgoingZip = '[unknown]'; 
 
-        $message->channel = '#general'; 
+    $message->channel = '#general'; 
 
     
     
@@ -111,29 +111,17 @@ class IncomingMessageController extends Controller
      $message->outgoingZip = $request->input('FromZip');
 
 
-  if(null != $request->input('From')){
-       $message->incoming_number = $request->input('From');
-       $title = 'From: '.$message->incoming_number;
-       $message->title = $title; 
-  }
+   if(null != $request->input('From')){
+     $message->incoming_number = $request->input('From');
+     $title = 'From: '.$message->incoming_number;
+     $message->title = $title; 
+   }
    
-
-        // }
-
-		// if(!empty($mentee)){      	
-  //     		$title = 'From: '.$mentee.' at '.$incoming_number; 
-  //     	}
-
-  //     	else {
-
-      // comment this out if you revert later
-
-
 
 
     //send auto reply if the number hasn't text us before 
-    if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
-      Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+   if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
+    Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
     
     $phone = new Phone(); 
@@ -141,17 +129,16 @@ class IncomingMessageController extends Controller
     $phone = $this->checkForPhone($message, $phone);
 
     //check if mentee is in list of sms recipients
-
-      $this->updateIncomingMessage($message, $phone); 
+    $this->updateIncomingMessage($message, $phone); 
     
     
 
     $this->sendMessageToSlack($message);
     $this->store($message); 
 
- 
 
-}
+
+  }
 
 
    //
@@ -159,31 +146,31 @@ class IncomingMessageController extends Controller
 
     if(Phone::where('number', '=', $message->incoming_number)->exists()){
 
-    $phone = Phone::where('number', '=', $message->incoming_number)->first();
+      $phone = Phone::where('number', '=', $message->incoming_number)->first();
 
-}
-     return $phone; 
+    }
+    return $phone; 
     
 
   }
 
 
-public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
-      
-      $sms_recipient = new SMSRecipient(); 
+  public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
 
-       $message->title = 'Phone: ' . $phone->number;
+    $sms_recipient = new SMSRecipient(); 
+
+    $message->title = 'Phone: ' . $phone->number;
 
        //if the phone number exists in the db, look up the corresponding recipient and store it 
        // in sms_recipient
-          if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
-            $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail();
+    if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
+      $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->first();
             // update the title 
-            $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
-          }
-        
+      $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
+    }
 
-}
+
+  }
 
 // public function checkForMentee($incoming_number){
 
@@ -263,39 +250,16 @@ public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
 
  {
 
-
   IncomingMessage::create(
-          [
-            'number' => $message->incoming_number, 
-            'title' => $message->title, 
-            'message' => $message->body, 
-            'outgoingMedia' => $message->outgoingMedia, 
-            'city' => $message->outgoingCity, 
-            'zip' => $message->outgoingZip 
-          ]
+    [
+      'number' => $message->incoming_number, 
+      'title' => $message->title, 
+      'message' => $message->body, 
+      'outgoingMedia' => $message->outgoingMedia, 
+      'city' => $message->outgoingCity, 
+      'zip' => $message->outgoingZip 
+    ]
   );
-
-  
-		// if (IncomingMessage::where('number', '=', $incoming_number)->exists()) {
-  //  			// echo 'Number already in DB'; 
-  //  			$storefrom = (string)$incoming_number; 
-  //  			IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
-		// }
-
-		// else {
-
-
-		// 	Twilio::message($incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
-
-		// 	$storefrom = (string)$incoming_number; 
-
-		// 	// you have to pass an associative array of the correspnding table field when you call this
-		// 	IncomingMessage::create(['number' => $storefrom, 'title' => $title, 'message' => $message, 'outgoingMedia' => $outgoingMedia, 'city' => $outgoingCity, 'zip' => $outgoingZip ]);
-
-		// }
-
-  
-
 
 }
 
