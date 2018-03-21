@@ -126,15 +126,16 @@ class IncomingMessageController extends Controller
 
    try{
 
-  
+    //send auto reply if the number hasn't text us before 
+    if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
+      Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+
     
     //check if mentee is in list of sms recipients
     if(Phone::where('number', '=', $message->incoming_number)->exists())
       $this->updateIncomingMessage($message); 
     
-    // if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
-    //   Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
-
+    
 
     $this->sendMessageToSlack($message);
     $this->store($message); 
