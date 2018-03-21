@@ -170,9 +170,10 @@ public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
 
        //if the phone number exists in the db, look up the corresponding recipient and store it 
        // in sms_recipient
-          if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists())
+          if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
             $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail();
-        }
+          }
+        
 
       // update the title 
        if(!empty($sms_recipient))
