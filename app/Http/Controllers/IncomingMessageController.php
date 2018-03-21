@@ -129,14 +129,10 @@ class IncomingMessageController extends Controller
   
     
     //check if mentee is in list of sms recipients
-    $inMenteeList = Phone::where('number', '=', $message->incoming_number)->exists();
-
-    if($inMenteeList == true )
+    if(Phone::where('number', '=', $message->incoming_number)->exists())
       $this->updateIncomingMessage($message); 
     
-    $hasMessagedAlready = IncomingMessage::where('number', '=', $message->incoming_number)->exists();
-
-    if($hasMessagedAlready == false)
+    if(null == IncomingMessage::where('number', '=', $message->incoming_number)->exists())
       Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
 
@@ -154,11 +150,19 @@ class IncomingMessageController extends Controller
 
 
 public function updateIncomingMessage(IncomingMessage $message){
+      
+      $sms_recipient; 
 
-
+      //check if the number exists in the db
+      if(Phone::where('number', '=', $message->incoming_number)->exists()){
        $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
-       $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail(); 
+       //if the phone number exists in the db, look up the corresponding recipient and store it 
+       // in sms_recipient
+          if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists())
+            $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail();
+        }
 
+      // update the title 
        if(!empty($sms_recipient))
         $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
 
