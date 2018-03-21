@@ -153,9 +153,7 @@ class IncomingMessageController extends Controller
 
     if(Phone::where('number', '=', $message->incoming_number)->exists()){
 
-    $phone->number = 'test number'; 
-    
-    // $phone = Phone::where('number', '=', $message->incoming_number)->first();
+    $phone = Phone::where('number', '=', $message->incoming_number)->first();
 
 }
     
@@ -167,21 +165,19 @@ class IncomingMessageController extends Controller
 
 public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
       
-      $sms_recipient; 
+      $sms_recipient = new SMSRecipient(); 
 
-      //check if the number exists in the db
-      // if(Phone::where('number', '=', $message->incoming_number)->exists()){
-      //  $phone = Phone::where('number', '=', $message->incoming_number)->firstOrFail();
+
        //if the phone number exists in the db, look up the corresponding recipient and store it 
        // in sms_recipient
-          // if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists())
-          //   $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail();
-        // }
+          if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists())
+            $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->firstOrFail();
+        }
 
       // update the title 
-       // if(!empty($sms_recipient))
-       //  $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
-  $message->title = 'From: RAN updateIncomingMessage got this far' . $message->incoming_number . $phone->number; 
+       if(!empty($sms_recipient))
+        $message->title = 'From: ' . $sms_recipient->smsname . $phone->number; 
+  
 
 }
 
