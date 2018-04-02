@@ -124,14 +124,14 @@ class IncomingMessageController extends Controller
     Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
     
-    $phone = new Phone(); 
+    // $phone = new Phone(); 
 
     //check if we already have this number in the db
-    $phone = $this->checkForPhone($message, $phone);
+    // $phone = $this->checkForPhone($message, $phone);
 
     //if we have that phone (!null) then update the message with the corresponding name
-    if($phone != null)
-      $this->updateIncomingMessage($message, $phone); 
+    // if($phone != null)
+      // $this->updateIncomingMessage($message, $phone); 
     
     $this->sendMessageToSlack($message);
     $this->store($message); 
@@ -178,7 +178,7 @@ class IncomingMessageController extends Controller
   //log all texts to webhook slack channel
     // $admin = \App\User::find(1); 
   //call notification
-    // $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
+    $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
    
 
 
