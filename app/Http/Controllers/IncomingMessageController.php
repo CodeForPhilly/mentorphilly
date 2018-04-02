@@ -120,7 +120,7 @@ class IncomingMessageController extends Controller
 
 
     //send auto reply if the number hasn't text us before 
-   // if(!IncomingMessage::where('number', '=', $message->incoming_number)->first())
+   // if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
    //  Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
     
