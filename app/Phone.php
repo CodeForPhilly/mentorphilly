@@ -14,7 +14,6 @@ class Phone extends Model
 		return $this->belongsTo('App\SMSRecipient'); 
 
 		  // return $this->belongsTo('App\User', 'foreign_key');
-
 	}
 
 
