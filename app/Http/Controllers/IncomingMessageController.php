@@ -123,7 +123,13 @@ class IncomingMessageController extends Controller
    // if(!IncomingMessage::where('number', '=', $message->incoming_number)->first())
    //  Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
-    
+    $exists = App\IncomingMessage::where('number', '=', $message->incoming_number)->first();
+
+    if($exists != null){
+  Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+      
+
+    }
     $phone = new Phone(); 
 
     //check if we already have this number in the db
