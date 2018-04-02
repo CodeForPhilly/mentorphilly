@@ -178,7 +178,7 @@ class IncomingMessageController extends Controller
   //log all texts to webhook slack channel
     // $admin = \App\User::find(1); 
   //call notification
-    $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
+    // $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
    
 
 
