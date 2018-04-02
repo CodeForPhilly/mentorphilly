@@ -118,18 +118,14 @@ class IncomingMessageController extends Controller
    }
    
 
-
-    //send auto reply if the number hasn't text us before 
-   // if(!IncomingMessage::where('number', '=', $message->incoming_number)->first())
-   //  Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
-
-    $exists = App\IncomingMessage::where('number', '=', $message->incoming_number)->first();
-
-    if($exists != null){
+if (IncomingMessage::where('number', '=', $message->incoming_number))->count() < 0) {
+   // number exists
   Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
-      
+}
+    //send auto reply if the number hasn't text us before 
+   // if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
 
-    }
+    
     $phone = new Phone(); 
 
     //check if we already have this number in the db
