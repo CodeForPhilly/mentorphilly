@@ -68,11 +68,11 @@ class IncomingMessageController extends Controller
 
     $message->outgoingZip = '[unknown]'; 
 
-<<<<<<< HEAD
+
     $message->channel = '#texts'; 
-=======
+
     $message->channel = config('services.slack.default-channel'); 
->>>>>>> staging
+
 
     
     
@@ -97,16 +97,8 @@ class IncomingMessageController extends Controller
    
 
 
-<<<<<<< HEAD
-    //send auto reply if the number hasn't text us before 
-   // if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
-   //  Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
-=======
 
    $this->autoResponse($message); 
-    
->>>>>>> staging
-
     
     $phone = new Phone(); 
 
