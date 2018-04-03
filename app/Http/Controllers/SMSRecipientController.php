@@ -49,7 +49,7 @@ class SMSRecipientController extends Controller
 	    //Convert whitespaces and underscore to dash
 	    $string = preg_replace("/[\s_]/", "-", $string);
 
-	    
+
 	    return $string;
 }
 
@@ -78,7 +78,7 @@ class SMSRecipientController extends Controller
 
 	$request_name = request('name'); 
 
-	$channel = cleanChannelName($request_name); 
+	$channel = $this->cleanChannelName($request_name); 
 
 	
 
