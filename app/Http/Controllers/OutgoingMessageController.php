@@ -124,7 +124,7 @@ public function test(){
                //find the person with a channel name equivalent to what's typed after the tilda
                $person = $person->where('channel', '=', $name)->first(); 
 
-               $phone = $phone->where('s_m_s_recipient_id', '=', 'id');
+               $phone = $phone->where('s_m_s_recipient_id', '=', $person->id);
 
                if($phone != null)
                 $outgoingMsg->$to = $phone->number; 
