@@ -87,7 +87,7 @@ class SMSRecipientController extends Controller
 	
 
 	// $this->addPhone(request['number']); 
-	$recipient = new SMSRecipient; 
+	$recipient = new SMSRecipient(); 
 
 	$recipient->smsname = $request_name; 
 	$recipient->channel = $channel; 
