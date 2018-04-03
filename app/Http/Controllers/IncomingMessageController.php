@@ -190,6 +190,7 @@ class IncomingMessageController extends Controller
       $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number;
       $message->channel = $sms_recipient->channel;  
     }
+  }
 
     catch (\Exception $e) {
 
