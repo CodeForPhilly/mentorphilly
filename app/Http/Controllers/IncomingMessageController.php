@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 
 use Twilio; 
 
-use DB; 
-
 //for sending with Slackbot
 use App\SlackBot;
 
@@ -47,16 +45,6 @@ class IncomingMessageController extends Controller
 
     }
 
-	 /**
-     * Receiving incoming twilio message and validate that it is coming from twilio 
-     * before processing the message
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     */
-
-
-
 	/**
      * Prepare the message to send to slack
      *
@@ -67,20 +55,6 @@ class IncomingMessageController extends Controller
 
 
     $message = new IncomingMessage(); 
-
-
-      	// if(null != $request->input('From')){
-      	// 	$incoming_number = $request->input('From');
-      	// 	$mentees = $this->checkForMentee($incoming_number);  
-       //    if(!empty($mentees))
-      	// 	  $mentee = $mentees[0]->smsname;
-      	// }
-
-        // if(!empty($mentees[0]->channel)){
-
-            // $channel = $mentees[0]->channel;
-          // } 
-          // else 
 
     $message->incoming_number = '[unknown]';
 
@@ -94,7 +68,11 @@ class IncomingMessageController extends Controller
 
     $message->outgoingZip = '[unknown]'; 
 
+<<<<<<< HEAD
     $message->channel = '#texts'; 
+=======
+    $message->channel = config('services.slack.default-channel'); 
+>>>>>>> staging
 
     
     
@@ -119,17 +97,23 @@ class IncomingMessageController extends Controller
    
 
 
+<<<<<<< HEAD
     //send auto reply if the number hasn't text us before 
    // if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
    //  Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+=======
+
+   $this->autoResponse($message); 
+    
+>>>>>>> staging
 
     
     $phone = new Phone(); 
 
-    //check if we already have this number in the db
+   //  //check if we already have this number in the db
     $phone = $this->checkForPhone($message, $phone);
 
-    //if we have that phone (!null) then update the message with the corresponding name
+   //  //if we have that phone (!null) then update the message with the corresponding name
     if($phone != null)
       $this->updateIncomingMessage($message, $phone); 
     
@@ -141,30 +125,85 @@ class IncomingMessageController extends Controller
   }
 
 
+  public function autoResponse(IncomingMessage $message){
+
+
+    try {
+
+      $recordBoolean = IncomingMessage::where('number', '=', $message->incoming_number)->count() > 0; 
+
+      if($recordBoolean == false)
+        Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+      }
+      catch (\Exception $e) {
+
+        $error =  $e->getMessage();
+
+        $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+        $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+        
+      }
+
+
+
+    }
+
    //
-  public function checkForPhone(IncomingMessage $message, Phone $phone){
+    public function checkForPhone(IncomingMessage $message, Phone $phone){
 
-     return $phone->where('number', '=', $message->incoming_number)->first();
-  }
+      try {
+
+        return $phone->where('number', '=', $message->incoming_number)->first();
+
+      }
+
+      catch (\Exception $e) {
+
+        $error =  $e->getMessage();
+
+        $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+        $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
 
 
-  public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
+      }
 
-    $sms_recipient = new SMSRecipient(); 
 
-    $message->title = 'Phone: ' . $phone->number;
-
-      //if the phone number exists in the db, look up the corresponding recipient and store it in sms_recipient
-    if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
-      $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->first();
-      // update the title to reflect the name of the recipient
-      $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number;
-      $message->channel = $sms_recipient->channel;  
     }
 
 
-  }
+    public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
 
+      $sms_recipient = new SMSRecipient(); 
+
+      $message->title = 'Phone: ' . $phone->number;
+
+      //if the phone number exists in the db, look up the corresponding recipient and store it in sms_recipient
+
+      try{
+        if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
+          $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->first();
+          
+           // update the title to reflect the name of the recipient
+          $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number;
+          $message->channel = $sms_recipient->channel;  
+        }
+      }
+
+      catch (\Exception $e) {
+
+        $error =  $e->getMessage();
+
+        $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+        $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+
+
+      }
+
+
+    }
 
 	/**
      * Send the message to slack and then call the function to store it
@@ -174,42 +213,33 @@ class IncomingMessageController extends Controller
      */
 	public function sendMessageToSlack(IncomingMessage $message){
 
-
-  //log all texts to webhook slack channel
-    // $admin = \App\User::find(1); 
-  //call notification
-    // $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
-   
-
-
-
   // prepare attachment for Slack
-  $location = $message->outgoingCity.', '.$message->outgoingZip;
-  $channel = $message->channel;
+    $location = $message->outgoingCity.', '.$message->outgoingZip;
+    $channel = $message->channel;
 
   //json formatted attachment  
-  $attachment = '[
-        {
-            "fallback": "'.$message->body.'",
-            "color": "#36a64f",
-    
-            "author_name": "Message Details",
-    
-            "title": "'.$message->title.'",
-    
-    
-            "fields": [
-                {
-                    "title": "Location",
-                    "value": "'.$location.'",
-                    "short": false
-                }
-            ],
-    
-            "text": "'.$message->body.'",     
-            "thumb_url": "'.$message->outgoingMedia.'",
-            "footer": "MentorPhilly Text Service"
-        }
+    $attachment = '[
+      {
+        "fallback": "'.$message->body.'",
+        "color": "#36a64f",
+
+        "author_name": "Message Details",
+
+        "title": "'.$message->title.'",
+
+
+        "fields": [
+          {
+            "title": "Location",
+            "value": "'.$location.'",
+            "short": false
+          }
+        ],
+
+        "text": "'.$message->body.'",     
+        "thumb_url": "'.$message->outgoingMedia.'",
+        "footer": "MentorPhilly Text Service"
+      }
     ]';
 
     //create new slackbot class to send using slackbot

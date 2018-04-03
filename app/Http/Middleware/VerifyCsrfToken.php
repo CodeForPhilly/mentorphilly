@@ -15,9 +15,11 @@ class VerifyCsrfToken extends Middleware
         //
 
          protected $except = [
-        'fromslack',
-        'incomingMessageTest', 
-        'incomingMessage'
+        '/fromslack',
+        '/incomingMessageTest', 
+        '/incomingMessage', 
+        'https://staging.modelb.tech/incomingMessage', 
+        'https://modelb.tech/incomingMessage'
     
     ];
 }

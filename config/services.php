@@ -44,6 +44,7 @@ return [
         'apihook' => env('SLACK_API_HOOK'),
 
         'text-bot-oauth' => env('TEXT_BOT_OAUTH'),
+        'default-channel' => env('DEFAULT_CHANNEL'),
         
         
 // =========
