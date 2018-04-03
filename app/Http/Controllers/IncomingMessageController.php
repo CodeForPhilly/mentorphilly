@@ -105,7 +105,7 @@ class IncomingMessageController extends Controller
    
 
 
-    
+
    autoResponse($message); 
     //send auto reply if the number hasn't text us before 
    if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
@@ -132,83 +132,79 @@ class IncomingMessageController extends Controller
   public function autoResponse(IncomingMessage $message){
 
 
-      try {
-      
+    try {
+
       if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
-    Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
-    }
-    catch (\Exception $e) {
+        Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+      }
+      catch (\Exception $e) {
 
         $error =  $e->getMessage();
 
         $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
 
-         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+        $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
         
       }
 
 
 
-  }
-
-   //
-  public function checkForPhone(IncomingMessage $message, Phone $phone){
-
-    try {
-
-      return $phone->where('number', '=', $message->incoming_number)->first();
-
     }
 
-    catch (\Exception $e) {
+   //
+    public function checkForPhone(IncomingMessage $message, Phone $phone){
+
+      try {
+
+        return $phone->where('number', '=', $message->incoming_number)->first();
+
+      }
+
+      catch (\Exception $e) {
 
         $error =  $e->getMessage();
 
         $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
 
-         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+        $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+
+
+      }
 
 
     }
 
-     
-  }
 
+    public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
 
-  public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
+      $sms_recipient = new SMSRecipient(); 
 
-    $sms_recipient = new SMSRecipient(); 
-
-    $message->title = 'Phone: ' . $phone->number;
+      $message->title = 'Phone: ' . $phone->number;
 
       //if the phone number exists in the db, look up the corresponding recipient and store it in sms_recipient
 
-    try{
-    if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
-      $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->first();
+      try{
+        if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
+          $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->first();
       // update the title to reflect the name of the recipient
-      $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number;
-      $message->channel = $sms_recipient->channel;  
-    }
-  }
+          $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number;
+          $message->channel = $sms_recipient->channel;  
+        }
+      }
 
-    catch (\Exception $e) {
+      catch (\Exception $e) {
 
         $error =  $e->getMessage();
 
         $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
 
-         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+        $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+
+
+      }
 
 
     }
-
-
-  }
-
-
-  }
-
 
 	/**
      * Send the message to slack and then call the function to store it
@@ -223,37 +219,37 @@ class IncomingMessageController extends Controller
     // $admin = \App\User::find(1); 
   //call notification
     // $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
-   
+
 
 
 
   // prepare attachment for Slack
-  $location = $message->outgoingCity.', '.$message->outgoingZip;
-  $channel = $message->channel;
+    $location = $message->outgoingCity.', '.$message->outgoingZip;
+    $channel = $message->channel;
 
   //json formatted attachment  
-  $attachment = '[
-        {
-            "fallback": "'.$message->body.'",
-            "color": "#36a64f",
-    
-            "author_name": "Message Details",
-    
-            "title": "'.$message->title.'",
-    
-    
-            "fields": [
-                {
-                    "title": "Location",
-                    "value": "'.$location.'",
-                    "short": false
-                }
-            ],
-    
-            "text": "'.$message->body.'",     
-            "thumb_url": "'.$message->outgoingMedia.'",
-            "footer": "MentorPhilly Text Service"
-        }
+    $attachment = '[
+      {
+        "fallback": "'.$message->body.'",
+        "color": "#36a64f",
+
+        "author_name": "Message Details",
+
+        "title": "'.$message->title.'",
+
+
+        "fields": [
+          {
+            "title": "Location",
+            "value": "'.$location.'",
+            "short": false
+          }
+        ],
+
+        "text": "'.$message->body.'",     
+        "thumb_url": "'.$message->outgoingMedia.'",
+        "footer": "MentorPhilly Text Service"
+      }
     ]';
 
     //create new slackbot class to send using slackbot
