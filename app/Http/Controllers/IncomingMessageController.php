@@ -106,7 +106,7 @@ class IncomingMessageController extends Controller
 
 
 
-   // $this->autoResponse($message); 
+   $this->autoResponse($message); 
     
 
     
