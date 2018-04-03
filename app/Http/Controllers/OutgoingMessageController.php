@@ -126,7 +126,7 @@ public function test(){
 
                $personid = $person->id; 
 
-               $phone = Phone::where('s_m_s_recipient_id', '=', $person->id);
+               $phone = Phone::where('s_m_s_recipient_id', '=', $personid);
 
                if($phone != null)
                 $outgoingMsg->$to = $phone->number; 
