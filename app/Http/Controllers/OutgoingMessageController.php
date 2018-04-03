@@ -36,16 +36,18 @@ public function test(){
     public function sendFromSlack(Request $request)
     {
 
-        $command = $request->input('command');
-        $text = $request->input('text');
-        $token = $request->input('token'); 
-        $user = $request->input('user_name'); 
-        $channel_id = $request->input('channel_id');
-        $channel_name = $request->input('channel_name');
+        $outgoingMsg = new OutgoingMessage; 
+
+        $outgoingMsg->command = $request->input('command');
+        $outgoingMsg->text = $request->input('text');
+        $outgoingMsg->token = $request->input('token'); 
+        $outgoingMsg->user = $request->input('user_name'); 
+        $outgoingMsg->channel_id = $request->input('channel_id');
+        $outgoingMsg->channel_name = $request->input('channel_name');
 
         $auth_token = config('services.slack.auth_token');
 
-        if($token != $auth_token){ 
+        if($outgoingMsg->token != $auth_token){ 
             
             $msg = "The token for the slash command doesn't match.";
             die($msg);
@@ -54,49 +56,12 @@ public function test(){
 
         else {
 
+            //look for plus
 
-            $findme   = '+';
-
-            $pos = strpos($text, $findme);
-
-            if ($pos !== false){
-                list($message, $to) = explode("+", $text);
-
-                $to = '+'.$to; 
-                Twilio::message($to, $message);
-
-            // you have to pass an associative array of the correspnding table field when you call this
-            OutgoingMessage::create(['smsname' => $user, 'channel' => $channel_name, 'number' => $to, 'message' => $message]);
+            $this->parseSlackMessage($outgoingMsg); 
 
 
-            //        Schema::create('s_m_s_recipients', function (Blueprint $table) {
-            // $table->increments('id');
-            // $table->timestamps();
-            
-            // $table->string('smsname'); 
-            // $table->string('channel'); 
-            // $table->string('number');
-
-
-            }
-
-            else {
-
-                // Check for name corresponding name
-
-               //  $findme   = '~';
-
-               //  $pos = strpos($text, $findme);
-
-               //  if ($pos !== false)
-               //     $parsed = explode("~", $text);
-
-               // else{
-
-
-
-                
-            }
+           
 
             
         }
@@ -121,7 +86,48 @@ public function test(){
     }
 
 
+    public function parseSlackMessage(OutgoingMessage $outgoingMsg){
 
+
+         
+
+            if (!strpos($outgoingMsg->text, '+')){
+                list($outgoingMsg->message, $outgoingMsg->to) = explode("+", $outgoingMsg->text);
+
+                $outgoingMsg->to = '+'.$outgoingMsg->to; 
+                Twilio::message($outgoingMsg->to, $outgoingMsg->message);
+
+            // you have to pass an associative array of the correspnding table field when you call this
+            // OutgoingMessage::create(['smsname' => $user, 'channel' => $channel_name, 'number' => $to, 'message' => $message]);
+            $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
+
+       
+
+            }
+
+            elseif (!strpos($outgoingMsg->text, '~')){
+
+                 list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
+
+                // Check for name corresponding name
+
+               //  $findme   = '~';
+
+               //  $pos = strpos($text, $findme);
+
+               //  if ($pos !== false)
+               //     $parsed = explode("~", $text);
+
+               // else{
+
+
+
+                
+            }
+
+
+
+    }
 
 
 

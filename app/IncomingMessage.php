@@ -31,35 +31,5 @@ class IncomingMessage extends Model
     protected $guarded = []; 
 
 
-
-
-//         public function __construct(array $attributes = [])
-// {
-//         parent::__construct($attributes);
-        
-//         $this->guarded = []; 
-
-//         $this->incoming_number = '[unknown]';
-
-//         $this->title = '[unknown]'; 
-
-//         $this->body = '[empty]';
-
-//         $this->outgoingMedia = '';
-
-//         $this->outgoingCity = '[unknown]';
-
-//         $this->outgoingZip = '[unknown]'; 
-
-//         $this->channel = '#general'; 
-
-
-//         // starting to build the model 
-//     }
-
-
-
-
-
    
 }
