@@ -68,20 +68,6 @@ class IncomingMessageController extends Controller
 
     $message = new IncomingMessage(); 
 
-
-      	// if(null != $request->input('From')){
-      	// 	$incoming_number = $request->input('From');
-      	// 	$mentees = $this->checkForMentee($incoming_number);  
-       //    if(!empty($mentees))
-      	// 	  $mentee = $mentees[0]->smsname;
-      	// }
-
-        // if(!empty($mentees[0]->channel)){
-
-            // $channel = $mentees[0]->channel;
-          // } 
-          // else 
-
     $message->incoming_number = '[unknown]';
 
     $message->title = '[unknown]'; 
@@ -94,7 +80,7 @@ class IncomingMessageController extends Controller
 
     $message->outgoingZip = '[unknown]'; 
 
-    $message->channel = '#general'; 
+    $message->channel = config('services.slack.default-channel'); 
 
     
     
