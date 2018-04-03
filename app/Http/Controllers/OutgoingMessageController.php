@@ -132,9 +132,11 @@ public function test(){
 
             } 
 
+    }
 
 
-function normalizeName($string) {
+
+public function normalizeName($string) {
     //Lower case everything
         $string = strtolower($string); 
         //Make alphanumeric (removes all other characters)
@@ -149,37 +151,7 @@ function normalizeName($string) {
         return $string; 
 }
 
- public function checkForPhone(IncomingMessage $message, Phone $phone){
 
-      try {
-
-        return $phone->where('number', '=', $message->incoming_number)->first();
-
-      }
-
-      catch (\Exception $e) {
-
-        $error =  $e->getMessage();
-
-        $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
-
-        $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
-
-
-      }
-
-
-    }
-
-                
-            }
-
-
-            return $outgoingMsg; 
-
-
-
-    }
 
 
 
