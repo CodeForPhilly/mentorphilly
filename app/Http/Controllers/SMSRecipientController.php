@@ -41,7 +41,7 @@ class SMSRecipientController extends Controller
 
 	function cleanChannelName($string) {
     //Lower case everything
-	    $string = "#".strtolower($request_name); 
+	    $string = "#".strtolower($string); 
 	    //Make alphanumeric (removes all other characters)
 	    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
 	    //Clean up multiple dashes or whitespaces
