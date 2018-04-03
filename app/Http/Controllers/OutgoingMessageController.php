@@ -58,7 +58,7 @@ public function test(){
 
             //look for plus
 
-            $this->parseSlackMessage($outgoingMsg); 
+            $outgoingMsg = $this->parseSlackMessage($outgoingMsg); 
 
 
            
@@ -124,6 +124,9 @@ public function test(){
 
                 
             }
+
+
+            return $outgoingMsg; 
 
 
 
