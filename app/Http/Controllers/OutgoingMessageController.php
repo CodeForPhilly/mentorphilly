@@ -122,8 +122,9 @@ public function test(){
                $phone = new Phone(); 
 
                //find the person with a channel name equivalent to what's typed after the tilda
-               $person = SMSRecipient::where('channel', '=', $name)->first(); 
+               $person = SMSRecipient::where('smsname', 'LIKE', $name)->first(); 
 
+            
                $personid = $person->id; 
 
                $phone = Phone::where('s_m_s_recipient_id', '=', $personid);
@@ -143,16 +144,11 @@ public function test(){
 
 public function normalizeName($string) {
     //Lower case everything
-        $string = strtolower($string); 
-        //Make alphanumeric (removes all other characters)
-        $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+       
         //Clean up multiple dashes or whitespaces
         $string = preg_replace("/[\s-]+/", " ", $string);
-        //Convert whitespaces and underscore to dash
-        $string = preg_replace("/[\s_]/", "-", $string);
-
-        $string = "#" . $string; 
-
+       
+    
         return $string; 
 }
 
