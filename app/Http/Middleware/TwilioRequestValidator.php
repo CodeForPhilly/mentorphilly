@@ -42,7 +42,7 @@ class TwilioRequestValidator
       );
 
 
-      \Log::info('Error:' . $request->fullUrl());
+      \Log::info('Error:' . date('m/d/Y h:i:s a', time()) . $request->fullUrl());
 
      
 
