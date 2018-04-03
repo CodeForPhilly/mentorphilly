@@ -117,7 +117,7 @@ public function test(){
                 // Check for name corresponding name
 
 
-                $name = $this->normalizeName($outgoingMsg->to); 
+                $name = $outgoingMsg->to; 
 
 
                $person = new SMSRecipient(); 
@@ -146,15 +146,7 @@ public function test(){
 
 
 
-public function normalizeName($string) {
-    //Lower case everything
-       
-        //Clean up multiple dashes or whitespaces
-        $string = preg_replace("/[\s-]+/", " ", $string);
-       
-    
-        return $string; 
-}
+
 
 
 
