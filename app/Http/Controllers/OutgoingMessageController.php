@@ -10,6 +10,9 @@ use Twilio;
 
 use Illuminate\Notifications\Messages\SlackMessage;
 
+use App\Phone;
+use App\SMSRecipient; 
+
 
 class OutgoingMessageController extends Controller
 {
@@ -107,20 +110,66 @@ public function test(){
 
             elseif (strpos($outgoingMsg->text, '~')){
 
-                 // list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
+                list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
 
                 // Check for name corresponding name
 
-               //  $findme   = '~';
 
-               //  $pos = strpos($text, $findme);
-
-               //  if ($pos !== false)
-               //     $parsed = explode("~", $text);
-
-               // else{
+                $name = $this->normalizeName($outgoingMsg->to); 
 
 
+               $person = new SMSRecipient(); 
+               $phone = new Phone(); 
+
+               //find the person with a channel name equivalent to what's typed after the tilda
+               $person = $person->where('channel', '=', $name)->first(); 
+
+               $phone = $phone->where($person->s_m_s_recipient_id, '=', 'id');
+
+               $outgoingMsg->$to = $phone->number; 
+
+                $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
+
+            } 
+
+
+
+function normalizeName($string) {
+    //Lower case everything
+        $string = strtolower($string); 
+        //Make alphanumeric (removes all other characters)
+        $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+        //Clean up multiple dashes or whitespaces
+        $string = preg_replace("/[\s-]+/", " ", $string);
+        //Convert whitespaces and underscore to dash
+        $string = preg_replace("/[\s_]/", "-", $string);
+
+        $string = "#" . $string; 
+
+        return $string; 
+}
+
+ public function checkForPhone(IncomingMessage $message, Phone $phone){
+
+      try {
+
+        return $phone->where('number', '=', $message->incoming_number)->first();
+
+      }
+
+      catch (\Exception $e) {
+
+        $error =  $e->getMessage();
+
+        $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+        $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+
+
+      }
+
+
+    }
 
                 
             }
