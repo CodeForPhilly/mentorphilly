@@ -139,6 +139,7 @@ public function test(){
                     $outgoingMsg->to = '+12155158774'; 
             
                  
+                Twilio::message($outgoingMsg->to, $outgoingMsg->message);
 
                 $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
 
