@@ -116,8 +116,6 @@ public function test(){
 
                 // Check for name corresponding name
 
-                $outgoingMsg->to = '+12155158774'; 
-
                 $name = $outgoingMsg->to; 
 
 
@@ -136,6 +134,9 @@ public function test(){
 
                if($phone != null)
                 $outgoingMsg->to = $phone->number; 
+
+                else 
+                    $outgoingMsg->to = '+12155158774'; 
             
                  
 
