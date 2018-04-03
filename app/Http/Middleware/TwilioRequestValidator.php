@@ -13,12 +13,12 @@ use Illuminate\Http\Response;
 
 class TwilioRequestValidator 
 {
-  
- protected $except = [
-  'fromslack',
-  'incomingMessageTest', 
-  'incomingMessage'
-]; 
+      
+     protected $except = [
+        'fromslack',
+        'incomingMessageTest', 
+        'incomingMessage'
+      ]; 
     /**
      * Handle an incoming request.
      *
@@ -31,27 +31,29 @@ class TwilioRequestValidator
          // Be sure TWILIO_APP_TOKEN is set in your .env file.
       // You can get your app token in your twilio console https://www.twilio.com/console
       
-      try {
-        $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
 
-        $isValid = $requestValidator->validate(
-          $request->header('X-Twilio-Signature'),
-          $request->fullUrl(),
-          $request->toArray()
-        );
 
-        if ($isValid) {
-          return $next($request);
-        } else {
-          return new Response('You are not Twilio :(', 403);
-        }
-        
-      } catch (Exception $e) {
+      $requestValidator = new \Services_Twilio_RequestValidator(env('TWILIO_TOKEN'));
+
+      $isValid = $requestValidator->validate(
+        $request->header('X-Twilio-Signature'),
+        $request->fullUrl(),
+        $request->toArray()
+      );
+
+      
+
+           try {
+        // Validate the value...
+             if ($isValid) {
+        return $next($request);
+      }
+    } catch (Exception $e) {
         report($e);
 
         return false;
-      }
-
-
     }
-  }
+
+      
+    }
+}
