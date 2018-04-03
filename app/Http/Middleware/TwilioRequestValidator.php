@@ -41,6 +41,8 @@ class TwilioRequestValidator
         $request->toArray()
       );
 
+      report($request->fullUrl()); 
+
       
 
            try {
