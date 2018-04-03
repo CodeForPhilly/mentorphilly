@@ -113,6 +113,7 @@ public function test(){
 
 
         return response()->json([
+            'response_type' => 'in_channel',
             'text' => 'Outgoing Text Message',
             'attachments' => array($arr)
         ]);        
