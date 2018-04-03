@@ -39,6 +39,20 @@ class SMSRecipientController extends Controller
 
 	}
 
+	function cleanChannelName($string) {
+    //Lower case everything
+	    $string = "#".strtolower($request_name); 
+	    //Make alphanumeric (removes all other characters)
+	    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+	    //Clean up multiple dashes or whitespaces
+	    $string = preg_replace("/[\s-]+/", " ", $string);
+	    //Convert whitespaces and underscore to dash
+	    $string = preg_replace("/[\s_]/", "-", $string);
+
+	    
+	    return $string;
+}
+
 	
 
 	public function store()
@@ -64,7 +78,9 @@ class SMSRecipientController extends Controller
 
 	$request_name = request('name'); 
 
-	$channel = "#".strtolower($request_name); 
+	$channel = cleanChannelName($request_name); 
+
+	
 
 	// $number = new \App\Phone(['number' => $request_no]);
 	

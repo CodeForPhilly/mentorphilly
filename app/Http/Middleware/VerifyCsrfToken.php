@@ -18,7 +18,8 @@ class VerifyCsrfToken extends Middleware
         '/fromslack',
         '/incomingMessageTest', 
         '/incomingMessage', 
-        'https://staging.modelb.tech/incomingMessage'
+        'https://staging.modelb.tech/incomingMessage', 
+        'https://modelb.tech/incomingMessage'
     
     ];
 }

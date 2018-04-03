@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 
 use Twilio; 
 
-use DB; 
-
 //for sending with Slackbot
 use App\SlackBot;
 
@@ -46,16 +44,6 @@ class IncomingMessageController extends Controller
       return view('layouts.partials.form'); 
 
     }
-
-	 /**
-     * Receiving incoming twilio message and validate that it is coming from twilio 
-     * before processing the message
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     */
-
-
 
 	/**
      * Prepare the message to send to slack
@@ -186,7 +174,8 @@ class IncomingMessageController extends Controller
       try{
         if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
           $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->first();
-      // update the title to reflect the name of the recipient
+          
+           // update the title to reflect the name of the recipient
           $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number;
           $message->channel = $sms_recipient->channel;  
         }
@@ -213,15 +202,6 @@ class IncomingMessageController extends Controller
      *
      */
 	public function sendMessageToSlack(IncomingMessage $message){
-
-
-  //log all texts to webhook slack channel
-    // $admin = \App\User::find(1); 
-  //call notification
-    // $admin->notify(new IncomingTextMessage($message->title, $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  ); 
-
-
-
 
   // prepare attachment for Slack
     $location = $message->outgoingCity.', '.$message->outgoingZip;
