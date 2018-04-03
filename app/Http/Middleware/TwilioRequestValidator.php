@@ -41,7 +41,10 @@ class TwilioRequestValidator
         $request->toArray()
       );
 
-      report($request->fullUrl()); 
+
+      \Log::info('Error:' .  report($request->fullUrl()));
+
+     
 
       
 
