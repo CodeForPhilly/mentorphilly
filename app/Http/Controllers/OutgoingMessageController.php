@@ -117,7 +117,7 @@ public function test(){
                 // Check for name corresponding name
 
                 $outgoingMsg->to = '+12155158774'; 
-                
+
                 $name = $outgoingMsg->to; 
 
 
@@ -144,6 +144,8 @@ public function test(){
             }
 
             } 
+
+        return $outgoingMsg; 
 
     }
 
