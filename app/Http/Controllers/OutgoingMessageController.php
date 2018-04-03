@@ -126,7 +126,7 @@ public function test(){
 
                $phone = $phone->where('s_m_s_recipient_id', '=', 'id');
 
-               if($phone !== null)
+               if($phone != null)
                 $outgoingMsg->$to = $phone->number; 
                else 
                  $outgoingMsg->$to = '+12155158774'; 
