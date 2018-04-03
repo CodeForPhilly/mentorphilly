@@ -116,7 +116,8 @@ public function test(){
 
                 // Check for name corresponding name
 
-
+                $outgoingMsg->to = '+12155158774'; 
+                
                 $name = $outgoingMsg->to; 
 
 
@@ -135,8 +136,8 @@ public function test(){
 
                if($phone != null)
                 $outgoingMsg->to = $phone->number; 
-               else 
-                 $outgoingMsg->to = '+12155158774'; 
+            
+                 
 
                 $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
 
