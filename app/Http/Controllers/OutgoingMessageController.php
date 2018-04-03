@@ -134,9 +134,9 @@ public function test(){
                $phone = Phone::where('s_m_s_recipient_id', '=', $personid)->first();
 
                if($phone != null)
-                $outgoingMsg->$to = $phone->number; 
+                $outgoingMsg->to = $phone->number; 
                else 
-                 $outgoingMsg->$to = '+12155158774'; 
+                 $outgoingMsg->to = '+12155158774'; 
 
                 $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
 
