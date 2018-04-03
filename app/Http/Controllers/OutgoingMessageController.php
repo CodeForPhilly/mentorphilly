@@ -124,12 +124,12 @@ public function test(){
                //find the person with a channel name equivalent to what's typed after the tilda
                $person = SMSRecipient::where('smsname', 'LIKE', $name)->get();
 
-              if(isNotEmpty($person)){
+              if($person->isNotEmpty()){
                 $personid = $person->id; 
 
                $phone = Phone::where('s_m_s_recipient_id', '=', $personid)->get();
 
-               if(isNotEmpty($phone))
+               if($phone->isNotEmpty())
                 $outgoingMsg->$to = $phone->number; 
                else 
                  $outgoingMsg->$to = '+12155158774'; 
