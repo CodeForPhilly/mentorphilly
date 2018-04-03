@@ -107,7 +107,7 @@ public function test(){
 
             elseif (!strpos($outgoingMsg->text, '~')){
 
-                 list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
+                 // list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
 
                 // Check for name corresponding name
 
