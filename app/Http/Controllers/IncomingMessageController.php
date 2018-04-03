@@ -110,10 +110,10 @@ class IncomingMessageController extends Controller
     
 
     
-   //  $phone = new Phone(); 
+    $phone = new Phone(); 
 
    //  //check if we already have this number in the db
-   //  $phone = $this->checkForPhone($message, $phone);
+    $phone = $this->checkForPhone($message, $phone);
 
    //  //if we have that phone (!null) then update the message with the corresponding name
    //  if($phone != null)
