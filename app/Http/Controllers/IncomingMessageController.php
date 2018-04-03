@@ -106,7 +106,7 @@ class IncomingMessageController extends Controller
 
 
 
-   // $this->autoResponse($message); 
+   $this->autoResponse($message); 
     
 
     
@@ -132,7 +132,9 @@ class IncomingMessageController extends Controller
 
     try {
 
-      if(!IncomingMessage::where('number', '=', $message->incoming_number)->first())
+      $recordBoolean = IncomingMessage::where('number', '=', $message->incoming_number)->count() > 0; 
+
+      if($recordBoolean == false)
         Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
       }
       catch (\Exception $e) {
