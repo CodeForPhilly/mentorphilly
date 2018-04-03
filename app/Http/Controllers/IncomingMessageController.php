@@ -105,6 +105,8 @@ class IncomingMessageController extends Controller
    
 
 
+    
+   autoResponse($message); 
     //send auto reply if the number hasn't text us before 
    if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
     Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
@@ -127,10 +129,49 @@ class IncomingMessageController extends Controller
   }
 
 
+  public function autoResponse(IncomingMessage $message){
+
+
+      try {
+      
+      if(!IncomingMessage::where('number', '=', $message->incoming_number)->exists())
+    Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+    }
+    catch (\Exception $e) {
+
+        $error =  $e->getMessage();
+
+        $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+        
+      }
+
+
+
+  }
+
    //
   public function checkForPhone(IncomingMessage $message, Phone $phone){
 
-     return $phone->where('number', '=', $message->incoming_number)->first();
+    try {
+
+      return $phone->where('number', '=', $message->incoming_number)->first();
+
+    }
+
+    catch (\Exception $e) {
+
+        $error =  $e->getMessage();
+
+        $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+
+
+    }
+
+     
   }
 
 
@@ -141,12 +182,28 @@ class IncomingMessageController extends Controller
     $message->title = 'Phone: ' . $phone->number;
 
       //if the phone number exists in the db, look up the corresponding recipient and store it in sms_recipient
+
+    try{
     if(SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->exists()){
       $sms_recipient = SMSRecipient::where('id','=',$phone->s_m_s_recipient_id)->first();
       // update the title to reflect the name of the recipient
       $message->title = 'From: ' . $sms_recipient->smsname . " " . $phone->number;
       $message->channel = $sms_recipient->channel;  
     }
+
+    catch (\Exception $e) {
+
+        $error =  $e->getMessage();
+
+        $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+
+
+    }
+
+
+  }
 
 
   }

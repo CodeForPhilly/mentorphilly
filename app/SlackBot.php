@@ -108,9 +108,16 @@ class SlackBot extends Model
                     // 'attachment' => $attachment
                 ]
             ]);
-        } catch (RequestException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        } catch (\Exception $e) {
+
+        $error =  $e->getMessage();
+
+        $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
+
+
+    }
         $status = $response->getStatusCode();
         $body = json_decode($response->getBody());
         if ($body->ok) {
