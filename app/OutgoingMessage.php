@@ -18,5 +18,5 @@ class OutgoingMessage extends Model
         protected $to; 
         protected $message; 
 
-        
+        protected $title;
 }

@@ -66,14 +66,14 @@ public function test(){
             
         }
 
-        if (!empty($to) && !empty($message)){
+        if (!empty($outgoingMsg->to) && !empty($outgoingMsg->message)){
 
-            $title = 'to: '.$to;
-            $msg = 'Message: '.$message;
+            $outgoingMsg->title = 'to: '.$outgoingMsg->to;
+            $outgoingMsg->message = 'Message: '.$outgoingMsg->message;
 
           // creating slack json attachments array
-            $arr = array("title" => $to,
-             "text" => $msg);
+            $arr = array("title" => $outgoingMsg->to,
+             "text" => $outgoingMsg->message);
         }
 
 
