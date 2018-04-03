@@ -69,6 +69,8 @@ public function test(){
             
         }
 
+        $arr = []; 
+
         if (!empty($outgoingMsg->to) && !empty($outgoingMsg->message)){
 
             $outgoingMsg->title = 'to: '.$outgoingMsg->to;
