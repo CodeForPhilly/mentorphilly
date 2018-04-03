@@ -124,6 +124,8 @@ public function test(){
                //find the person with a channel name equivalent to what's typed after the tilda
                $person = SMSRecipient::where('channel', '=', $name)->first(); 
 
+               $personid = $person->id; 
+
                $phone = Phone::where('s_m_s_recipient_id', '=', $person->id);
 
                if($phone != null)
