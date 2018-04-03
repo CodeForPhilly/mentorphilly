@@ -25,13 +25,13 @@ use App\Notifications\IncomingTextMessage;
 
 class IncomingMessageController extends Controller
 {
-  public function __construct()
-  {
+  // public function __construct()
+  // {
 
-    $this->middleware('twiliovalidate', ['only'=> 'prepareMessage']); 
+  //   $this->middleware('twiliovalidate', ['only'=> 'prepareMessage']); 
 
 
-  }
+  // }
 
     /**
      * Create the form to handle the incoming message post
