@@ -91,7 +91,7 @@ public function test(){
 
          
 
-            if (!strpos($outgoingMsg->text, '+')){
+            if (strpos($outgoingMsg->text, '+')){
                 list($outgoingMsg->message, $outgoingMsg->to) = explode("+", $outgoingMsg->text);
 
                 $outgoingMsg->to = '+'.$outgoingMsg->to; 
@@ -105,7 +105,7 @@ public function test(){
 
             }
 
-            elseif (!strpos($outgoingMsg->text, '~')){
+            elseif (strpos($outgoingMsg->text, '~')){
 
                  // list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
 
