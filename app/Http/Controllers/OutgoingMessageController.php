@@ -137,10 +137,11 @@ public function test(){
             elseif(!strpos($outgoingMsg->text, '~') && !strpos($outgoingMsg->text, '+')){
 
                $channel_person = new SMSRecipient; 
+               $channel_phone = new Phone();
                 //find the person with a channel name equivalent to the slack incoming channel name
                $channel_person = SMSRecipient::where('channel', 'LIKE', $outgoingMsg->channel_name)->first();
 
-               $outgoingMsg->to = $this->lookUpPhone($channel_person, $phone);
+               $outgoingMsg->to = $this->lookUpPhone($channel_person, $channel_phone);
 
 
 
