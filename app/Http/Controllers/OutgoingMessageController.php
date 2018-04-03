@@ -126,7 +126,10 @@ public function test(){
 
                $phone = $phone->where('s_m_s_recipient_id', '=', 'id');
 
-               $outgoingMsg->$to = $phone->number; 
+               if($phone !== null)
+                $outgoingMsg->$to = $phone->number; 
+               else 
+                 $outgoingMsg->$to = '+12155158774'; 
 
                 $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
 
