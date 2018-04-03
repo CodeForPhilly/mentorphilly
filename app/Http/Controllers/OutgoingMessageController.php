@@ -59,15 +59,18 @@ public function test(){
 
         else {
 
-            //look for plus
+            
 
             $outgoingMsg = $this->parseSlackMessage($outgoingMsg); 
-
+            Twilio::message($outgoingMsg->to, $outgoingMsg->message);
+            $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
 
            
 
             
         }
+
+
 
         $arr = []; 
 
@@ -100,12 +103,11 @@ public function test(){
                 list($outgoingMsg->message, $outgoingMsg->to) = explode("+", $outgoingMsg->text);
 
                 $outgoingMsg->to = '+'.$outgoingMsg->to; 
-                Twilio::message($outgoingMsg->to, $outgoingMsg->message);
+                
 
             // you have to pass an associative array of the correspnding table field when you call this
             // OutgoingMessage::create(['smsname' => $user, 'channel' => $channel_name, 'number' => $to, 'message' => $message]);
-            $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
-
+            
        
 
             }
@@ -126,33 +128,58 @@ public function test(){
                $person = SMSRecipient::where('smsname', 'LIKE', $name)->first();
 
 
+               $outgoingMsg->to = $this->lookUpPhone($person, $phone);
 
-              if($person != null){
-                $personid = $person->id; 
-
-               $phone = Phone::where('s_m_s_recipient_id', '=', $personid)->first();
-
-               if($phone != null)
-                $outgoingMsg->to = $phone->number; 
-
-                else 
-                    $outgoingMsg->to = '+12155158774'; 
-            
-                 
-                Twilio::message($outgoingMsg->to, $outgoingMsg->message);
-
-                $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
+    
 
             }
 
+            elseif(!strpos($outgoingMsg->text, '~') && !strpos($outgoingMsg->text, '+')){
+
+               $channel_person = new SMSRecipient; 
+                //find the person with a channel name equivalent to the slack incoming channel name
+               $channel_person = SMSRecipient::where('channel', 'LIKE', $outgoingMsg->channel_name)->first();
+
+               $outgoingMsg->to = $this->lookUpPhone($channel_person, $phone);
+
+
+
             } 
+
+            else {
+
+                //no matches 
+
+                $outgoingMsg->to = '+12155158774'; 
+            }
 
         return $outgoingMsg; 
 
     }
 
+}
 
 
+
+public function lookUpPhone(SMSRecipient $person, Phone $phone){
+
+
+    $number; 
+
+        if($person != null){
+                $personid = $person->id; 
+
+               $phone = Phone::where('s_m_s_recipient_id', '=', $personid)->first();
+
+               if($phone != null)
+                $number = $phone->number; 
+        }
+
+        else 
+                    $number = '+12155158774'; 
+
+    return $number; 
+}
 
 
 
