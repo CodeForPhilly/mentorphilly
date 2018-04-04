@@ -116,7 +116,7 @@ public function test(){
             elseif (strpos($outgoingMsg->text, '~')){
 
                 list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
-                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 1);
+                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg->to, $outgoingMsg->channel_name, $case = 1);
         
                
 
@@ -130,7 +130,7 @@ public function test(){
 
                $outgoingMsg->message = $outgoingMsg->text; 
                
-               $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 2);
+               $outgoingMsg->to = $this->lookUpPhone($outgoingMsg->to, $outgoingMsg->channel_name, $case = 2);
 
 
             } 
@@ -145,7 +145,7 @@ public function test(){
 
 
 
-public function lookUpPhone(OutgoingMessage $msg, $case){
+public function lookUpPhone($to, $channel, $case){
 
 
     $number; 
@@ -157,16 +157,16 @@ public function lookUpPhone(OutgoingMessage $msg, $case){
              switch($case) {
                 case 1:
                      //CASE 1 find the person with a channel name equivalent to what's typed after the tilda
-                           $person = SMSRecipient::where('smsname', 'LIKE', $msg->to)->first();
+                           $person = SMSRecipient::where('smsname', 'LIKE', $to)->first();
                            if($person !== null)
                             $personid = $person->id; 
 
                     break;
                 case 2:
                      //CASE 2
-                           $person = SMSRecipient::where('channel', 'LIKE', "#".$msg->channel_name)->get();
+                           $person = SMSRecipient::where('channel', 'LIKE', "#".$channel)->get();
                            foreach ($person as $p) {
-                            if(strcasecmp( $p->channel, $msg->channel) == 0)
+                            if(strcasecmp( $p->channel, $channel) == 0)
                                $personid = $p->id; 
                            }
                     break;
