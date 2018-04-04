@@ -118,17 +118,11 @@ public function test(){
 
                 // Check for name corresponding name
 
-                $name = $outgoingMsg->to; 
+         
 
 
-               $person = new SMSRecipient(); 
-               $phone = new Phone(); 
 
-               //find the person with a channel name equivalent to what's typed after the tilda
-               $person = SMSRecipient::where('smsname', 'LIKE', $name)->first();
-
-
-               $outgoingMsg->to = $this->lookUpPhone($person, $phone);
+                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 1);
 
     
 
@@ -136,12 +130,9 @@ public function test(){
 
             elseif(!strpos($outgoingMsg->text, '~') && !strpos($outgoingMsg->text, '+')){
 
-               $channel_person = new SMSRecipient; 
-               $channel_phone = new Phone();
-                //find the person with a channel name equivalent to the slack incoming channel name
-               $channel_person = SMSRecipient::where('channel', 'LIKE', $outgoingMsg->channel_name)->first();
 
-               $outgoingMsg->to = $this->lookUpPhone($channel_person, $channel_phone);
+
+               $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 2);
 
 
 
@@ -162,15 +153,30 @@ public function test(){
 
 
 
-public function lookUpPhone(SMSRecipient $person, Phone $phone){
+public function lookUpPhone(OutgoingMessage $msg, $case){
 
 
     $number; 
 
-        if($person != null){
-                $personid = $person->id; 
+               $person = new SMSRecipient(); 
+               $phone = new Phone(); 
 
-               $phone = Phone::where('s_m_s_recipient_id', '=', $personid)->first();
+             ($case) {
+                case 1:
+                     //CASE 1 find the person with a channel name equivalent to what's typed after the tilda
+                           $person = SMSRecipient::where('smsname', 'LIKE', $msg->to)->first();
+                    break;
+                case 2:
+                     //CASE 2
+                           $person = SMSRecipient::where('channel', 'LIKE', $msg->channel)->first();
+                    break;
+             
+            }
+
+
+        if($person != null){
+    
+               $phone = Phone::where('s_m_s_recipient_id', '=', $person->id)->first();
 
                if($phone != null)
                 $number = $phone->number; 
