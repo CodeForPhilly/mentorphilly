@@ -116,7 +116,9 @@ public function test(){
             elseif (strpos($outgoingMsg->text, '~')){
 
                 list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
-                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg->to, $outgoingMsg->channel_name, $case = 1);
+
+                $case = 1; 
+                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg->to, $outgoingMsg->channel_name, $case);
         
                
 
@@ -129,8 +131,10 @@ public function test(){
             else{
 
                $outgoingMsg->message = $outgoingMsg->text; 
+
+               $case = 2; 
                
-               $outgoingMsg->to = $this->lookUpPhone($outgoingMsg->to, $outgoingMsg->channel_name, $case = 2);
+               $outgoingMsg->to = $this->lookUpPhone($outgoingMsg->to, $outgoingMsg->channel_name, $case);
 
 
             } 
@@ -164,7 +168,9 @@ public function lookUpPhone($to, $channel, $case){
                     break;
                 case 2:
                      //CASE 2
-                           $person = SMSRecipient::where('channel', 'LIKE', "#".$channel)->get();
+                           $channel = 'corey1'; 
+                           $channel = "#".$channel; 
+                           $person = SMSRecipient::where('channel', 'LIKE', $channel)->get();
                            foreach ($person as $p) {
                             if(strcasecmp( $p->channel, $channel) == 0)
                                $personid = $p->id; 
