@@ -116,12 +116,7 @@ public function test(){
 
                 list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
 
-                // Check for name corresponding name
-
-         
-
-
-
+        
                 $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 1);
 
     
@@ -130,8 +125,7 @@ public function test(){
 
             elseif(!strpos($outgoingMsg->text, '~') && !strpos($outgoingMsg->text, '+')){
 
-
-
+               $outgoingMsg->message = $outgoingMsg->text; 
                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 2);
 
 
