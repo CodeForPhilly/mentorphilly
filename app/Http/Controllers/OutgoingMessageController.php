@@ -103,21 +103,19 @@ public function test(){
                 list($outgoingMsg->message, $outgoingMsg->to) = explode("+", $outgoingMsg->text);
 
                 $outgoingMsg->to = '+'.$outgoingMsg->to; 
+                 $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 1);
                 
 
-            // you have to pass an associative array of the correspnding table field when you call this
-            // OutgoingMessage::create(['smsname' => $user, 'channel' => $channel_name, 'number' => $to, 'message' => $message]);
             
-       
 
             }
 
             elseif (strpos($outgoingMsg->text, '~')){
 
                 list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
-
+                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 2);
         
-                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 1);
+               
 
     
 
@@ -126,8 +124,8 @@ public function test(){
             elseif(!strpos($outgoingMsg->text, '~') && !strpos($outgoingMsg->text, '+')){
 
                $outgoingMsg->message = $outgoingMsg->text; 
+               
                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 2);
-
 
 
             } 
