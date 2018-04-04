@@ -103,7 +103,7 @@ public function test(){
                 list($outgoingMsg->message, $outgoingMsg->to) = explode("+", $outgoingMsg->text);
 
                 $outgoingMsg->to = '+'.$outgoingMsg->to; 
-                 $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 1);
+                 
                 
 
             
@@ -113,7 +113,7 @@ public function test(){
             elseif (strpos($outgoingMsg->text, '~')){
 
                 list($outgoingMsg->message, $outgoingMsg->to) = explode("~", $outgoingMsg->text);
-                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 2);
+                $outgoingMsg->to = $this->lookUpPhone($outgoingMsg, $case = 1);
         
                
 
