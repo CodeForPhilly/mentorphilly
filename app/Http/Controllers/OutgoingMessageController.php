@@ -164,7 +164,7 @@ public function lookUpPhone(OutgoingMessage $msg, $case){
                     break;
                 case 2:
                      //CASE 2
-                           $person = SMSRecipient::where('channel', 'LIKE', $msg->channel_name)->get();
+                           $person = SMSRecipient::where('channel', 'LIKE', "#".$msg->channel_name)->get();
                            foreach ($person as $p) {
                             if(strcasecmp( $p->channel, $msg->channel) == 0)
                                $personid = $p->id; 
