@@ -154,23 +154,31 @@ public function lookUpPhone(OutgoingMessage $msg, $case){
 
                $person = new SMSRecipient(); 
                $phone = new Phone(); 
+               $personid; 
 
              switch($case) {
                 case 1:
                      //CASE 1 find the person with a channel name equivalent to what's typed after the tilda
                            $person = SMSRecipient::where('smsname', 'LIKE', $msg->to)->first();
+                           if($person !== null)
+                            $personid = $person->id; 
+
                     break;
                 case 2:
                      //CASE 2
-                           $person = SMSRecipient::where('channel', '=', $msg->channel)->first();
+                           $person = SMSRecipient::where('channel', 'LIKE', $msg->channel)->get();
+                           foreach ($person as $p) {
+                            if(strcasecmp( $p->channel, $msg->channel) == 0)
+                               $personid = $p->id; 
+                           }
                     break;
              
             }
 
 
-        if($person != null){
+        if(!empty($personid)){
     
-               $phone = Phone::where('s_m_s_recipient_id', '=', $person->id)->first();
+               $phone = Phone::where('s_m_s_recipient_id', '=', $personid)->first();
 
                if($phone != null)
                 $number = $phone->number; 
