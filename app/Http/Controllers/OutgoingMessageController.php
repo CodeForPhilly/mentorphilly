@@ -124,7 +124,7 @@ public function test(){
 
             }
 
-            elseif((strpos($outgoingMsg->text, '~') == false) && (strpos($outgoingMsg->text, '+') == false)){
+            elseif(!(preg_match('/[~+/]', $outgoingMsg->text))){
 
                $outgoingMsg->message = $outgoingMsg->text; 
                
