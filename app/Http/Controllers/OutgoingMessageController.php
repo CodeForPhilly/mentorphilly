@@ -81,7 +81,7 @@ public function test(){
 
           // creating slack json attachments array
             $arr = array("title" => $outgoingMsg->to,
-             "text" => $outgoingMsg->message);
+             "text" => $outgoingMsg->message.$outgoingMsg->channel_name);
         }
 
 
