@@ -168,7 +168,7 @@ public function lookUpPhone($to, $channel, $case){
                     break;
                 case 2:
                      //CASE 2
-                           $channel = 'corey1'; 
+                           
                            $channel = "#".$channel; 
                            $person = SMSRecipient::where('channel', 'LIKE', $channel)->get();
                            foreach ($person as $p) {
