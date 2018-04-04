@@ -126,7 +126,7 @@ public function test(){
 
 
 
-            elseif((preg_match("/[~+]/", $outgoingMsg->text) == 0){
+            elseif((preg_match("/[+~]/", $outgoingMsg->text) == 0){
 
                $outgoingMsg->message = $outgoingMsg->text; 
                
