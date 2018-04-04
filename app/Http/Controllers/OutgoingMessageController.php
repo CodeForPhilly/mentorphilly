@@ -80,8 +80,11 @@ public function test(){
             $outgoingMsg->message = 'Message: '.$outgoingMsg->message;
 
           // creating slack json attachments array
-            $arr = array("title" => $outgoingMsg->to,
-             "text" => $outgoingMsg->message."\\n sent from channel: " . $outgoingMsg->channel_name);
+            $arr = array(
+                            "title" => $outgoingMsg->to,
+                            "text" => $outgoingMsg->message, 
+                            "footer" => "sent from channel: " . $outgoingMsg->channel_name
+                        );
         }
 
 
