@@ -99,7 +99,7 @@ public function test(){
 
     public function parseSlackMessage(OutgoingMessage $outgoingMsg){
 
-
+              $outgoingMsg->to = env('TWILIO_TEST_NO');
          
 
             if (strpos($outgoingMsg->text, '+')){
@@ -126,7 +126,7 @@ public function test(){
 
 
 
-            elseif((preg_match("/[+~]/", $outgoingMsg->text) == 0){
+            else{
 
                $outgoingMsg->message = $outgoingMsg->text; 
                
@@ -135,12 +135,7 @@ public function test(){
 
             } 
 
-            else {
 
-                //no matches 
-
-                $outgoingMsg->to = env('TWILIO_TEST_NO');
-            }
 
         return $outgoingMsg; 
 
