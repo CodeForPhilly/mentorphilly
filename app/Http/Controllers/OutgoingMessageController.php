@@ -162,7 +162,7 @@ public function lookUpPhone(OutgoingMessage $msg, $case){
                     break;
                 case 2:
                      //CASE 2
-                           $person = SMSRecipient::where('channel', '=', $msg->channel)->first();
+                           $person = SMSRecipient::where('channel', '=', '#'.$msg->channel)->first();
                     break;
              
             }
@@ -177,7 +177,7 @@ public function lookUpPhone(OutgoingMessage $msg, $case){
         }
 
         else 
-                    $number = '+12155158774'; 
+                    $number = env('TWILIO_TEST_NO'); 
 
     return $number; 
 }
