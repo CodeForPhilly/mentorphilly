@@ -121,7 +121,7 @@ public function test(){
 
             }
 
-            elseif(!strpos($outgoingMsg->text, '~') && !strpos($outgoingMsg->text, '+')){
+            elseif((strpos($outgoingMsg->text, '~') == false) && (strpos($outgoingMsg->text, '+') == false)){
 
                $outgoingMsg->message = $outgoingMsg->text; 
                
@@ -134,7 +134,7 @@ public function test(){
 
                 //no matches 
 
-                $outgoingMsg->to = '+12155158774'; 
+                $outgoingMsg->to = env('TWILIO_TEST_NO');
             }
 
         return $outgoingMsg; 
