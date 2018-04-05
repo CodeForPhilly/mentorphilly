@@ -130,7 +130,7 @@ class IncomingMessageController extends Controller
         Twilio::message($message->incoming_number, $responseMsg);
       
         //prepare message attachment for autoresponse in Slack
-        $attachments = new SlackSMSAttachment($responseMsg, "MentorPHL autoresponder", "not applicable", "not applicable"); 
+        $attachments = new SlackSMSAttachment($responseMsg, "This autoresponse sent:", "not applicable", "not applicable"); 
         $attachment = $attachments->getAttachments(); 
 
         //create new slackbot class to send using slackbot and send it to the texts channel
