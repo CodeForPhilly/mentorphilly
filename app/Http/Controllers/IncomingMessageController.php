@@ -129,7 +129,15 @@ class IncomingMessageController extends Controller
       if($recordBoolean == false)
         Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
 
-      new Slackbot
+
+    $attachments = new SlackSMSAttachment("auto response sent to user", "MentorPHL autoresponder", "unknown", "none"); 
+    $attachment = $attachments->getAttachments(); 
+
+    //create new slackbot class to send using slackbot
+    $autobot = new SlackBot; 
+    $autobot->chatter($attachment, "#texts"); 
+
+      
       }
       catch (\Exception $e) {
 
