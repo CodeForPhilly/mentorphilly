@@ -6,6 +6,8 @@ use App\IncomingMessage;
 use App\Phone;
 use App\SMSRecipient; 
 
+use App\SlackSMSAttachment; 
+
 use Illuminate\Http\Request;
 
 use Twilio; 
@@ -126,6 +128,8 @@ class IncomingMessageController extends Controller
 
       if($recordBoolean == false)
         Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+
+      new Slackbot
       }
       catch (\Exception $e) {
 
@@ -209,30 +213,34 @@ class IncomingMessageController extends Controller
     $location = $message->outgoingCity.', '.$message->outgoingZip;
     $channel = $message->channel;
 
+
+    $attachments = new SlackSMSAttachment($message->body, $message->title, $location, $message->outgoingMedia); 
+    $attachment = $attachments->getAttachments(); 
+
   //json formatted attachment  
-    $attachment = '[
-      {
-        "fallback": "'.$message->body.'",
-        "color": "#36a64f",
+    // $attachment = '[
+    //   {
+    //     "fallback": "'.$message->body.'",
+    //     "color": "#36a64f",
 
-        "author_name": "Message Details",
+    //     "author_name": "Message Details",
 
-        "title": "'.$message->title.'",
+    //     "title": "'.$message->title.'",
 
 
-        "fields": [
-          {
-            "title": "Location",
-            "value": "'.$location.'",
-            "short": false
-          }
-        ],
+    //     "fields": [
+    //       {
+    //         "title": "Location",
+    //         "value": "'.$location.'",
+    //         "short": false
+    //       }
+    //     ],
 
-        "text": "'.$message->body.'",     
-        "thumb_url": "'.$message->outgoingMedia.'",
-        "footer": "MentorPhilly Text Service"
-      }
-    ]';
+    //     "text": "'.$message->body.'",     
+    //     "thumb_url": "'.$message->outgoingMedia.'",
+    //     "footer": "MentorPhilly Text Service"
+    //   }
+    // ]';
 
     //create new slackbot class to send using slackbot
     $bot = new SlackBot; 
