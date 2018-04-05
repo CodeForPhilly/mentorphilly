@@ -126,16 +126,20 @@ class IncomingMessageController extends Controller
 
       $recordBoolean = IncomingMessage::where('number', '=', $message->incoming_number)->count() > 0; 
 
-      if($recordBoolean == false)
-        Twilio::message($message->incoming_number, 'Welcome to MentorPhilly! Someone will respond to you within 24 hours.');
+      if($recordBoolean == false){
+ 
+        $responseMsg = env("AUTORESPONSE"); 
+        
+        Twilio::message($message->incoming_number, $responseMsg);
+      
+        //prepare message attachment for autoresponse
+        $attachments = new SlackSMSAttachment("", "MentorPHL autoresponder", "not applicable", "not applicable"); 
+        $attachment = $attachments->getAttachments(); 
 
-
-    $attachments = new SlackSMSAttachment("auto response sent to user", "MentorPHL autoresponder", "unknown", "none"); 
-    $attachment = $attachments->getAttachments(); 
-
-    //create new slackbot class to send using slackbot
-    $autobot = new SlackBot; 
-    $autobot->chatter($attachment, "#texts"); 
+        //create new slackbot class to send using slackbot
+        $autobot = new SlackBot; 
+        $autobot->chatter($attachment, "#texts"); 
+      }
 
       
       }
@@ -227,34 +231,11 @@ class IncomingMessageController extends Controller
     $location = $message->outgoingCity.', '.$message->outgoingZip;
     $channel = $message->channel;
 
-
+    //create new slackattachment for service
     $attachments = new SlackSMSAttachment($message->body, $message->title, $location, $message->outgoingMedia); 
+    
+    //return the attachment as json
     $attachment = $attachments->getAttachments(); 
-
-  //json formatted attachment  
-    // $attachment = '[
-    //   {
-    //     "fallback": "'.$message->body.'",
-    //     "color": "#36a64f",
-
-    //     "author_name": "Message Details",
-
-    //     "title": "'.$message->title.'",
-
-
-    //     "fields": [
-    //       {
-    //         "title": "Location",
-    //         "value": "'.$location.'",
-    //         "short": false
-    //       }
-    //     ],
-
-    //     "text": "'.$message->body.'",     
-    //     "thumb_url": "'.$message->outgoingMedia.'",
-    //     "footer": "MentorPhilly Text Service"
-    //   }
-    // ]';
 
     //create new slackbot class to send using slackbot
     $bot = new SlackBot; 
