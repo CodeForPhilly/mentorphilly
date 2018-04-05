@@ -99,7 +99,7 @@ public function test(){
 
     public function parseSlackMessage(OutgoingMessage $outgoingMsg){
 
-              $outgoingMsg->to = env('TWILIO_TEST_NO');
+              $outgoingMsg->to = config('services.twilio_setup.test_no'); 
          
 
             if (strpos($outgoingMsg->text, '+')){

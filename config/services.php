@@ -35,6 +35,12 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'twilio_setup' => [
+
+        'autorsp' => env("AUTORESPONSE"),
+        'test_no' => env("TWILIO_TEST_NO"), 
+    ],
+
 
     'slack' => [
 
@@ -44,10 +50,6 @@ return [
         'apihook' => env('SLACK_API_HOOK'),
 
         'text-bot-oauth' => env('TEXT_BOT_OAUTH'),
-        'default-channel' => env('DEFAULT_CHANNEL'),
-        
-        
-// =========
 
 
     /*
@@ -58,7 +60,7 @@ return [
     | This is the default channel to post bot messages on
     |
     */
-    'default_channel' => '#texts',
+    'default_channel' => env('DEFAULT_CHANNEL'),
     /*
     |--------------------------------------------------------------------------
     | Username

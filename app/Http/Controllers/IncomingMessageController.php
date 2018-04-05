@@ -70,10 +70,7 @@ class IncomingMessageController extends Controller
 
     $message->outgoingZip = '[unknown]'; 
 
-
-    $message->channel = '#texts'; 
-
-    $message->channel = config('services.slack.default-channel'); 
+    $message->channel = config('services.slack.default_channel'); 
 
 
     
@@ -128,17 +125,17 @@ class IncomingMessageController extends Controller
 
       if($recordBoolean == false){
  
-        $responseMsg = env("AUTORESPONSE"); 
-        
+        $responseMsg = config('services.twilio_setup.autorsp'); 
+
         Twilio::message($message->incoming_number, $responseMsg);
       
-        //prepare message attachment for autoresponse
-        $attachments = new SlackSMSAttachment("", "MentorPHL autoresponder", "not applicable", "not applicable"); 
+        //prepare message attachment for autoresponse in Slack
+        $attachments = new SlackSMSAttachment($responseMsg, "MentorPHL autoresponder", "not applicable", "not applicable"); 
         $attachment = $attachments->getAttachments(); 
 
-        //create new slackbot class to send using slackbot
+        //create new slackbot class to send using slackbot and send it to the texts channel
         $autobot = new SlackBot; 
-        $autobot->chatter($attachment, "#texts"); 
+        $autobot->chatter($attachment, config('services.slack.default_channel')); 
       }
 
       
