@@ -145,6 +145,8 @@ class IncomingMessageController extends Controller
 
         $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
 
+        $admin = \App\User::find(1);
+
         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
         
       }
@@ -167,6 +169,8 @@ class IncomingMessageController extends Controller
         $error =  $e->getMessage();
 
         $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+        $admin = \App\User::find(1);
 
         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
 
@@ -200,6 +204,8 @@ class IncomingMessageController extends Controller
         $error =  $e->getMessage();
 
         $message->body = "Error:\n" . $error. "\n\n" . $message->body; 
+
+        $admin = \App\User::find(1);
 
         $admin->notify(new IncomingTextMessage("'Error: ' . $message->title", $message->body, $message->outgoingMedia, $message->outgoingCity, $message->outgoingZip)  );
 
