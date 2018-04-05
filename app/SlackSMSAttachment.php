@@ -19,7 +19,7 @@ class SlackSMSAttachment extends Model
         $this->body = $body; 
         $this->title = $title; 
         $this->location = $location; 
-        $this->media = media;
+        $this->media = $media;
     }
 
     public function getAttachments(){
