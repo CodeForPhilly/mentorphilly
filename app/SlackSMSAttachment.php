@@ -11,15 +11,15 @@ class SlackSMSAttachment extends Model
     protected $body; 
     protected $title; 
     protected $location; 
-    protected $outgoingMedia; 
+    protected $media; 
 
-    public function __construct($body, $title, $location, $outgoingMedia){
+    public function __construct($body, $title, $location, $media){
 
 
         $this->body = $body; 
         $this->title = $title; 
         $this->location = $location; 
-        $this->outgoingMedia = outgoingMedia;
+        $this->media = media;
     }
 
     public function getAttachments(){
@@ -43,7 +43,7 @@ class SlackSMSAttachment extends Model
         ],
 
         "text": "'.$this->body.'",     
-        "thumb_url": "'.$this->outgoingMedia.'",
+        "thumb_url": "'.$this->media.'",
         "footer": "MentorPhilly Text Service"
       }
     ]';
