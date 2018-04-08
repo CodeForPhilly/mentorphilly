@@ -39,7 +39,7 @@ public function test(){
     public function sendFromSlack(Request $request)
     {
 
-        outgoingMsg = new OutgoingMessage; 
+        $outgoingMsg = new OutgoingMessage; 
 
         $outgoingMsg->command = $request->input('command');
         $outgoingMsg->text = $request->input('text');
