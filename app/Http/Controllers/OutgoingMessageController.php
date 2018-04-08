@@ -112,15 +112,18 @@ public function test(){
 
           $client = new Client(); 
 
-          $token = getenv('SLACK_OAUTH'); 
+          $token = config('services.slack.text-bot-oauth'); 
 
           try{
 
-            $response = $client->get('https://slack.com/api/groups.info', 
-                [
-                    'token' => $token, 
-                    'channel' => $id
+            $response = $client->post('https://slack.com/api/groups.info', 
+              [
+                'verify'        =>  false,
+                'form_params'   =>  [
+                    'token'     => $token,
+                    'channel'  => $id
                 ]
+            ]
 
             );
 
