@@ -60,6 +60,10 @@ public function test(){
         else {
 
             
+            // $outgoingMsg->channel_name = getChannelName($outgoingMsg->channel_id); 
+
+$outgoingMsg->channel_name = $outgoingMsg->channel_id);             
+
 
             $outgoingMsg = $this->parseSlackMessage($outgoingMsg); 
             Twilio::message($outgoingMsg->to, $outgoingMsg->message);
@@ -95,6 +99,39 @@ public function test(){
         ]);        
 
     }
+
+
+
+    //  public function getChannelName($id){
+
+
+    //       $client = new Client(); 
+
+    //       try{
+
+    //         $response = $client->get('https://slack.com/api/groups.info', 
+    //             [
+
+
+
+    //             ]
+
+    //         );
+
+
+    //       }
+
+    //       catch(\Exception $e){
+
+    //         $name = $e->getMessage(); 
+
+    //       }
+
+    //       return $name;
+
+
+    // }
+
 
 
     public function parseSlackMessage(OutgoingMessage $outgoingMsg){

@@ -22,6 +22,10 @@ use Services_Twilio\Services_Twilio_RequestValidator;
 use Notification; 
 use App\Notifications\IncomingTextMessage; 
 
+//for channel name lookup
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
 
 class IncomingMessageController extends Controller
 {
@@ -114,6 +118,7 @@ class IncomingMessageController extends Controller
 
 
   }
+
 
 
   public function autoResponse(IncomingMessage $message){
