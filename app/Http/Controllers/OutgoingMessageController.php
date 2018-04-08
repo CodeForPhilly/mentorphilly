@@ -67,7 +67,7 @@ public function test(){
             
             $outgoingMsg->channel_name = $this->getChannelName($outgoingMsg->channel_id); 
 
-            
+            $outgoingMsg->channel_name.= $request->input('channel_name'); 
 
 
             $outgoingMsg = $this->parseSlackMessage($outgoingMsg); 
@@ -129,7 +129,8 @@ public function test(){
 
 
             $status = $response->getStatusCode();
-        $body = json_decode($response->getBody());
+            $body = json_decode($response->getBody());
+
         if ($body->ok) {
             $name = $body->group->name; 
         }
