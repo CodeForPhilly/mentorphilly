@@ -62,7 +62,7 @@ public function test(){
             
 
             $outgoingMsg = $this->parseSlackMessage($outgoingMsg); 
-            Twilio::message($outgoingMsg->to, $outgoingMsg->message);
+            // Twilio::message($outgoingMsg->to, $outgoingMsg->message);
             $outgoingMsg->create(['smsname' => $outgoingMsg->user, 'channel' => $outgoingMsg->channel_name, 'number' => $outgoingMsg->to, 'message' => $outgoingMsg->message]); 
 
            
