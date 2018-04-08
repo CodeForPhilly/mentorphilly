@@ -60,7 +60,7 @@ public function test(){
         else {
 
             
-            $outgoingMsg->channel_name = getChannelName($outgoingMsg->channel_id); 
+            $outgoingMsg->channel_name = $this->getChannelName($outgoingMsg->channel_id); 
 
             
 
