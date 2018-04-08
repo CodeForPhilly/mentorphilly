@@ -51,6 +51,8 @@ class TwilioRequestValidator
            try {
         // Validate the value...
              if ($isValid) {
+
+               \Log::info('  Validated: ' . date('  m/d/Y h:i:s a  ', time()) . "  from url:  " . $request->fullUrl());
         return $next($request);
       }
     } catch (Exception $e) {
