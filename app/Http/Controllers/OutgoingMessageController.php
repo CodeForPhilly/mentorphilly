@@ -65,7 +65,7 @@ public function test(){
         else {
 
             
-            $outgoingMsg->channel_name = $this->getChannelName($outgoingMsg->channel_id); 
+            $outgoingMsg->channel_name = $this->getChannelName($outgoingMsg); 
 
             $outgoingMsg->channel_name.= $request->input('channel_id'); 
 
@@ -107,7 +107,7 @@ public function test(){
 
 
 
-     public function getChannelName($id){
+     public function getChannelName($outgoingMsg){
 
 
           $client = new Client(); 
@@ -121,7 +121,7 @@ public function test(){
                 'verify'        =>  false,
                 'form_params'   =>  [
                     'token'     => $token,
-                    'channel'  => $id
+                    'channel'  => $outgoingMsg->channel_id
                 ]
             ]
 
@@ -137,7 +137,7 @@ public function test(){
 
         else{
 
-            $name = 'fail'; 
+            $name = $outgoingMsg->channel_name; 
         }
 
           }
