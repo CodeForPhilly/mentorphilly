@@ -60,9 +60,9 @@ public function test(){
         else {
 
             
-            // $outgoingMsg->channel_name = getChannelName($outgoingMsg->channel_id); 
+            $outgoingMsg->channel_name = getChannelName($outgoingMsg->channel_id); 
 
-            $outgoingMsg->channel_name = $outgoingMsg->channel_id;             
+            
 
 
             $outgoingMsg = $this->parseSlackMessage($outgoingMsg); 
@@ -102,35 +102,47 @@ public function test(){
 
 
 
-    //  public function getChannelName($id){
+     public function getChannelName($id){
 
 
-    //       $client = new Client(); 
+          $client = new Client(); 
 
-    //       try{
+          $token = getenv('SLACK_OAUTH'); 
 
-    //         $response = $client->get('https://slack.com/api/groups.info', 
-    //             [
+          try{
 
+            $response = $client->get('https://slack.com/api/groups.info', 
+                [
+                    'token' => $token, 
+                    'channel' => $id
+                ]
 
-
-    //             ]
-
-    //         );
-
-
-    //       }
-
-    //       catch(\Exception $e){
-
-    //         $name = $e->getMessage(); 
-
-    //       }
-
-    //       return $name;
+            );
 
 
-    // }
+            $status = $response->getStatusCode();
+        $body = json_decode($response->getBody());
+        if ($body->ok) {
+            $name = $body->group->name; 
+        }
+
+        else{
+
+            $name = 'fail'; 
+        }
+
+          }
+
+          catch(\Exception $e){
+
+            $name = $e->getMessage(); 
+
+          }
+
+          return $name;
+
+
+    }
 
 
 
