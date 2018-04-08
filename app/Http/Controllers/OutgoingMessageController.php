@@ -13,6 +13,11 @@ use Illuminate\Notifications\Messages\SlackMessage;
 use App\Phone;
 use App\SMSRecipient; 
 
+//Guzzle to get the id
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
+
 
 class OutgoingMessageController extends Controller
 {
