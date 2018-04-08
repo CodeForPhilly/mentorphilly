@@ -62,7 +62,7 @@ public function test(){
             
             // $outgoingMsg->channel_name = getChannelName($outgoingMsg->channel_id); 
 
-$outgoingMsg->channel_name = $outgoingMsg->channel_id);             
+            $outgoingMsg->channel_name = $outgoingMsg->channel_id;             
 
 
             $outgoingMsg = $this->parseSlackMessage($outgoingMsg); 
