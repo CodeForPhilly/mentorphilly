@@ -64,11 +64,8 @@ public function test(){
 
         else {
 
-            
+            //get the channel name             
             $outgoingMsg->channel_name = $this->getChannelName($outgoingMsg); 
-
-            $outgoingMsg->channel_name.= $request->input('channel_id'); 
-
 
             $outgoingMsg = $this->parseSlackMessage($outgoingMsg); 
             Twilio::message($outgoingMsg->to, $outgoingMsg->message);
