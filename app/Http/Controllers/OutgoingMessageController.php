@@ -64,6 +64,7 @@ public function test(){
 
         else {
 
+             \Log::info('Slack Token Valid: ' . date('  m/d/Y h:i:s a  ', time()) . "  from url:  " . $request->fullUrl());
             //get the channel name             
             $outgoingMsg->channel_name = $this->getChannelName($outgoingMsg); 
 
@@ -206,6 +207,7 @@ public function test(){
 
 public function lookUpPhone($to, $channel, $case){
 
+ \Log::info('In Phone Lookup');
 
     $number; 
 
@@ -216,6 +218,7 @@ public function lookUpPhone($to, $channel, $case){
              switch($case) {
                 case 1:
                      //CASE 1 find the person with a channel name equivalent to what's typed after the tilda
+                           \Log::info('CASE 1');
                            $person = SMSRecipient::where('smsname', 'LIKE', $to)->first();
                            if($person !== null)
                             $personid = $person->id; 
@@ -223,7 +226,7 @@ public function lookUpPhone($to, $channel, $case){
                     break;
                 case 2:
                      //CASE 2
-                           
+                           \Log::info('CASE 2');
                            $channel = "#".$channel; 
                            $person = SMSRecipient::where('channel', 'LIKE', $channel)->get();
                            foreach ($person as $p) {
@@ -245,6 +248,8 @@ public function lookUpPhone($to, $channel, $case){
 
         else 
                     $number = env('TWILIO_TEST_NO'); 
+
+
 
     return $number; 
 }
