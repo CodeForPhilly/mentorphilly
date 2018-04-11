@@ -43,7 +43,7 @@ class TwilioRequestValidator
 
 
       //Log the request
-      \Log::info('Incoming Message On:' . date('m/d/Y h:i:s a', time()) . "from url: " . $request->fullUrl());
+      \Log::info('\n****NEW INCOMING MESSAGE****' . date('m/d/Y h:i:s a', time()) . "from url: " . $request->fullUrl());
 
       try {
         if ($isValid) {
