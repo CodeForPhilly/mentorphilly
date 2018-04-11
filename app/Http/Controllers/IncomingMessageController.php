@@ -133,6 +133,8 @@ class IncomingMessageController extends Controller
         $responseMsg = config('services.twilio_setup.autorsp'); 
 
         Twilio::message($message->incoming_number, $responseMsg);
+
+         \Log::info('Sent AutoResponse');
       
         //prepare message attachment for autoresponse in Slack
         $attachments = new SlackSMSAttachment($responseMsg, "This autoresponse sent:", "not applicable", "not applicable"); 
@@ -164,6 +166,8 @@ class IncomingMessageController extends Controller
    //
     public function checkForPhone(IncomingMessage $message, Phone $phone){
 
+       \Log::info('Checking for phone');
+
       try {
 
         return $phone->where('number', '=', $message->incoming_number)->first();
@@ -188,6 +192,8 @@ class IncomingMessageController extends Controller
 
 
     public function updateIncomingMessage(IncomingMessage $message, Phone $phone){
+
+       \Log::info('Updating Message');
 
       $sms_recipient = new SMSRecipient(); 
 
@@ -229,6 +235,8 @@ class IncomingMessageController extends Controller
      */
 	public function sendMessageToSlack(IncomingMessage $message){
 
+     \Log::info('Sending message to slack');
+
   // prepare attachment for Slack
     $location = $message->outgoingCity.', '.$message->outgoingZip;
     $channel = $message->channel;
@@ -257,6 +265,8 @@ class IncomingMessageController extends Controller
  public function store(IncomingMessage $message)
 
  {
+
+   \Log::info('storing message');
 
   IncomingMessage::create(
     [

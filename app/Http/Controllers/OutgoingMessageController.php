@@ -64,7 +64,7 @@ public function test(){
 
         else {
 
-             \Log::info('Slack Token Valid: ' . date('  m/d/Y h:i:s a  ', time()) . "  from url:  " . $request->fullUrl());
+             \Log::info('Slack Token Valid');
             //get the channel name             
             $outgoingMsg->channel_name = $this->getChannelName($outgoingMsg); 
 
@@ -107,6 +107,7 @@ public function test(){
 
      public function getChannelName($outgoingMsg){
 
+        \Log::info('Getting Channel Name');
 
           $client = new Client(); 
 
@@ -154,6 +155,8 @@ public function test(){
 
 
     public function parseSlackMessage(OutgoingMessage $outgoingMsg){
+
+    \Log::info('Parsing message');
 
               $outgoingMsg->to = config('services.twilio_setup.test_no'); 
          
