@@ -18,4 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/test', 'OutgoingMessageController@test'); 
+
+Route::post('/fromslack', 'OutgoingMessageController@sendFromSlack');
+
+// Route::get('/test', 'OutgoingMessageController@test'); 
+
+
+Route::post('/incomingMessage', 'IncomingMessageController@prepareMessage'); 
